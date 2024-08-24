@@ -9,10 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34a83298acf24694b913d27941aff85e, type: 3}
-  m_Name: ActorStats
+  m_Script: {fileID: 11500000, guid: 91f380f442dbeac4189812e58b793917, type: 3}
+  m_Name: ProjPotionStats
   m_EditorClassIdentifier: 
   _actorStatValues:
-    MaxLife: 100
-    MovementSpeed: 5
-    ProjectileIncrease: 0
+    MaxLife: 0
+    MovementSpeed: 0
+    ProjectileIncrease: 2
+    BonusAttackSpeed: 4
+  _potionStatValues:
+    PotionCooldown: 5
+    PotionDuration: 5

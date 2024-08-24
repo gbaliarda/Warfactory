@@ -18,7 +18,7 @@ public class Bow : MonoBehaviour, IWeapon
     {
         if (cooldownLeft > 0) return;
 
-        int numberOfProjectiles = _stats.Projectiles;
+        int numberOfProjectiles = _stats.Projectiles + _owner.Stats.ProjectileIncrease;
         float angleBetweenProjectiles = 5f;
 
         if (360 / angleBetweenProjectiles < numberOfProjectiles)
@@ -39,8 +39,12 @@ public class Bow : MonoBehaviour, IWeapon
             projectile.GetComponent<Projectile>().SetOwner(this);
         }
 
-        cooldownLeft = _stats.Cooldown;
+        if (_owner.Stats.BonusAttackSpeed > 0)
+            cooldownLeft = _stats.Cooldown / _owner.Stats.BonusAttackSpeed;
+        else 
+            cooldownLeft = _stats.Cooldown;
 
+        Debug.Log(cooldownLeft);
     }
 
     public void Attack()

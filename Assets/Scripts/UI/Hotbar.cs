@@ -13,16 +13,45 @@ public class Hotbar : MonoBehaviour
         _slots = GetComponentsInChildren<HotbarSlot>();
 
         EventManager.Instance.OnHotbarSlotChange += OnHotbarSlotChange;
+
+        OnHotbarSlotChange(0);
     }
 
     private void OnHotbarSlotChange(int hotbarSlotIndex)
     {
-        if(hotbarSlotIndex != 0 && _activeSlotIndex == 0)
+        if(hotbarSlotIndex != 0)
         {
-            Player.Instance.transform.GetChild(0).gameObject.SetActive(false);
+            Player.Instance.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().enabled = false;
         } else if (hotbarSlotIndex == 0)
         {
-            Player.Instance.transform.GetChild(0).gameObject.SetActive(true);
+            Player.Instance.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().enabled = true;
+        }
+
+        if (hotbarSlotIndex != 3)
+        {
+            Player.Instance.transform.GetChild(1).gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        }
+        else if (hotbarSlotIndex == 3)
+        {
+            Player.Instance.transform.GetChild(1).gameObject.GetComponent<SpriteRenderer>().enabled = true;
+        }
+        
+        if (hotbarSlotIndex != 2)
+        {
+            Player.Instance.transform.GetChild(2).gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        }
+        else if (hotbarSlotIndex == 2)
+        {
+            Player.Instance.transform.GetChild(2).gameObject.GetComponent<SpriteRenderer>().enabled = true;
+        }
+            
+        if (hotbarSlotIndex != 1)
+        {
+            Player.Instance.transform.GetChild(3).gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        }
+        else if (hotbarSlotIndex == 1)
+        {
+            Player.Instance.transform.GetChild(3).gameObject.GetComponent<SpriteRenderer>().enabled = true;
         }
 
         _slots[_activeSlotIndex].SetActive(false);

@@ -9,6 +9,7 @@ public class TileManager : Singleton<TileManager>
 
     [SerializeField] private Tile _hiddenInteractableTile;
     [SerializeField] private Tile _interactedTile;
+    [SerializeField] private Tile _occupiedTile;
     [SerializeField] private Tile _tileToReplace;
     void Start()
     {
@@ -41,5 +42,10 @@ public class TileManager : Singleton<TileManager>
     public void SetInteractable(Vector3Int position)
     {
         _interactableMap.SetTile(position, _interactedTile);
+    }
+
+    public void SetOccupied(Vector3Int position)
+    {
+        _interactableMap.SetTile(position, _occupiedTile);
     }
 }

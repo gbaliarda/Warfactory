@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class Actor : MonoBehaviour, IDamageable
 {
-    public ActorStats Stats => _stats;
+    public ActorStats Stats => stats;
 
-    public int MaxLife => _stats.MaxLife;
+    public int MaxLife => stats.MaxLife;
 
-    public int Life => throw new System.NotImplementedException();
+    public int Life => life;
 
     public bool IsDead => isDead;
 
-    [SerializeField] private ActorStats _stats;
+    [SerializeField] protected ActorStats stats;
 
     protected bool isDead = false;
     protected int life;

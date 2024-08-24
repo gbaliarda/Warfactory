@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Enemy : Actor
 {
@@ -16,6 +15,8 @@ public class Enemy : Actor
     void Awake()
     {
         moveController = GetComponent<MoveController>();
+
+        if (moveController != null) moveController.SetSpeed(stats.MovementSpeed);
     }
 
     new void Update()

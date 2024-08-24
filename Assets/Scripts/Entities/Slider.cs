@@ -10,6 +10,7 @@ public class Slider : MonoBehaviour
     private HashSet<Rigidbody2D> _rigidBodyToMove = new();
     private bool _isMoving = false;
 
+
     private void Update()
     {
         if (_isMoving)

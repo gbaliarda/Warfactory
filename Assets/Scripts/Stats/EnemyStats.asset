@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34a83298acf24694b913d27941aff85e, type: 3}
   m_Name: EnemyStats
   m_EditorClassIdentifier: 
-  _statValues:
+  _actorStatValues:
     MaxLife: 100
-    MovementSpeed: 5
+    MovementSpeed: 4
+    ProjectileIncrease: 0

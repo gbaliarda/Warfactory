@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
 
-public class Player : Actor
+public class Player : Actor, IBuffable
 {
     private static Player instance;
     public static Player Instance { get { return instance; } }
@@ -12,6 +13,13 @@ public class Player : Actor
     protected MoveController moveController;
 
     [SerializeField] private MonoBehaviour _weapon;
+    [SerializeField] private MonoBehaviour _potion;
+    [SerializeField] private MonoBehaviour _potionBuilding;
+    [SerializeField] private MonoBehaviour _slider;
+    [SerializeField] private ActorStats _baseStats;
+
+    protected List<IPotion> buffs;
+    public List<IPotion> Buffs => buffs;
 
     #region KEYBINDINGS
     [SerializeField] private KeyCode _shoot = KeyCode.Mouse0;
@@ -48,7 +56,7 @@ public class Player : Actor
 
         moveController = GetComponent<MoveController>();
 
-        /*EventManager.Instance.OnHotbarItemSelect += OnHotbarItemSelect;*/
+        if (moveController != null) moveController.SetSpeed(_baseStats.MovementSpeed);
     }
 
     new void Start()
@@ -58,6 +66,11 @@ public class Player : Actor
         _cmdMovementLeft = new MoveCommand(moveController, -transform.right);
         _cmdMovementRight = new MoveCommand(moveController, transform.right);
 
+        buffs ??= new();
+
+        EventManager.Instance.OnHotbarItemSelect += OnHotbarItemSelect;
+
+        stats = Instantiate(_baseStats);
     }
 
     new void Update()
@@ -90,8 +103,20 @@ public class Player : Actor
 
                     if (TileManager.Instance.IsInteractable(cellPosition))
                     {
-                        TileManager.Instance.SetInteractable(cellPosition);
+                        if (!EventSystem.current.IsPointerOverGameObject() && _potionBuilding.gameObject.GetComponent<SpriteRenderer>().enabled && _potionBuilding.GetComponent<IBuilding>() != null)
+                        {
+                            TileManager.Instance.SetOccupied(cellPosition);
+                            (_potionBuilding as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2);
+                        }
+                        if (_slider.gameObject.GetComponent<SpriteRenderer>().enabled && _slider.GetComponent<IBuilding>() != null)
+                        {
+                            (_slider as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2);
+                        }
                     }
+                    /*if (TileManager.Instance.IsInteractable(cellPosition))
+                    {
+                        TileManager.Instance.SetInteractable(cellPosition);
+                    }*/
                 }
 
                 //EventQueueManager.Instance.AddEvent(_cmdLeftClick);
@@ -101,9 +126,13 @@ public class Player : Actor
 
         if (Input.GetKeyDown(_shoot))
         {
-            if (!EventSystem.current.IsPointerOverGameObject() && _weapon.gameObject.activeSelf && _weapon.GetComponent<IWeapon>() != null)
+            if (!EventSystem.current.IsPointerOverGameObject() && _weapon.gameObject.GetComponent<SpriteRenderer>().enabled && _weapon.GetComponent<IWeapon>() != null)
             {
                 ShootWeapon();
+            }
+            if (_potion.gameObject.GetComponent<SpriteRenderer>().enabled && _potion.GetComponent<IPotion>() != null)
+            {
+                UsePotion();
             }
         }
     }
@@ -117,5 +146,24 @@ public class Player : Actor
     {
 
         (_weapon as IWeapon).Attack();
+    }
+
+    private void UsePotion()
+    {
+        (_potion as IPotion).Buff();
+    }
+
+    public void AddBuff(IPotion potion)
+    {
+        if (isDead) return;
+        stats.AddStats(potion.PotionStats);
+        buffs.Add(potion);
+    }
+
+    public void RemoveBuff(IPotion potion)
+    {
+        if (isDead) return;
+        stats.RemoveStats(potion.PotionStats);
+        buffs.Remove(potion);
     }
 }

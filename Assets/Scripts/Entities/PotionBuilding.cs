@@ -8,8 +8,11 @@ public class PotionBuilding : MonoBehaviour
     [SerializeField] private float _spawnInterval = 5f;
     [SerializeField] private bool _isOn = true;
     [SerializeField] private Transform _objectsContainer;
+
     void Start()
     {
+        if (_objectsContainer == null) _objectsContainer = GameObject.Find("Objects").transform;
+
         StartCoroutine(SpawnPotionCoroutine());
     }
 
