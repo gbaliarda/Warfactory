@@ -20,6 +20,7 @@ public class Hotbar : MonoBehaviour
     private void OnHotbarSlotChange(int hotbarSlotIndex)
     {
         Player.Instance.transform.GetChild(hotbarSlotIndex).gameObject.SetActive(true);
+
         if (hotbarSlotIndex != 0)
         {
             Player.Instance.transform.GetChild(0).gameObject.SetActive(false);

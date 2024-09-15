@@ -19,10 +19,12 @@ public class Enemy : Actor
         if (moveController != null) moveController.SetSpeed(stats.MovementSpeed);
     }
 
-    new void Update()
+    protected override void Update()
     {
         if (isDead) return;
+        
         base.Update();
+        
         _playerInSight = Physics2D.OverlapCircle(transform.position, _sightRange, _playerLayer);
         _playerInAttack = Physics2D.OverlapCircle(transform.position, _attackRange, _playerLayer);
 
@@ -32,11 +34,11 @@ public class Enemy : Actor
         if (_playerInSight && _playerInAttack) Attack();
     }
 
-    private void Patrol()
+    protected virtual void Patrol()
     {
     }
 
-    private void Chase()
+    protected virtual void Chase()
     {
         if (Player.Instance.GetComponent<IDamageable>() != null && Player.Instance.GetComponent<IDamageable>().IsDead == true) return;
         if (moveController != null)
@@ -48,7 +50,7 @@ public class Enemy : Actor
         }
     }
 
-    private void Attack()
+    protected virtual void Attack()
     {
         /*moveController.Move(transform.position);*/
         if (attackController == null) return;

@@ -8,6 +8,7 @@ public class PotionBuilding : MonoBehaviour
     [SerializeField] private float _spawnInterval = 5f;
     [SerializeField] private bool _isOn = true;
     [SerializeField] private Transform _objectsContainer;
+    [SerializeField] private Sprite _potionSprite;
 
     void Start()
     {
@@ -24,7 +25,8 @@ public class PotionBuilding : MonoBehaviour
 
             if (!IsObjectPresent())
             {
-                Instantiate(_potionToFabricate, transform.position + Vector3.up, Quaternion.identity, _objectsContainer);
+                GameObject potion = Instantiate(_potionToFabricate, transform.position + Vector3.up, Quaternion.identity, _objectsContainer);
+                potion.GetComponent<WorldObject>().Item = new PotionItem(2, "Potion", _potionSprite, 5, ItemRarity.Common);
             }
         }
     }

@@ -60,8 +60,10 @@ public class Player : Actor, IBuffable
         if (moveController != null) moveController.SetSpeed(_baseStats.MovementSpeed);
     }
 
-    new void Start()
+    protected override void Start()
     {
+        base.Start();
+        
         _cmdMovementForward = new MoveCommand(moveController, transform.up);
         _cmdMovementBack = new MoveCommand(moveController, -transform.up);
         _cmdMovementLeft = new MoveCommand(moveController, -transform.right);
@@ -132,11 +134,11 @@ public class Player : Actor, IBuffable
 
         if (Input.GetKeyDown(_shoot))
         {
-            if (!EventSystem.current.IsPointerOverGameObject() && _weapon.gameObject.GetComponent<SpriteRenderer>().enabled && _weapon.GetComponent<IWeapon>() != null)
+            if (!EventSystem.current.IsPointerOverGameObject() && _weapon.gameObject.activeSelf && _weapon.GetComponent<IWeapon>() != null)
             {
                 ShootWeapon();
             }
-            if (_potion.gameObject.GetComponent<SpriteRenderer>().enabled && _potion.GetComponent<IPotion>() != null)
+            if (_potion.gameObject.activeSelf && _potion.GetComponent<IPotion>() != null)
             {
                 UsePotion();
             }

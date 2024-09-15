@@ -6,11 +6,14 @@ public class Shotgun : MonoBehaviour, IWeapon
 {
     [SerializeField] private WeaponStats _stats;
     [SerializeField] private GameObject _prefabToInstantiate;
+    [SerializeField] private Transform _bulletOrigin;
+    
     private Actor _owner;
     protected float cooldownLeft;
 
     public GameObject PrefabToInstantiate => _prefabToInstantiate;
     public WeaponStats Stats => _stats;
+    public Transform BulletOrigin => _bulletOrigin;
     public Actor Owner => _owner;
     public float CooldownLeft => cooldownLeft;
 
@@ -35,7 +38,7 @@ public class Shotgun : MonoBehaviour, IWeapon
 
             Quaternion projectileRotation = Quaternion.Euler(0, 0, currentAngle);
 
-            GameObject projectile = Instantiate(_prefabToInstantiate, transform.position, projectileRotation);
+            GameObject projectile = Instantiate(_prefabToInstantiate, _bulletOrigin.position, projectileRotation);
             projectile.GetComponent<Projectile>().SetOwner(this);
         }
 

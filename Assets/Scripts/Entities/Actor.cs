@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,12 +18,12 @@ public class Actor : MonoBehaviour, IDamageable
     protected bool isDead = false;
     protected int life;
 
-    protected void Start()
+    protected virtual void Start()
     {
         life = MaxLife;    
     }
 
-    protected void Update()
+    protected virtual void Update()
     {
         
     }

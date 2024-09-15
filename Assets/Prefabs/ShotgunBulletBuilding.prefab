@@ -162,3 +162,4 @@ MonoBehaviour:
   _spawnInterval: 5
   _isOn: 1
   _objectsContainer: {fileID: 0}
+  _bulletSprite: {fileID: 21300000, guid: 27315f781d922f240af5885485b4f6ad, type: 3}

@@ -7,6 +7,7 @@ TagManager:
   - Projectile
   - NoCollideProjectile
   - Slider
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -19,6 +20,7 @@ TagManager:
   - NoCollideProjectile
   - Slider
   - Chest
+  - Enemy
   - 
   - 
   - 
@@ -43,4 +45,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Projectiles
+    uniqueID: 1842281217
     locked: 0
