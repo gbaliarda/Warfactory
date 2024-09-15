@@ -19,39 +19,30 @@ public class Hotbar : MonoBehaviour
 
     private void OnHotbarSlotChange(int hotbarSlotIndex)
     {
-        if(hotbarSlotIndex != 0)
+        Player.Instance.transform.GetChild(hotbarSlotIndex).gameObject.SetActive(true);
+        if (hotbarSlotIndex != 0)
         {
-            Player.Instance.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().enabled = false;
-        } else if (hotbarSlotIndex == 0)
-        {
-            Player.Instance.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().enabled = true;
+            Player.Instance.transform.GetChild(0).gameObject.SetActive(false);
         }
 
-        if (hotbarSlotIndex != 3)
+        if (hotbarSlotIndex != 1)
         {
-            Player.Instance.transform.GetChild(1).gameObject.GetComponent<SpriteRenderer>().enabled = false;
-        }
-        else if (hotbarSlotIndex == 3)
-        {
-            Player.Instance.transform.GetChild(1).gameObject.GetComponent<SpriteRenderer>().enabled = true;
+            Player.Instance.transform.GetChild(1).gameObject.SetActive(false);
         }
         
         if (hotbarSlotIndex != 2)
         {
-            Player.Instance.transform.GetChild(2).gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            Player.Instance.transform.GetChild(2).gameObject.SetActive(false);
         }
-        else if (hotbarSlotIndex == 2)
+
+        if (hotbarSlotIndex != 3)
         {
-            Player.Instance.transform.GetChild(2).gameObject.GetComponent<SpriteRenderer>().enabled = true;
+            Player.Instance.transform.GetChild(3).gameObject.SetActive(false);
         }
-            
-        if (hotbarSlotIndex != 1)
+
+        if (hotbarSlotIndex != 4)
         {
-            Player.Instance.transform.GetChild(3).gameObject.GetComponent<SpriteRenderer>().enabled = false;
-        }
-        else if (hotbarSlotIndex == 1)
-        {
-            Player.Instance.transform.GetChild(3).gameObject.GetComponent<SpriteRenderer>().enabled = true;
+            Player.Instance.transform.GetChild(4).gameObject.SetActive(false);
         }
 
         _slots[_activeSlotIndex].SetActive(false);

@@ -8,6 +8,7 @@ public class BulletBuilding : MonoBehaviour
     [SerializeField] private float _spawnInterval = 5f;
     [SerializeField] private bool _isOn = true;
     [SerializeField] private Transform _objectsContainer;
+    [SerializeField] private Sprite _bulletSprite;
 
     void Start()
     {
@@ -24,7 +25,8 @@ public class BulletBuilding : MonoBehaviour
 
             if (!IsObjectPresent())
             {
-                Instantiate(_bulletToFabricate, transform.position + Vector3.up, Quaternion.identity, _objectsContainer);
+                GameObject bullet = Instantiate(_bulletToFabricate, transform.position + Vector3.up, Quaternion.identity, _objectsContainer);
+                bullet.GetComponent<WorldObject>().Item = new ShotgunBullet(1, "Shotgun Bullet", _bulletSprite, 10, ItemRarity.Common);
             }
         }
     }

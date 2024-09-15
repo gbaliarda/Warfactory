@@ -15,6 +15,7 @@ public class Player : Actor, IBuffable
     [SerializeField] private MonoBehaviour _weapon;
     [SerializeField] private MonoBehaviour _potion;
     [SerializeField] private MonoBehaviour _potionBuilding;
+    [SerializeField] private MonoBehaviour _chestBuilding;
     [SerializeField] private MonoBehaviour _slider;
     [SerializeField] private ActorStats _baseStats;
 
@@ -91,7 +92,6 @@ public class Player : Actor, IBuffable
 
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
-
             if (hit.collider != null)
             {
                 Vector3 clickPosition = hit.point;
@@ -103,14 +103,20 @@ public class Player : Actor, IBuffable
 
                     if (TileManager.Instance.IsInteractable(cellPosition))
                     {
-                        if (!EventSystem.current.IsPointerOverGameObject() && _potionBuilding.gameObject.GetComponent<SpriteRenderer>().enabled && _potionBuilding.GetComponent<IBuilding>() != null)
+                        if (!EventSystem.current.IsPointerOverGameObject() && _potionBuilding.gameObject.activeSelf && _potionBuilding.GetComponent<IBuilding>() != null)
                         {
                             TileManager.Instance.SetOccupied(cellPosition);
                             (_potionBuilding as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2);
                         }
-                        if (_slider.gameObject.GetComponent<SpriteRenderer>().enabled && _slider.GetComponent<IBuilding>() != null)
+                        if (_slider.gameObject.activeSelf && _slider.GetComponent<IBuilding>() != null)
                         {
+                            TileManager.Instance.SetOccupied(cellPosition);
                             (_slider as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2);
+                        }
+                        if (_chestBuilding.gameObject.activeSelf && _chestBuilding.GetComponent<IBuilding>() != null)
+                        {
+                            TileManager.Instance.SetOccupied(cellPosition);
+                            (_chestBuilding as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2);
                         }
                     }
                     /*if (TileManager.Instance.IsInteractable(cellPosition))
