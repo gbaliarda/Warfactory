@@ -73,3 +73,6 @@ crashlytics-build.properties
 
 # Vscode files
 .vscode/
+
+# Rider files
+.idea/
