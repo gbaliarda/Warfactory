@@ -59,8 +59,10 @@ public class Player : Actor, IBuffable
         if (moveController != null) moveController.SetSpeed(_baseStats.MovementSpeed);
     }
 
-    new void Start()
+    protected override void Start()
     {
+        base.Start();
+        
         _cmdMovementForward = new MoveCommand(moveController, transform.up);
         _cmdMovementBack = new MoveCommand(moveController, -transform.up);
         _cmdMovementLeft = new MoveCommand(moveController, -transform.right);

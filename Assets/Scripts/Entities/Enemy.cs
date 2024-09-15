@@ -19,10 +19,12 @@ public class Enemy : Actor
         if (moveController != null) moveController.SetSpeed(stats.MovementSpeed);
     }
 
-    new void Update()
+    protected override void Update()
     {
         if (isDead) return;
+        
         base.Update();
+        
         _playerInSight = Physics2D.OverlapCircle(transform.position, _sightRange, _playerLayer);
         _playerInAttack = Physics2D.OverlapCircle(transform.position, _attackRange, _playerLayer);
 
