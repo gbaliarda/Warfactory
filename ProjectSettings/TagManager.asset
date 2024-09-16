@@ -8,6 +8,7 @@ TagManager:
   - NoCollideProjectile
   - Slider
   - Enemy
+  - Building
   layers:
   - Default
   - TransparentFX
@@ -21,8 +22,7 @@ TagManager:
   - Slider
   - Chest
   - Enemy
-  - 
-  - 
+  - Building
   - 
   - 
   - 

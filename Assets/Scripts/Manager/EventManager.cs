@@ -9,6 +9,7 @@ public class EventManager : Singleton<EventManager>
     public event Action<int> OnHotbarSlotChange;
     public event Action<GameObject> OnHotbarItemSelect;
     public event Action<ChestBuilding> OnOpenChestUI;
+    public event Action<BulletBuilding> OnOpenBuildingUI;
     public event Action OnOpenInventoryUI;
     public event Action OnCloseInventoryUI;
     public event Action<WorldObject> OnPickUpWorldObject;
@@ -27,6 +28,11 @@ public class EventManager : Singleton<EventManager>
     public void EventOpenChestUI(ChestBuilding chest)
     {
         OnOpenChestUI?.Invoke(chest);
+    }
+    
+    public void EventOpenBuildingUI(BulletBuilding building)
+    {
+        OnOpenBuildingUI?.Invoke(building);
     }
 
     public void EventOpenInventoryUI()

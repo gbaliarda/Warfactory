@@ -63,7 +63,7 @@ public class Projectile : MonoBehaviour, IProjectile
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (owner.Owner.CompareTag(other.tag)) return;
+        if (owner == null || owner.Owner.CompareTag(other.tag)) return;
 
         if (((1 << other.gameObject.layer) & hittableMask) != 0)
         {
