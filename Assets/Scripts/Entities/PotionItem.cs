@@ -16,8 +16,20 @@ public class PotionItem : Item
         IsEquipable = false;
     }
 
+    public PotionItem(int itemId, string itemName, Sprite itemImage, int stackSize, int stackAmount, ItemRarity rarity)
+    {
+        ItemId = itemId;
+        ItemName = itemName;
+        ItemImage = itemImage;
+        StackSize = stackSize;
+        StackAmount = stackAmount;
+        Rarity = rarity;
+        IsConsumable = true;
+        IsEquipable = false;
+    }
+
     public override Item Clone()
     {
-        return new PotionItem(ItemId, ItemName, ItemImage, StackSize, Rarity);
+        return new PotionItem(ItemId, ItemName, ItemImage, StackSize, StackAmount, Rarity);
     }
 }

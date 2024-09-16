@@ -20,6 +20,7 @@ public class InventoryManager : Singleton<InventoryManager>
 
     public Item AddItem(Item item)
     {
+        Item itemBackup = item.Clone();
         foreach (Item storedItem in _items)
         {
             if (storedItem.ItemId == item.ItemId && storedItem.StackAmount < storedItem.StackSize)
@@ -34,11 +35,11 @@ public class InventoryManager : Singleton<InventoryManager>
 
                 if (item.StackAmount <= 0)
                 {
-                    Debug.Log("Item agregado al cofre");
-                    if (InventoryManager.Instance.IsOpen)
+                    if (IsOpen)
                     {
                         EventManager.Instance.EventOpenInventoryUI();
                     }
+                    EventManager.Instance.EventInventoryUpdate(itemBackup);
                     return item;
                 }
             }
@@ -49,18 +50,20 @@ public class InventoryManager : Singleton<InventoryManager>
             _items.Add(item.Clone());
             Debug.Log($"{item.StackAmount} {item.ItemName}(s) añadidos como nuevo stack.");
             item.DecreaseStack(item.StackAmount);
-            if (InventoryManager.Instance.IsOpen)
+            if (IsOpen)
             {
                 EventManager.Instance.EventOpenInventoryUI();
             }
+            EventManager.Instance.EventInventoryUpdate(itemBackup);
             return item;
         }
 
         Debug.Log("No se pudo agregar el ítem al cofre.");
-        if (InventoryManager.Instance.IsOpen)
+        if (IsOpen)
         {
             EventManager.Instance.EventOpenInventoryUI();
         }
+        EventManager.Instance.EventInventoryUpdate(itemBackup);
         return item;
     }
 
@@ -69,26 +72,27 @@ public class InventoryManager : Singleton<InventoryManager>
         if (_items.Contains(item))
         {
             _items.Remove(item);
-            Debug.Log($"{item.ItemName} fue removido del cofre.");
+            if (IsOpen)
+            {
+                EventManager.Instance.EventOpenInventoryUI();
+            }
+            EventManager.Instance.EventInventoryUpdate(item);
             return true;
         }
 
-        Debug.Log($"{item.ItemName} no está en el cofre.");
+        if (IsOpen)
+        {
+            EventManager.Instance.EventOpenInventoryUI();
+        }
+        EventManager.Instance.EventInventoryUpdate(item);
         return false;
-    }
-
-    private void OnPickUpItem(Item item)
-    {
-        AddItem(item);
     }
 
     private void OnPickUpWorldObject(WorldObject worldObject)
     {
         Item leftItem = AddItem(worldObject.Item);
-        Debug.Log($"Old item stack amount was {worldObject.Item.StackAmount}, new amount is {leftItem.StackAmount}");
         if (leftItem.StackAmount <= 0)
         {
-            Debug.Log("Destroying Item");
             Destroy(worldObject.gameObject);
         }
     }
@@ -96,7 +100,6 @@ public class InventoryManager : Singleton<InventoryManager>
     private void OnPickUpChestItem(ChestSlot chestSlot)
     {
         Item leftItem = AddItem(chestSlot.Item);
-        Debug.Log($"Old item stack amount was {chestSlot.Item.StackAmount}, new amount is {leftItem.StackAmount}");
         
         ChestUI.Instance.OpenChest.RemoveItem(leftItem);
     }
@@ -104,5 +107,64 @@ public class InventoryManager : Singleton<InventoryManager>
     public void SetIsOpen(bool isOpen)
     {
         _isOpen = isOpen;
+    }
+
+    public int GetAmountOfItemType<T>() where T : Item
+    {
+        int totalAmount = 0;
+
+        foreach (var item in _items)
+        {
+            if (item is T)
+            {
+                totalAmount += item.StackAmount;
+            }
+        }
+
+        return totalAmount;
+    }
+
+    public int ConsumeItem<T>(int number) where T:Item
+    {
+        int remainingToConsume = number;
+
+        for (int i = _items.Count - 1; i >= 0; i--)
+        {
+            if (_items[i] is T item)
+            {
+                if (item.StackAmount > remainingToConsume)
+                {
+                    item.DecreaseStack(remainingToConsume);
+                    if (IsOpen)
+                    {
+                        EventManager.Instance.EventOpenInventoryUI();
+                    }
+                    EventManager.Instance.EventInventoryUpdate(item);
+                    return 0;
+                }
+                else
+                {
+                    remainingToConsume -= item.StackAmount;
+                    item.DecreaseStack(item.StackAmount);
+
+                    if (item.StackAmount <= 0)
+                    {
+                        _items.RemoveAt(i);
+                        if (IsOpen)
+                        {
+                            EventManager.Instance.EventOpenInventoryUI();
+                        }
+                    }
+
+                    if (remainingToConsume == 0)
+                    {
+                        EventManager.Instance.EventInventoryUpdate(item);
+                        return 0;
+                    }
+                }
+            }
+        }
+
+        return remainingToConsume;
     }
 }

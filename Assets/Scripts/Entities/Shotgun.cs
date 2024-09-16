@@ -19,6 +19,7 @@ public class Shotgun : MonoBehaviour, IWeapon
 
     public void Attack(Vector2 direction)
     {
+        if (InventoryManager.Instance.GetAmountOfItemType<ShotgunBullet>() == 0) return;
         if (cooldownLeft > 0) return;
 
         int numberOfProjectiles = _stats.Projectiles + _owner.Stats.ProjectileIncrease;
@@ -47,7 +48,7 @@ public class Shotgun : MonoBehaviour, IWeapon
         else
             cooldownLeft = _stats.Cooldown;
 
-        Debug.Log(cooldownLeft);
+        InventoryManager.Instance.ConsumeItem<ShotgunBullet>(1);
     }
 
     public void Attack()

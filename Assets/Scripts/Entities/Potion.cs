@@ -22,11 +22,14 @@ public class Potion : MonoBehaviour, IPotion
 
     public void Buff()
     {
+        if (InventoryManager.Instance.GetAmountOfItemType<PotionItem>() == 0) return;
         if (cooldownLeft > 0f) return;
         EventQueueManager.Instance.AddEvent(_buffCommand);
         _buffActive = true;
         SetDuration(potionStats.PotionDuration);
         SetCooldown(potionStats.PotionCooldown);
+
+        InventoryManager.Instance.ConsumeItem<PotionItem>(1);
     }
 
     public virtual void SetCooldown(float cooldown) => cooldownLeft = cooldown;

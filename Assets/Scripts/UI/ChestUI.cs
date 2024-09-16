@@ -58,6 +58,7 @@ public class ChestUI : Singleton<ChestUI>
 
     public void OnCloseChestUI()
     {
+        if (OpenChest != null) OpenChest.CloseChest();
         gameObject.SetActive(false);
     }
 }

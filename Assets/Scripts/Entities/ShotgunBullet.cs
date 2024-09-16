@@ -16,8 +16,20 @@ public class ShotgunBullet : Item
         IsEquipable = false;
     }
 
+    public ShotgunBullet(int itemId, string itemName, Sprite itemImage, int stackSize, int stackAmount, ItemRarity rarity)
+    {
+        ItemId = itemId;
+        ItemName = itemName;
+        ItemImage = itemImage;
+        StackSize = stackSize;
+        StackAmount = stackAmount;
+        Rarity = rarity;
+        IsConsumable = false;
+        IsEquipable = false;
+    }
+
     public override Item Clone()
     {
-        return new ShotgunBullet(ItemId, ItemName, ItemImage, StackSize, Rarity);
+        return new ShotgunBullet(ItemId, ItemName, ItemImage, StackSize, StackAmount, Rarity);
     }
 }

@@ -28,9 +28,15 @@ public class ChestBuilding : MonoBehaviour
             if (hit.collider != null && hit.collider.gameObject == gameObject)
             {
                 Debug.Log("Open Chest");
+                _isOpen = true;
                 EventManager.Instance.EventOpenChestUI(this);
             }
         }
+    }
+
+    public void CloseChest()
+    {
+        _isOpen = false;
     }
 
     public Item AddItem(Item item)
@@ -47,7 +53,7 @@ public class ChestBuilding : MonoBehaviour
 
                 if (item.StackAmount <= 0)
                 {
-                    ChestUI.Instance.UpdateItemsInChestUI();
+                    if (_isOpen) ChestUI.Instance.UpdateItemsInChestUI();
                     return item;
                 }
             }
@@ -57,12 +63,12 @@ public class ChestBuilding : MonoBehaviour
         {
             _storedItems.Add(item.Clone());
             item.DecreaseStack(item.StackAmount);
-            ChestUI.Instance.UpdateItemsInChestUI();
+            if (_isOpen) ChestUI.Instance.UpdateItemsInChestUI();
             return item;
         }
 
         Debug.Log("No se pudo agregar el ítem al cofre.");
-        ChestUI.Instance.UpdateItemsInChestUI();
+        if (_isOpen) ChestUI.Instance.UpdateItemsInChestUI();
         return item;
     }
 
@@ -71,7 +77,7 @@ public class ChestBuilding : MonoBehaviour
         if (_storedItems.Contains(item))
         {
             _storedItems.Remove(item);
-            ChestUI.Instance.UpdateItemsInChestUI();
+            if (_isOpen) ChestUI.Instance.UpdateItemsInChestUI();
             return true;
         }
 

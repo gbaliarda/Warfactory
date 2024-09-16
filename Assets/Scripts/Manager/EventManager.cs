@@ -13,6 +13,7 @@ public class EventManager : Singleton<EventManager>
     public event Action OnCloseInventoryUI;
     public event Action<WorldObject> OnPickUpWorldObject;
     public event Action<ChestSlot> OnPickUpChestItem;
+    public event Action<Item> OnInventoryUpdate;
     public void EventHotbarSlotChange(int idx)
     {
         OnHotbarSlotChange?.Invoke(idx);
@@ -44,6 +45,10 @@ public class EventManager : Singleton<EventManager>
     public void EventPickUpChestItem(ChestSlot chestItem)
     {
         OnPickUpChestItem?.Invoke(chestItem);
+    }
+    public void EventInventoryUpdate(Item item)
+    {
+        OnInventoryUpdate?.Invoke(item);
     }
     #endregion
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
@@ -13,8 +14,20 @@ public class Hotbar : MonoBehaviour
         _slots = GetComponentsInChildren<HotbarSlot>();
 
         EventManager.Instance.OnHotbarSlotChange += OnHotbarSlotChange;
+        EventManager.Instance.OnInventoryUpdate += OnInventoryUpdate;
 
         OnHotbarSlotChange(0);
+    }
+
+    private void OnInventoryUpdate(Item item)
+    {
+        if (item is ShotgunBullet)
+        {
+            _slots[0].transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = InventoryManager.Instance.GetAmountOfItemType<ShotgunBullet>().ToString();
+        } else if (item is PotionItem)
+        {
+            _slots[4].transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = InventoryManager.Instance.GetAmountOfItemType<PotionItem>().ToString();
+        }
     }
 
     private void OnHotbarSlotChange(int hotbarSlotIndex)
