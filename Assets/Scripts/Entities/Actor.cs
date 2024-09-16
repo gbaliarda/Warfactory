@@ -39,7 +39,7 @@ public class Actor : MonoBehaviour, IDamageable
         return life;
     }
 
-    public void Die()
+    public virtual void Die()
     {
         isDead = true;
         Destroy(gameObject);

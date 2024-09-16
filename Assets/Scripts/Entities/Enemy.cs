@@ -7,6 +7,8 @@ public class Enemy : Actor
     [SerializeField] private LayerMask _playerLayer;
     [SerializeField] private float _sightRange, _attackRange;
 
+    [SerializeField] private GameObject _drop;
+    [SerializeField] private Sprite _dropSprite;
 
     protected MoveController moveController;
     protected AttackController attackController;
@@ -57,5 +59,16 @@ public class Enemy : Actor
         if (Player.Instance.GetComponent<IDamageable>() != null && Player.Instance.GetComponent<IDamageable>().IsDead == true) return;
 
         /*attackController.Attack(Player.Instance.transform.position);*/
+    }
+
+    public override void Die()
+    {
+        int randomNumber = Random.Range(1, 3);
+        if (randomNumber == 1 && _drop != null)
+        {
+            GameObject bullet = Instantiate(_drop, transform.position + Vector3.up, Quaternion.identity);
+            bullet.GetComponent<WorldObject>().Item = new ShotgunBullet(1, "Shotgun Bullet", _dropSprite, 10, 5, ItemRarity.Common);
+        }
+        base.Die();
     }
 }

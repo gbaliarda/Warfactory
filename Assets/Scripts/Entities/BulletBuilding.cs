@@ -5,10 +5,10 @@ using UnityEngine;
 public class BulletBuilding : MonoBehaviour
 {
     [SerializeField] private GameObject _bulletToFabricate;
-    [SerializeField] private float _spawnInterval = 5f;
-    [SerializeField] private bool _isOn = true;
     [SerializeField] private Transform _objectsContainer;
     [SerializeField] private Sprite _bulletSprite;
+    [SerializeField] private float _spawnInterval = 5f;
+    [SerializeField] private bool _isOn = true;
 
     void Start()
     {

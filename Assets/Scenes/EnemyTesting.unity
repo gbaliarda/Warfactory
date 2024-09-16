@@ -286,6 +286,7 @@ MonoBehaviour:
   _weapon: {fileID: 1570659979}
   _potion: {fileID: 0}
   _potionBuilding: {fileID: 0}
+  _chestBuilding: {fileID: 0}
   _slider: {fileID: 0}
   _baseStats: {fileID: 0}
   _shoot: 323
@@ -300,6 +301,7 @@ MonoBehaviour:
   _hotbarSlot4: 52
   _hotbarSlot5: 53
   _hotbarSlot6: 54
+  _inventory: 105
 --- !u!58 &41635691
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -605,6 +607,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShotgunEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 6520212041241818015, guid: 45ff5ab6ee6e72a488242e9c5d10d1c5, type: 3}
+      propertyPath: _drop
+      value: 
+      objectReference: {fileID: 7431681385107224975, guid: c7f72f23ffce629458f12e9819803721, type: 3}
+    - target: {fileID: 6520212041241818015, guid: 45ff5ab6ee6e72a488242e9c5d10d1c5, type: 3}
+      propertyPath: _dropSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 27315f781d922f240af5885485b4f6ad, type: 3}
     - target: {fileID: 6570158415499799592, guid: 45ff5ab6ee6e72a488242e9c5d10d1c5, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.445753
@@ -13953,6 +13963,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9111254300838693033, guid: baceb543ac3b7ec46b23d68c45e42c2c, type: 3}
+      propertyPath: _drop
+      value: 
+      objectReference: {fileID: 7431681385107224975, guid: c7f72f23ffce629458f12e9819803721, type: 3}
+    - target: {fileID: 9111254300838693033, guid: baceb543ac3b7ec46b23d68c45e42c2c, type: 3}
+      propertyPath: _dropSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 27315f781d922f240af5885485b4f6ad, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
