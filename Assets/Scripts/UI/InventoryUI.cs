@@ -5,32 +5,25 @@ using UnityEngine;
 using UnityEngine.UI;
 using static UnityEditor.Progress;
 
-public class ChestUI : Singleton<ChestUI>
+public class InventoryUI : MonoBehaviour
 {
-    [SerializeField] private ChestSlot[] _slots;
-    public ChestBuilding OpenChest { get; private set; }
+    [SerializeField] private InventorySlot[] _slots;
     private void Start()
     {
-        _slots = transform.GetChild(0).GetComponentsInChildren<ChestSlot>();
+        _slots = transform.GetChild(0).GetComponentsInChildren<InventorySlot>();
 
-        EventManager.Instance.OnOpenChestUI += OnOpenChestUI;
+        EventManager.Instance.OnOpenInventoryUI += OnOpenInventoryUI;
+        EventManager.Instance.OnCloseInventoryUI += OnCloseInventoryUI;
 
-        OnCloseChestUI();
+        OnCloseInventoryUI();
     }
 
-    private void OnOpenChestUI(ChestBuilding chest)
+    private void OnOpenInventoryUI()
     {
-        OpenChest = chest;
-        UpdateItemsInChestUI();
-        gameObject.SetActive(true);
-    }
-
-    public void UpdateItemsInChestUI()
-    {
-        List<Item> items = OpenChest.StoredItems;
         for (int i = 0; i < _slots.Length; i++)
         {
             GameObject slot = _slots[i].gameObject;
+            List<Item> items = InventoryManager.Instance.Items;
             if (i < items.Count)
             {
                 Item item = items[i];
@@ -41,7 +34,6 @@ public class ChestUI : Singleton<ChestUI>
                 itemImage.color = color;
                 TextMeshProUGUI itemStack = slot.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
                 itemStack.text = item.StackAmount.ToString();
-                _slots[i].Item = item;
             }
             else
             {
@@ -51,13 +43,15 @@ public class ChestUI : Singleton<ChestUI>
                 itemImage.color = color;
                 TextMeshProUGUI itemStack = slot.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
                 itemStack.text = "";
-                _slots[i].Item = null;
             }
         }
+        InventoryManager.Instance.SetIsOpen(true);
+        gameObject.SetActive(true);
     }
 
-    public void OnCloseChestUI()
+    public void OnCloseInventoryUI()
     {
+        InventoryManager.Instance.SetIsOpen(false);
         gameObject.SetActive(false);
     }
 }

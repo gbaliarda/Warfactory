@@ -35,6 +35,7 @@ public class Player : Actor, IBuffable
     [SerializeField] private KeyCode _hotbarSlot4 = KeyCode.Alpha4;
     [SerializeField] private KeyCode _hotbarSlot5 = KeyCode.Alpha5;
     [SerializeField] private KeyCode _hotbarSlot6 = KeyCode.Alpha6;
+    [SerializeField] private KeyCode _inventory = KeyCode.I;
     #endregion
 
     #region COMMANDS
@@ -88,6 +89,13 @@ public class Player : Actor, IBuffable
         if (Input.GetKey(_hotbarSlot4)) EventManager.Instance.EventHotbarSlotChange(3);
         if (Input.GetKey(_hotbarSlot5)) EventManager.Instance.EventHotbarSlotChange(4);
         if (Input.GetKey(_hotbarSlot6)) EventManager.Instance.EventHotbarSlotChange(5);
+        if (Input.GetKeyDown(_inventory))
+        {
+            if (InventoryManager.Instance.IsOpen)
+                EventManager.Instance.EventCloseInventoryUI();
+            else 
+                EventManager.Instance.EventOpenInventoryUI();
+        }
 
         if (Input.GetKeyDown(_interact))
         {

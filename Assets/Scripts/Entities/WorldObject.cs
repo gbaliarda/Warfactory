@@ -11,6 +11,22 @@ public class WorldObject : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero, Mathf.Infinity);
+
+            if (hit.collider != null && hit.collider.gameObject == gameObject)
+            {
+                Debug.Log("Pick up item");
+                EventManager.Instance.EventPickUpWorldObject(this);
+            }
+        }
+    }
+
     void OnCollisionExit2D(Collision2D collision)
     {
         rb.velocity = Vector2.zero;

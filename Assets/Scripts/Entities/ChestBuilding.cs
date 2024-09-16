@@ -10,6 +10,8 @@ public class ChestBuilding : MonoBehaviour
     [SerializeField] private LayerMask _chestLayer;
     private bool _isOpen;
 
+    public List<Item> StoredItems => _storedItems;
+
     void Start()
     {
         
@@ -26,7 +28,7 @@ public class ChestBuilding : MonoBehaviour
             if (hit.collider != null && hit.collider.gameObject == gameObject)
             {
                 Debug.Log("Open Chest");
-                EventManager.Instance.EventOpenChestUI(_storedItems);
+                EventManager.Instance.EventOpenChestUI(this);
             }
         }
     }
@@ -43,11 +45,9 @@ public class ChestBuilding : MonoBehaviour
                 storedItem.IncreaseStack(amountToAdd);
                 item.DecreaseStack(amountToAdd);
 
-                Debug.Log($"{amountToAdd} {item.ItemName}(s) añadidos al stack existente, tamaño stack es {storedItem.StackAmount} hasta {storedItem.StackSize}.");
-
                 if (item.StackAmount <= 0)
                 {
-                    Debug.Log("Item agregado al cofre");
+                    ChestUI.Instance.UpdateItemsInChestUI();
                     return item;
                 }
             }
@@ -56,12 +56,13 @@ public class ChestBuilding : MonoBehaviour
         if (item.StackAmount > 0 && _storedItems.Count < _maxCapacity)
         {
             _storedItems.Add(item.Clone());
-            Debug.Log($"{item.StackAmount} {item.ItemName}(s) añadidos como nuevo stack.");
             item.DecreaseStack(item.StackAmount);
+            ChestUI.Instance.UpdateItemsInChestUI();
             return item;
         }
 
         Debug.Log("No se pudo agregar el ítem al cofre.");
+        ChestUI.Instance.UpdateItemsInChestUI();
         return item;
     }
 
@@ -70,11 +71,10 @@ public class ChestBuilding : MonoBehaviour
         if (_storedItems.Contains(item))
         {
             _storedItems.Remove(item);
-            Debug.Log($"{item.ItemName} fue removido del cofre.");
+            ChestUI.Instance.UpdateItemsInChestUI();
             return true;
         }
 
-        Debug.Log($"{item.ItemName} no está en el cofre.");
         return false;
     }
 
