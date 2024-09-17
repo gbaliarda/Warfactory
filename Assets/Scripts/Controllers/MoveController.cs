@@ -18,8 +18,8 @@ public class MoveController : MonoBehaviour, IMovable
         _movementSpeed = speed;
     }
 
-    public void Move(Vector3 direction)
+    public void Move(Vector2 direction)
     {
-        transform.position += MovementSpeed * Time.deltaTime * direction;
+        transform.Translate(direction * _movementSpeed * Time.deltaTime);
     }
 }

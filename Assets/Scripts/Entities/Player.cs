@@ -10,7 +10,18 @@ public class Player : Actor, IBuffable
     private static Player instance;
     public static Player Instance { get { return instance; } }
 
-    protected MoveController moveController;
+    Vector2 moveDirection;
+
+    //    protected MoveController moveController;
+    Rigidbody2D rb;
+    SpriteRenderer sr;
+
+    [HideInInspector]
+    public float lastHorizontalVector;
+    [HideInInspector]
+    public float lastVerticalVector;
+
+    private Animator playerAnimator;
 
     [SerializeField] private MonoBehaviour _weapon;
     [SerializeField] private MonoBehaviour _potion;
@@ -25,10 +36,7 @@ public class Player : Actor, IBuffable
     #region KEYBINDINGS
     [SerializeField] private KeyCode _shoot = KeyCode.Mouse0;
     [SerializeField] private KeyCode _interact = KeyCode.Mouse1;
-    [SerializeField] private KeyCode _moveForward = KeyCode.W;
-    [SerializeField] private KeyCode _moveBack = KeyCode.S;
-    [SerializeField] private KeyCode _moveLeft = KeyCode.A;
-    [SerializeField] private KeyCode _moveRight = KeyCode.D;
+
     [SerializeField] private KeyCode _hotbarSlot1 = KeyCode.Alpha1;
     [SerializeField] private KeyCode _hotbarSlot2 = KeyCode.Alpha2;
     [SerializeField] private KeyCode _hotbarSlot3 = KeyCode.Alpha3;
@@ -38,12 +46,6 @@ public class Player : Actor, IBuffable
     [SerializeField] private KeyCode _inventory = KeyCode.I;
     #endregion
 
-    #region COMMANDS
-    private MoveCommand _cmdMovementForward;
-    private MoveCommand _cmdMovementBack;
-    private MoveCommand _cmdMovementLeft;
-    private MoveCommand _cmdMovementRight;
-    #endregion
 
     protected void Awake()
     {
@@ -56,19 +58,16 @@ public class Player : Actor, IBuffable
 
         DontDestroyOnLoad(gameObject);
 
-        moveController = GetComponent<MoveController>();
-
-        if (moveController != null) moveController.SetSpeed(_baseStats.MovementSpeed);
+        // moveController = GetComponent<MoveController>();
+        rb = GetComponent<Rigidbody2D>();
+        sr = GetComponent<SpriteRenderer>();
+        playerAnimator = GetComponent<Animator>();
+        // if (moveController != null) moveController.SetSpeed(_baseStats.MovementSpeed);
     }
 
     protected override void Start()
     {
         base.Start();
-        
-        _cmdMovementForward = new MoveCommand(moveController, transform.up);
-        _cmdMovementBack = new MoveCommand(moveController, -transform.up);
-        _cmdMovementLeft = new MoveCommand(moveController, -transform.right);
-        _cmdMovementRight = new MoveCommand(moveController, transform.right);
 
         buffs ??= new();
 
@@ -77,12 +76,55 @@ public class Player : Actor, IBuffable
         stats = Instantiate(_baseStats);
     }
 
+    #region MOVEMENT_INPUT
+    void InputMovement()
+    {
+        float moveX = Input.GetAxisRaw("Horizontal");
+        float moveY = Input.GetAxisRaw("Vertical");
+
+        moveDirection = new Vector2(moveX, moveY).normalized;
+
+        if (moveDirection.x != 0)
+        {
+            lastHorizontalVector = moveDirection.x;
+        }
+        if (moveDirection.y != 0)
+        {
+            lastVerticalVector = moveDirection.y;
+        }
+    }
+    #endregion
+
+    #region ANIMATION
+    void checkIsMoving()
+    {
+        if (moveDirection.x != 0 || moveDirection.y != 0)
+        {
+            playerAnimator.SetBool("Moving", true);
+            SpriteDirectionChecker();
+        }
+        else
+        {
+            playerAnimator.SetBool("Moving", false);
+        }
+    }
+
+    void SpriteDirectionChecker()
+    {
+        if (lastHorizontalVector < 0)
+        {
+            sr.flipX = true;
+        }
+        else sr.flipX = false;
+
+    }
+    #endregion
+
     new void Update()
     {
-        if (Input.GetKey(_moveForward)) EventQueueManager.Instance.AddEvent(_cmdMovementForward);
-        if (Input.GetKey(_moveBack)) EventQueueManager.Instance.AddEvent(_cmdMovementBack);
-        if (Input.GetKey(_moveRight)) EventQueueManager.Instance.AddEvent(_cmdMovementRight);
-        if (Input.GetKey(_moveLeft)) EventQueueManager.Instance.AddEvent(_cmdMovementLeft);
+        InputMovement();
+        checkIsMoving();
+
         if (Input.GetKey(_hotbarSlot1)) EventManager.Instance.EventHotbarSlotChange(0);
         if (Input.GetKey(_hotbarSlot2)) EventManager.Instance.EventHotbarSlotChange(1);
         if (Input.GetKey(_hotbarSlot3)) EventManager.Instance.EventHotbarSlotChange(2);
@@ -93,7 +135,7 @@ public class Player : Actor, IBuffable
         {
             if (InventoryManager.Instance.IsOpen)
                 EventManager.Instance.EventCloseInventoryUI();
-            else 
+            else
                 EventManager.Instance.EventOpenInventoryUI();
         }
 
@@ -151,6 +193,16 @@ public class Player : Actor, IBuffable
                 UsePotion();
             }
         }
+    }
+
+    private void FixedUpdate()
+    {
+        Move();
+    }
+
+    void Move()
+    {
+        rb.velocity = moveDirection * stats.MovementSpeed;
     }
 
     private void OnHotbarItemSelect(GameObject gameObject)

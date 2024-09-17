@@ -46,7 +46,7 @@ public class Enemy : Actor
         if (moveController != null)
         {
             Vector2 direction = (Player.Instance.transform.position - transform.position).normalized;
-            moveController.Move((Vector3)direction);
+            moveController.Move(direction);
             /*GetComponent<Rigidbody2D>().MovePosition(transform.position + Stats.MovementSpeed * 5 * Time.deltaTime * (Vector3)direction);*/
             /*moveController.Move(Player.Instance.transform.position);*/
         }
