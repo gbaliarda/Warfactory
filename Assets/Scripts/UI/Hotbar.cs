@@ -32,31 +32,31 @@ public class Hotbar : MonoBehaviour
 
     private void OnHotbarSlotChange(int hotbarSlotIndex)
     {
-        Player.Instance.transform.GetChild(hotbarSlotIndex).gameObject.SetActive(true);
+        Player.Instance.HotbarItems.GetChild(hotbarSlotIndex).gameObject.SetActive(true);
 
         if (hotbarSlotIndex != 0)
         {
-            Player.Instance.transform.GetChild(0).gameObject.SetActive(false);
+            Player.Instance.HotbarItems.GetChild(0).gameObject.SetActive(false);
         }
 
         if (hotbarSlotIndex != 1)
         {
-            Player.Instance.transform.GetChild(1).gameObject.SetActive(false);
+            Player.Instance.HotbarItems.GetChild(1).gameObject.SetActive(false);
         }
         
         if (hotbarSlotIndex != 2)
         {
-            Player.Instance.transform.GetChild(2).gameObject.SetActive(false);
+            Player.Instance.HotbarItems.GetChild(2).gameObject.SetActive(false);
         }
 
         if (hotbarSlotIndex != 3)
         {
-            Player.Instance.transform.GetChild(3).gameObject.SetActive(false);
+            Player.Instance.HotbarItems.GetChild(3).gameObject.SetActive(false);
         }
 
         if (hotbarSlotIndex != 4)
         {
-            Player.Instance.transform.GetChild(4).gameObject.SetActive(false);
+            Player.Instance.HotbarItems.GetChild(4).gameObject.SetActive(false);
         }
 
         _slots[_activeSlotIndex].SetActive(false);

@@ -7,21 +7,9 @@ using UnityEngine.Tilemaps;
 
 public class Player : Actor, IBuffable
 {
-    private static Player instance;
-    public static Player Instance { get { return instance; } }
+    public static Player Instance { get; private set; }
 
-    Vector2 moveDirection;
-
-    //    protected MoveController moveController;
-    Rigidbody2D rb;
-    SpriteRenderer sr;
-
-    [HideInInspector]
-    public float lastHorizontalVector;
-    [HideInInspector]
-    public float lastVerticalVector;
-
-    private Animator playerAnimator;
+    private Vector2 moveDirection;
 
     [SerializeField] private MonoBehaviour _weapon;
     [SerializeField] private MonoBehaviour _potion;
@@ -29,6 +17,10 @@ public class Player : Actor, IBuffable
     [SerializeField] private MonoBehaviour _chestBuilding;
     [SerializeField] private MonoBehaviour _slider;
     [SerializeField] private ActorStats _baseStats;
+    [SerializeField] private Transform _hotbarItems;
+
+    public Transform HotbarItems => _hotbarItems;
+    public Rigidbody2D Rigidbody { get; private set; }
 
     protected List<IPotion> buffs;
     public List<IPotion> Buffs => buffs;
@@ -49,20 +41,16 @@ public class Player : Actor, IBuffable
 
     protected void Awake()
     {
-        if (instance != null && this.gameObject != null)
+        if (Instance != null && this.gameObject != null)
         {
             Destroy(this.gameObject);
             return;
         }
-        instance = this;
+        Instance = this;
 
         DontDestroyOnLoad(gameObject);
 
-        // moveController = GetComponent<MoveController>();
-        rb = GetComponent<Rigidbody2D>();
-        sr = GetComponent<SpriteRenderer>();
-        playerAnimator = GetComponent<Animator>();
-        // if (moveController != null) moveController.SetSpeed(_baseStats.MovementSpeed);
+        Rigidbody = GetComponent<Rigidbody2D>();
     }
 
     protected override void Start()
@@ -83,47 +71,12 @@ public class Player : Actor, IBuffable
         float moveY = Input.GetAxisRaw("Vertical");
 
         moveDirection = new Vector2(moveX, moveY).normalized;
-
-        if (moveDirection.x != 0)
-        {
-            lastHorizontalVector = moveDirection.x;
-        }
-        if (moveDirection.y != 0)
-        {
-            lastVerticalVector = moveDirection.y;
-        }
-    }
-    #endregion
-
-    #region ANIMATION
-    void checkIsMoving()
-    {
-        if (moveDirection.x != 0 || moveDirection.y != 0)
-        {
-            playerAnimator.SetBool("Moving", true);
-            SpriteDirectionChecker();
-        }
-        else
-        {
-            playerAnimator.SetBool("Moving", false);
-        }
-    }
-
-    void SpriteDirectionChecker()
-    {
-        if (lastHorizontalVector < 0)
-        {
-            sr.flipX = true;
-        }
-        else sr.flipX = false;
-
     }
     #endregion
 
     new void Update()
     {
         InputMovement();
-        checkIsMoving();
 
         if (Input.GetKey(_hotbarSlot1)) EventManager.Instance.EventHotbarSlotChange(0);
         if (Input.GetKey(_hotbarSlot2)) EventManager.Instance.EventHotbarSlotChange(1);
@@ -202,7 +155,7 @@ public class Player : Actor, IBuffable
 
     void Move()
     {
-        rb.velocity = moveDirection * stats.MovementSpeed;
+        Rigidbody.velocity = moveDirection * stats.MovementSpeed;
     }
 
     private void OnHotbarItemSelect(GameObject gameObject)

@@ -53,7 +53,7 @@ public class Shotgun : MonoBehaviour, IWeapon
 
     public void Attack()
     {
-        Attack(Owner.transform.right);
+        Attack(transform.right);
     }
 
     protected void Start()
