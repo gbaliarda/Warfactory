@@ -13,15 +13,26 @@ public class PlayerAnimator : MonoBehaviour
     private float _movingVelocityCutoff = 0.01f;
 
     [SerializeField] private Transform _hotbarItems;
+    [SerializeField] private Transform _buildHotbarItems;
     [SerializeField] private Vector3 _hotbarUpOffset;
     [SerializeField] private Vector3 _hotbarDownOffset;
     [SerializeField] private float _animationMovementSpeed = 1f;
 
     private Animator _animator;
+    private Transform _currentHotbarItems;
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        _currentHotbarItems = _hotbarItems;
+
+        EventManager.Instance.OnBuildModeActive += OnBuildModeActive;
+    }
+
+    private void OnBuildModeActive(bool active)
+    {
+        if (active) _currentHotbarItems = _buildHotbarItems;
+        else _currentHotbarItems = _hotbarItems;
     }
 
     private void LateUpdate()
@@ -67,26 +78,26 @@ public class PlayerAnimator : MonoBehaviour
     {
         if (lookDir.x > 0)
         {
-            _hotbarItems.right = transform.right;
-            _hotbarItems.localPosition = Vector3.zero;
+            _currentHotbarItems.right = transform.right;
+            _currentHotbarItems.localPosition = Vector3.zero;
             SortHotbarItemsBeforePlayer(false);
             FlipHotbarItems(false, false);
         } else if (lookDir.x < 0)
         {
-            _hotbarItems.right = -transform.right;
-            _hotbarItems.localPosition = Vector3.zero;
+            _currentHotbarItems.right = -transform.right;
+            _currentHotbarItems.localPosition = Vector3.zero;
             SortHotbarItemsBeforePlayer(false);
             FlipHotbarItems(false, false);
         } else if(lookDir.y > 0)
         {
-            _hotbarItems.right = transform.up;
-            _hotbarItems.localPosition = _hotbarUpOffset;
+            _currentHotbarItems.right = transform.up;
+            _currentHotbarItems.localPosition = _hotbarUpOffset;
             SortHotbarItemsBeforePlayer(true);
             FlipHotbarItems(false, true);
         } else if(lookDir.y < 0)
         {
-            _hotbarItems.right = -transform.up;
-            _hotbarItems.localPosition = _hotbarDownOffset;
+            _currentHotbarItems.right = -transform.up;
+            _currentHotbarItems.localPosition = _hotbarDownOffset;
             SortHotbarItemsBeforePlayer(false);
             FlipHotbarItems(false, true);
         }
@@ -94,7 +105,8 @@ public class PlayerAnimator : MonoBehaviour
 
     private void FlipHotbarItems(bool flipX, bool flipY)
     {
-        var sprites = _hotbarItems.GetComponentsInChildren<SpriteRenderer>();
+        var sprites = _currentHotbarItems.GetComponentsInChildren<SpriteRenderer>();
+
 
         foreach (var sprite in sprites)
         {
@@ -105,7 +117,7 @@ public class PlayerAnimator : MonoBehaviour
 
     private void SortHotbarItemsBeforePlayer(bool before)
     {
-        var sprites = _hotbarItems.GetComponentsInChildren<SpriteRenderer>();
+        var sprites = _currentHotbarItems.GetComponentsInChildren<SpriteRenderer>();
 
         foreach (var sprite in sprites)
         {

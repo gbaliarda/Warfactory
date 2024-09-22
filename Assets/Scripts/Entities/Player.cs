@@ -18,8 +18,13 @@ public class Player : Actor, IBuffable
     [SerializeField] private MonoBehaviour _slider;
     [SerializeField] private ActorStats _baseStats;
     [SerializeField] private Transform _hotbarItems;
+    [SerializeField] private Transform _buildHotbarItems;
 
+    public bool BuildingMode => _buildingMode;
+
+    private bool _buildingMode = false;
     public Transform HotbarItems => _hotbarItems;
+    public Transform BuildHotbarItems => _buildHotbarItems;
     public Rigidbody2D Rigidbody { get; private set; }
 
     protected List<IPotion> buffs;
@@ -36,6 +41,7 @@ public class Player : Actor, IBuffable
     [SerializeField] private KeyCode _hotbarSlot5 = KeyCode.Alpha5;
     [SerializeField] private KeyCode _hotbarSlot6 = KeyCode.Alpha6;
     [SerializeField] private KeyCode _inventory = KeyCode.I;
+    [SerializeField] private KeyCode _buildModeKey = KeyCode.Q;
     #endregion
 
 
@@ -84,6 +90,14 @@ public class Player : Actor, IBuffable
         if (Input.GetKey(_hotbarSlot4)) EventManager.Instance.EventHotbarSlotChange(3);
         if (Input.GetKey(_hotbarSlot5)) EventManager.Instance.EventHotbarSlotChange(4);
         if (Input.GetKey(_hotbarSlot6)) EventManager.Instance.EventHotbarSlotChange(5);
+        if (Input.GetKeyDown(_buildModeKey))
+        {
+            _buildingMode = !_buildingMode;
+            _hotbarItems.gameObject.SetActive(!_buildingMode);
+            _buildHotbarItems.gameObject.SetActive(_buildingMode);
+            EventManager.Instance.EventBuildModeActive(_buildingMode);
+        }
+
         if (Input.GetKeyDown(_inventory))
         {
             if (InventoryManager.Instance.IsOpen)
@@ -92,7 +106,7 @@ public class Player : Actor, IBuffable
                 EventManager.Instance.EventOpenInventoryUI();
         }
 
-        if (Input.GetKeyDown(_interact))
+        if (Input.GetKeyDown(_interact) && _buildingMode)
         {
 
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -135,7 +149,7 @@ public class Player : Actor, IBuffable
         }
 
 
-        if (Input.GetKeyDown(_shoot))
+        if (Input.GetKeyDown(_shoot) && !_buildingMode)
         {
             if (!EventSystem.current.IsPointerOverGameObject() && _weapon.gameObject.activeSelf && _weapon.GetComponent<IWeapon>() != null)
             {

@@ -15,6 +15,7 @@ public class EventManager : Singleton<EventManager>
     public event Action<WorldObject> OnPickUpWorldObject;
     public event Action<ChestSlot> OnPickUpChestItem;
     public event Action<Item> OnInventoryUpdate;
+    public event Action<bool> OnBuildModeActive;
     public void EventHotbarSlotChange(int idx)
     {
         OnHotbarSlotChange?.Invoke(idx);
@@ -55,6 +56,11 @@ public class EventManager : Singleton<EventManager>
     public void EventInventoryUpdate(Item item)
     {
         OnInventoryUpdate?.Invoke(item);
+    }
+    
+    public void EventBuildModeActive(bool active)
+    {
+        OnBuildModeActive?.Invoke(active);
     }
     #endregion
 }
