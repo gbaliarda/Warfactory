@@ -5,7 +5,7 @@ using UnityEngine;
 public interface IBuilding
 {
     GameObject BuildingPrefab { get; }
-    void Build(Vector3 position);
+    void Build(Vector3 position, int rotation);
 
     void Destroy();
 }

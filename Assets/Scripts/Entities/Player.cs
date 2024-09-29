@@ -42,7 +42,14 @@ public class Player : Actor, IBuffable
     [SerializeField] private KeyCode _hotbarSlot6 = KeyCode.Alpha6;
     [SerializeField] private KeyCode _inventory = KeyCode.I;
     [SerializeField] private KeyCode _buildModeKey = KeyCode.Q;
+    [SerializeField] private KeyCode _rotateBuilding = KeyCode.R;
     #endregion
+
+    public GameObject ObjectInHand => _objectInHand;
+
+    private GameObject _objectInHand;
+
+    private int _buildingRotation = 1;
 
 
     protected void Awake()
@@ -97,6 +104,12 @@ public class Player : Actor, IBuffable
             _buildHotbarItems.gameObject.SetActive(_buildingMode);
             EventManager.Instance.EventBuildModeActive(_buildingMode);
         }
+        if(Input.GetKeyDown(_rotateBuilding))
+        {
+            _buildingRotation += 1;
+            if (_buildingRotation == 5)
+                _buildingRotation = 1;
+        }
 
         if (Input.GetKeyDown(_inventory))
         {
@@ -125,17 +138,17 @@ public class Player : Actor, IBuffable
                         if (!EventSystem.current.IsPointerOverGameObject() && _potionBuilding.gameObject.activeSelf && _potionBuilding.GetComponent<IBuilding>() != null)
                         {
                             TileManager.Instance.SetOccupied(cellPosition);
-                            (_potionBuilding as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2);
+                            (_potionBuilding as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2, _buildingRotation);
                         }
                         if (_slider.gameObject.activeSelf && _slider.GetComponent<IBuilding>() != null)
                         {
                             TileManager.Instance.SetOccupied(cellPosition);
-                            (_slider as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2);
+                            (_slider as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2, _buildingRotation);
                         }
                         if (_chestBuilding.gameObject.activeSelf && _chestBuilding.GetComponent<IBuilding>() != null)
                         {
                             TileManager.Instance.SetOccupied(cellPosition);
-                            (_chestBuilding as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2);
+                            (_chestBuilding as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2, _buildingRotation);
                         }
                     }
                     /*if (TileManager.Instance.IsInteractable(cellPosition))
@@ -160,6 +173,26 @@ public class Player : Actor, IBuffable
                 UsePotion();
             }
         }
+
+        if (_buildingMode)
+        {
+            _objectInHand = GetFirstActiveChild(_buildHotbarItems);
+        } else
+        {
+            _objectInHand = GetFirstActiveChild(_hotbarItems);
+        }
+    }
+
+    private GameObject GetFirstActiveChild(Transform parent)
+    {
+        foreach (Transform child in parent)
+        {
+            if (child.gameObject.activeSelf)
+            {
+                return child.gameObject;
+            }
+        }
+        return null;
     }
 
     private void FixedUpdate()

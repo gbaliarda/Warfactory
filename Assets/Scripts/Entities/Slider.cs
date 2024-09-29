@@ -1,15 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class Slider : MonoBehaviour
 {
     [SerializeField] private float _moveSpeed = 5f;
-    [SerializeField] private Vector3 _direction = Vector3.up;
+    [SerializeField] private Vector3 _direction;
 
     private HashSet<Rigidbody2D> _rigidBodyToMove = new();
     private bool _isMoving = false;
 
+    private void Awake()
+    {
+        _direction = transform.rotation * Vector3.up;
+    }
 
     private void Update()
     {

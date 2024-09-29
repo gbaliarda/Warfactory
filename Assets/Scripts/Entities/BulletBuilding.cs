@@ -53,7 +53,8 @@ public class BulletBuilding : MonoBehaviour
 
             if (!IsObjectPresent())
             {
-                GameObject bullet = Instantiate(_bulletToFabricate, transform.position + Vector3.up, Quaternion.identity, _objectsContainer);
+                Vector3 offset = transform.rotation * Vector3.up;
+                GameObject bullet = Instantiate(_bulletToFabricate, transform.position + offset, Quaternion.identity, _objectsContainer);
                 bullet.GetComponent<WorldObject>().Item = new ShotgunBullet(1, "Shotgun Bullet", _bulletSprite, 10, ItemRarity.Common);
                 
                 float currentTime = Time.time;

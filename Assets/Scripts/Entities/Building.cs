@@ -21,11 +21,13 @@ public class Building : MonoBehaviour, IBuilding
         
     }
 
-    public void Build(Vector3 position)
+    public void Build(Vector3 position, int rotation)
     {
         if (_buildingPrefab == null)
             return;
 
-        Instantiate(_buildingPrefab, position, Quaternion.identity);
+        Quaternion targetRotation = Quaternion.Euler(0, 0, -90 * (rotation - 1));
+
+        Instantiate(_buildingPrefab, position, targetRotation);
     }
 }
