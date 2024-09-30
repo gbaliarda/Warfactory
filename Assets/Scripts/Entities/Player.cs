@@ -221,9 +221,10 @@ public class Player : Actor, IBuffable
         var cam = Camera.main;
         if(!cam) return;
 
-        var mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
-        var dir = (mousePosition - transform.position).normalized;
-        ((IWeapon)_weapon).Attack(transform.position + _shootOriginDistance * dir, dir);
+        Vector2 mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
+        var dir = (mousePosition - (Vector2)transform.position).normalized;
+        var origin = (Vector2)transform.position + _shootOriginDistance * dir;
+        ((IWeapon)_weapon).Attack(origin, dir);
     }
 
     private void UsePotion()

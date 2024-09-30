@@ -391,7 +391,7 @@ MonoBehaviour:
   _inventory: 105
   _buildModeKey: 113
   _rotateBuilding: 114
-  _shootOriginDistance: 3
+  _shootOriginDistance: 1.3
 --- !u!50 &311994115042161609
 Rigidbody2D:
   serializedVersion: 4
