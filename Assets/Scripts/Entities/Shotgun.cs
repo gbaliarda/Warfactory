@@ -17,7 +17,7 @@ public class Shotgun : MonoBehaviour, IWeapon
     public Actor Owner => _owner;
     public float CooldownLeft => cooldownLeft;
 
-    public void Attack(Vector2 direction)
+    public void Attack(Vector2 origin, Vector2 direction)
     {
         if (InventoryManager.Instance.GetAmountOfItemType<ShotgunBullet>() == 0) return;
         if (cooldownLeft > 0) return;
@@ -39,7 +39,7 @@ public class Shotgun : MonoBehaviour, IWeapon
 
             Quaternion projectileRotation = Quaternion.Euler(0, 0, currentAngle);
 
-            GameObject projectile = Instantiate(_prefabToInstantiate, _bulletOrigin.position, projectileRotation);
+            GameObject projectile = Instantiate(_prefabToInstantiate, origin, projectileRotation);
             projectile.GetComponent<Projectile>().SetOwner(this);
         }
 
@@ -49,6 +49,11 @@ public class Shotgun : MonoBehaviour, IWeapon
             cooldownLeft = _stats.Cooldown;
 
         InventoryManager.Instance.ConsumeItem<ShotgunBullet>(1);
+    }
+
+    public void Attack(Vector2 direction)
+    {
+        Attack(_bulletOrigin.position, direction);
     }
 
     public void Attack()

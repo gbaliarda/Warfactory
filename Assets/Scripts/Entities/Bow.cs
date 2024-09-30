@@ -14,7 +14,7 @@ public class Bow : MonoBehaviour, IWeapon
     public Actor Owner => _owner;
     public float CooldownLeft => cooldownLeft;
 
-    public void Attack(Vector2 direction)
+    public void Attack(Vector2 origin, Vector2 direction)
     {
         if (cooldownLeft > 0) return;
 
@@ -35,7 +35,7 @@ public class Bow : MonoBehaviour, IWeapon
 
             Quaternion projectileRotation = Quaternion.Euler(0, 0, currentAngle);
 
-            GameObject projectile = Instantiate(_prefabToInstantiate, transform.position, projectileRotation);
+            GameObject projectile = Instantiate(_prefabToInstantiate, origin, projectileRotation);
             projectile.GetComponent<Projectile>().SetOwner(this);
         }
 
@@ -47,9 +47,14 @@ public class Bow : MonoBehaviour, IWeapon
         Debug.Log(cooldownLeft);
     }
 
+    public void Attack(Vector2 direction)
+    {
+        Attack(transform.position, direction);
+    }
+
     public void Attack()
     {
-        Attack(transform.right);
+        Attack(transform.position, transform.right);
     }
 
     protected void Start()

@@ -14,8 +14,6 @@ public class PlayerAnimator : MonoBehaviour
 
     [SerializeField] private Transform _hotbarItems;
     [SerializeField] private Transform _buildHotbarItems;
-    [SerializeField] private Vector3 _hotbarUpOffset;
-    [SerializeField] private Vector3 _hotbarDownOffset;
     [SerializeField] private float _animationMovementSpeed = 1f;
 
     private Animator _animator;
@@ -55,18 +53,10 @@ public class PlayerAnimator : MonoBehaviour
 
         var mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
         Vector2 dir = (transform.position - mousePosition).normalized;
-        var simplifiedDir = Vector2.zero;
 
-        if (Mathf.Abs(dir.x) > Mathf.Abs(dir.y))
-        {
-            simplifiedDir.y = 0;
-            simplifiedDir.x = dir.x > 0 ? -1 : 1;
-        }
-        else
-        {
-            simplifiedDir.x = 0;
-            simplifiedDir.y = dir.y > 0 ? -1 : 1;
-        }
+        var simplifiedDir = Vector2.zero;
+        simplifiedDir.y = 0;
+        simplifiedDir.x = dir.x > 0 ? -1 : 1;
 
         _animator.SetInteger(LookDirXParam, (int)simplifiedDir.x);
         _animator.SetInteger(LookDirYParam, (int)simplifiedDir.y);
@@ -88,18 +78,6 @@ public class PlayerAnimator : MonoBehaviour
             _currentHotbarItems.localPosition = Vector3.zero;
             SortHotbarItemsBeforePlayer(false);
             FlipHotbarItems(false, false);
-        } else if(lookDir.y > 0)
-        {
-            _currentHotbarItems.right = transform.up;
-            _currentHotbarItems.localPosition = _hotbarUpOffset;
-            SortHotbarItemsBeforePlayer(true);
-            FlipHotbarItems(false, true);
-        } else if(lookDir.y < 0)
-        {
-            _currentHotbarItems.right = -transform.up;
-            _currentHotbarItems.localPosition = _hotbarDownOffset;
-            SortHotbarItemsBeforePlayer(false);
-            FlipHotbarItems(false, true);
         }
     }
 

@@ -31,6 +31,7 @@ public class Player : Actor, IBuffable
     public List<IPotion> Buffs => buffs;
 
     #region KEYBINDINGS
+    [Header("Keybindings")]
     [SerializeField] private KeyCode _shoot = KeyCode.Mouse0;
     [SerializeField] private KeyCode _interact = KeyCode.Mouse1;
 
@@ -43,6 +44,11 @@ public class Player : Actor, IBuffable
     [SerializeField] private KeyCode _inventory = KeyCode.I;
     [SerializeField] private KeyCode _buildModeKey = KeyCode.Q;
     [SerializeField] private KeyCode _rotateBuilding = KeyCode.R;
+    #endregion
+
+    #region PARAMS
+    [Header("Params")]
+    [SerializeField] private float _shootOriginDistance = 5f;
     #endregion
 
     public GameObject ObjectInHand => _objectInHand;
@@ -212,13 +218,17 @@ public class Player : Actor, IBuffable
 
     private void ShootWeapon()
     {
+        var cam = Camera.main;
+        if(!cam) return;
 
-        (_weapon as IWeapon).Attack();
+        var mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
+        var dir = (mousePosition - transform.position).normalized;
+        ((IWeapon)_weapon).Attack(transform.position + _shootOriginDistance * dir, dir);
     }
 
     private void UsePotion()
     {
-        (_potion as IPotion).Buff();
+        ((IPotion)_potion).Buff();
     }
 
     public void AddBuff(IPotion potion)

@@ -11,4 +11,5 @@ public interface IWeapon
     float CooldownLeft { get; }
     void Attack();
     void Attack(Vector2 direction);
+    void Attack(Vector2 origin, Vector2 direction);
 }

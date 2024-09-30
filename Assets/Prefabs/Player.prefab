@@ -108,8 +108,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6744636042815255870}
   - component: {fileID: 7195818356020394462}
-  - component: {fileID: 7046727148094405955}
   - component: {fileID: 1003163031664243036}
+  - component: {fileID: 9070725303614417830}
   m_Layer: 6
   m_Name: GFX
   m_TagString: Untagged
@@ -175,29 +175,17 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 100
-  m_Sprite: {fileID: 473534003, guid: 227752ae3e4110141a8bd2c08235dc98, type: 3}
+  m_Sprite: {fileID: 978012912, guid: 99a24620d31e5ce4e823c32d11e17c2c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
-  m_Size: {x: 2, y: 3}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7046727148094405955
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 706139468570915484}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cbf17139a3e9a1489c9a3c45f6ef02c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &1003163031664243036
 Animator:
   serializedVersion: 5
@@ -219,6 +207,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &9070725303614417830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 706139468570915484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a411f43857d4dac88a87aab2ab9f3c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _movingVelocityCutoff: 0.1
+  _hotbarItems: {fileID: 2305382330757133297}
+  _buildHotbarItems: {fileID: 2319024849222912617}
+  _animationMovementSpeed: 3
 --- !u!1 &916645453575577211
 GameObject:
   m_ObjectHideFlags: 0
@@ -234,7 +238,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2319024849222912617
 Transform:
   m_ObjectHideFlags: 0
@@ -265,7 +269,7 @@ GameObject:
   - component: {fileID: 2734419756543909321}
   m_Layer: 6
   m_Name: Collider
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -279,7 +283,7 @@ Transform:
   m_GameObject: {fileID: 1507766113506470161}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.75, z: 0}
+  m_LocalPosition: {x: 0, y: -0.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -319,7 +323,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.25
 --- !u!1 &2801850703530412939
 GameObject:
   m_ObjectHideFlags: 0
@@ -386,6 +390,8 @@ MonoBehaviour:
   _hotbarSlot6: 54
   _inventory: 105
   _buildModeKey: 113
+  _rotateBuilding: 114
+  _shootOriginDistance: 3
 --- !u!50 &311994115042161609
 Rigidbody2D:
   serializedVersion: 4
@@ -626,7 +632,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2222377698893532996
 Transform:
   m_ObjectHideFlags: 0
@@ -750,23 +756,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 952511361370808330, guid: 66aa6cff1a999014281e38bc63f1c922, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 952511361370808330, guid: 66aa6cff1a999014281e38bc63f1c922, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 952511361370808330, guid: 66aa6cff1a999014281e38bc63f1c922, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 952511361370808330, guid: 66aa6cff1a999014281e38bc63f1c922, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.3499999
+      value: 0.292
       objectReference: {fileID: 0}
     - target: {fileID: 952511361370808330, guid: 66aa6cff1a999014281e38bc63f1c922, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.06999999
+      value: -0.135
       objectReference: {fileID: 0}
     - target: {fileID: 952511361370808330, guid: 66aa6cff1a999014281e38bc63f1c922, type: 3}
       propertyPath: m_LocalPosition.z
