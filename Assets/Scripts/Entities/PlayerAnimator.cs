@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerAnimator : MonoBehaviour
 {
     private static readonly int LookDirXParam = Animator.StringToHash("LookDirX");
-    private static readonly int LookDirYParam = Animator.StringToHash("LookDirY");
     private static readonly int MovingParam = Animator.StringToHash("Moving");
     private static readonly int WalkSpeedMultiplierParam = Animator.StringToHash("WalkSpeedMultiplier");
 
@@ -23,7 +22,10 @@ public class PlayerAnimator : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         _currentHotbarItems = _hotbarItems;
+    }
 
+    private void Start()
+    {
         EventManager.Instance.OnBuildModeActive += OnBuildModeActive;
     }
 
@@ -59,7 +61,6 @@ public class PlayerAnimator : MonoBehaviour
         simplifiedDir.x = dir.x > 0 ? -1 : 1;
 
         _animator.SetInteger(LookDirXParam, (int)simplifiedDir.x);
-        _animator.SetInteger(LookDirYParam, (int)simplifiedDir.y);
 
         UpdateHotbarItemRotation(simplifiedDir);
     }
