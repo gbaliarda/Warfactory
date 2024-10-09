@@ -30,6 +30,7 @@ public class Actor : MonoBehaviour, IDamageable
 
     public int TakeDamage(DamageStats damage)
     {
+        Debug.Log("TakingDamage");
         if (life > 0)
             life -= damage.TotalDamage;
 
