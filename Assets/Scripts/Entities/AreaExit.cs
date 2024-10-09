@@ -10,7 +10,7 @@ public class AreaExit : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.GetComponent<Player>())
+        if (other.CompareTag("Player"))
         {
             EldritchSceneManager.Instance.SetTransitionName(_sceneTransitionName);
             StartCoroutine(EldritchSceneManager.Instance.LoadScene(_sceneToLoad));
