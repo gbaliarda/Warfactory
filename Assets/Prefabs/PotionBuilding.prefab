@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2469719556424764797}
   - component: {fileID: 5527725667946145379}
   - component: {fileID: 2796239424791162416}
-  - component: {fileID: 795034331373977494}
+  - component: {fileID: 8374387246161286556}
   m_Layer: 0
   m_Name: PotionBuilding
   m_TagString: Untagged
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 4926915188028973152}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.5, y: 1.5, z: 0}
+  m_LocalPosition: {x: -1.5, y: 1.5, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a7917004f915cd244b5da35a52b1bcf5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 86d0d72f3fd278b4594083b58bd91e55, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -103,8 +103,8 @@ MonoBehaviour:
   _isOn: 1
   _objectsContainer: {fileID: 0}
   _potionSprite: {fileID: 21300000, guid: 107ebf0ce29d56b42b08c21d15d6637e, type: 3}
---- !u!68 &795034331373977494
-EdgeCollider2D:
+--- !u!61 &8374387246161286556
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -135,31 +135,16 @@ EdgeCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.034230083}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.25}
+    oldSize: {x: 1, y: 1.5}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.8254244}
   m_EdgeRadius: 0
-  m_Points:
-  - {x: -0.5, y: 0.24991482}
-  - {x: -0.5045588, y: -0.50330263}
-  - {x: 0.5010885, y: -0.5018958}
-  - {x: 0.50211465, y: 0.25109744}
-  - {x: 0.43710768, y: 0.25140905}
-  - {x: 0.43948793, y: 0.31389785}
-  - {x: 0.37572515, y: 0.3157513}
-  - {x: 0.3743329, y: 0.3751824}
-  - {x: 0.3130343, y: 0.37723243}
-  - {x: 0.31308353, y: 0.4406091}
-  - {x: 0.25244355, y: 0.4421606}
-  - {x: 0.25474107, y: 0.50477767}
-  - {x: -0.25677323, y: 0.50271046}
-  - {x: -0.2544936, y: 0.43994784}
-  - {x: -0.32139468, y: 0.4421029}
-  - {x: -0.3208475, y: 0.3837124}
-  - {x: -0.3785467, y: 0.38157952}
-  - {x: -0.37781203, y: 0.31983972}
-  - {x: -0.4376459, y: 0.3173406}
-  - {x: -0.437667, y: 0.25020325}
-  - {x: -0.4991008, y: 0.25}
-  m_AdjacentStartPoint: {x: 0, y: 0}
-  m_AdjacentEndPoint: {x: 0, y: 0}
-  m_UseAdjacentStartPoint: 0
-  m_UseAdjacentEndPoint: 0
