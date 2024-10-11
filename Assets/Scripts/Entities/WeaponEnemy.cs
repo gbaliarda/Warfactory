@@ -7,10 +7,12 @@ namespace Entities
         [SerializeField] private MonoBehaviour _weapon;
         public IWeapon Weapon => _weapon as IWeapon;
 
+        [SerializeField] private bool _facingRight = true;
+
         protected override void Attack()
         {
             var player = Player.Instance;
-            LookAt(player.transform);
+            FacePlayer(player.transform);
             
             if (_weapon == null || _weapon is not IWeapon)
             {
@@ -27,12 +29,27 @@ namespace Entities
             base.Chase();
             
             var player = Player.Instance;
-            LookAt(player.transform);
+            FacePlayer(player.transform);
         }
         
-        private void LookAt(Transform target)
+        private void FacePlayer(Transform target)
         {
-            transform.right = (target.position - transform.position).normalized;
+            if (target.position.x > transform.position.x && !_facingRight)
+            {
+                Flip();
+            }
+            else if (target.position.x < transform.position.x && _facingRight)
+            {
+                Flip();
+            }
+        }
+
+        private void Flip()
+        {
+            _facingRight = !_facingRight;
+            Vector3 scale = transform.localScale;
+            scale.x *= -1;
+            transform.localScale = scale;
         }
 
         private void OnValidate()

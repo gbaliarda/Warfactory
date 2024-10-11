@@ -95,11 +95,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7476587642831109742, guid: 37dc26933dfc55340881ba829a9b20fc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 2.57
       objectReference: {fileID: 0}
     - target: {fileID: 7476587642831109742, guid: 37dc26933dfc55340881ba829a9b20fc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -5.09
       objectReference: {fileID: 0}
     - target: {fileID: 7476587642831109742, guid: 37dc26933dfc55340881ba829a9b20fc, type: 3}
       propertyPath: m_LocalPosition.z
@@ -133,6 +133,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9135414898430823076, guid: 37dc26933dfc55340881ba829a9b20fc, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 613658156, guid: 1bc6097228993f045852159e71f81d5b, type: 3}
+    - target: {fileID: 9135414898430823076, guid: 37dc26933dfc55340881ba829a9b20fc, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9135414898430823076, guid: 37dc26933dfc55340881ba829a9b20fc, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3320720286562385059, guid: 37dc26933dfc55340881ba829a9b20fc, type: 3}
     m_RemovedGameObjects: []
@@ -144,6 +156,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3571091223179788414, guid: 37dc26933dfc55340881ba829a9b20fc, type: 3}
       insertIndex: 4
       addedObject: {fileID: 9111254300838693033}
+    - targetCorrespondingSourceObject: {fileID: 3571091223179788414, guid: 37dc26933dfc55340881ba829a9b20fc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6688032208066630032}
   m_SourcePrefab: {fileID: 100100000, guid: 37dc26933dfc55340881ba829a9b20fc, type: 3}
 --- !u!4 &2828512535931825964 stripped
 Transform:
@@ -168,9 +183,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: a700ff5702846ba4d9c8e790adfb2f23, type: 2}
+  deathAnimationDuration: 1
   _playerLayer:
     serializedVersion: 2
     m_Bits: 64
   _sightRange: 10
   _attackRange: 8
+  _drop: {fileID: 7431681385107224975, guid: c7f72f23ffce629458f12e9819803721, type: 3}
+  _dropSprite: {fileID: 21300000, guid: 27315f781d922f240af5885485b4f6ad, type: 3}
+  _disappearDelay: 2
   _weapon: {fileID: 4623167199854828620}
+  _facingRight: 1
+--- !u!95 &6688032208066630032
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8146406442343387452}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f2855d618fc8d9c499189d3f39b9cbbc, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

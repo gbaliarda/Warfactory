@@ -283,18 +283,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 0}
+  deathAnimationDuration: 1
   _weapon: {fileID: 1570659979}
   _potion: {fileID: 0}
   _potionBuilding: {fileID: 0}
   _chestBuilding: {fileID: 0}
   _slider: {fileID: 0}
   _baseStats: {fileID: 0}
+  _hotbarItems: {fileID: 0}
+  _buildHotbarItems: {fileID: 0}
   _shoot: 323
   _interact: 324
-  _moveForward: 119
-  _moveBack: 115
-  _moveLeft: 97
-  _moveRight: 100
   _hotbarSlot1: 49
   _hotbarSlot2: 50
   _hotbarSlot3: 51
@@ -302,6 +301,9 @@ MonoBehaviour:
   _hotbarSlot5: 53
   _hotbarSlot6: 54
   _inventory: 105
+  _buildModeKey: 113
+  _rotateBuilding: 114
+  _shootOriginDistance: 5
 --- !u!58 &41635691
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -607,14 +609,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShotgunEnemy
       objectReference: {fileID: 0}
-    - target: {fileID: 6520212041241818015, guid: 45ff5ab6ee6e72a488242e9c5d10d1c5, type: 3}
-      propertyPath: _drop
-      value: 
-      objectReference: {fileID: 7431681385107224975, guid: c7f72f23ffce629458f12e9819803721, type: 3}
-    - target: {fileID: 6520212041241818015, guid: 45ff5ab6ee6e72a488242e9c5d10d1c5, type: 3}
-      propertyPath: _dropSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 27315f781d922f240af5885485b4f6ad, type: 3}
     - target: {fileID: 6570158415499799592, guid: 45ff5ab6ee6e72a488242e9c5d10d1c5, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.445753
@@ -747,7 +741,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.7310704, y: 0.18252754, z: -10.024138}
+  m_LocalPosition: {x: -4.187446, y: 0.17587754, z: -10.024138}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13959,18 +13953,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: BowEnemy
       objectReference: {fileID: 0}
-    - target: {fileID: 8146406442343387452, guid: baceb543ac3b7ec46b23d68c45e42c2c, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9111254300838693033, guid: baceb543ac3b7ec46b23d68c45e42c2c, type: 3}
-      propertyPath: _drop
-      value: 
-      objectReference: {fileID: 7431681385107224975, guid: c7f72f23ffce629458f12e9819803721, type: 3}
-    - target: {fileID: 9111254300838693033, guid: baceb543ac3b7ec46b23d68c45e42c2c, type: 3}
-      propertyPath: _dropSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 27315f781d922f240af5885485b4f6ad, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
