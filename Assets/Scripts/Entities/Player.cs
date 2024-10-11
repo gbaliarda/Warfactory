@@ -57,6 +57,8 @@ public class Player : Actor, IBuffable
 
     private int _buildingRotation = 1;
 
+    [SerializeField] private GameObject grave;
+
 
     protected void Awake()
     {
@@ -251,5 +253,15 @@ public class Player : Actor, IBuffable
         if (isDead) return;
         stats.RemoveStats(potion.PotionStats);
         buffs.Remove(potion);
+    }
+    
+    // Override the Die method from Actor to display the death animation
+    protected override IEnumerator DestroyAfterAnimation()
+    {
+        yield return new WaitForSeconds(deathAnimationDuration);
+        
+        GameObject graveInstance = Instantiate(grave, transform.position, Quaternion.identity);
+        
+        Destroy(gameObject);
     }
 }
