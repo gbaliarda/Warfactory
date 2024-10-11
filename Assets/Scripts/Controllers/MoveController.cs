@@ -20,6 +20,6 @@ public class MoveController : MonoBehaviour, IMovable
 
     public void Move(Vector2 direction)
     {
-        transform.Translate(direction * _movementSpeed * Time.deltaTime);
+        transform.Translate(_movementSpeed * Time.deltaTime * direction);
     }
 }

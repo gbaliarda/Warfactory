@@ -14,9 +14,13 @@ public class Enemy : Actor
     protected AttackController attackController;
     private bool _playerInSight, _playerInAttack;
 
+    private Animator _animator;
+    [SerializeField] private float _disappearDelay = 2f; // Time to wait before destroying after disappearing
+    
     void Awake()
     {
         moveController = GetComponent<MoveController>();
+        _animator = GetComponent<Animator>();
 
         if (moveController != null) moveController.SetSpeed(stats.MovementSpeed);
     }
@@ -60,8 +64,62 @@ public class Enemy : Actor
 
         /*attackController.Attack(Player.Instance.transform.position);*/
     }
-
+    
+    
     public override void Die()
+    {
+        if (isDead) return;
+
+        isDead = true;
+        
+        // Trigger death animation
+        if (_animator != null)
+        {
+            _animator.SetBool("Dead", true);
+        }
+
+        // Disable components
+        if (moveController != null) moveController.enabled = false;
+        if (GetComponent<Collider2D>() != null) GetComponent<Collider2D>().enabled = false;
+
+        // Start coroutine to handle disappearing and item dropping
+        StartCoroutine(DisappearAndDrop());
+    }
+
+    private IEnumerator DisappearAndDrop()
+    {
+        // Wait for the death animation to finish
+        yield return new WaitForSeconds(deathAnimationDuration);
+        
+        SetVisibility(false);
+        DropItem();
+        
+        yield return new WaitForSeconds(_disappearDelay);
+        
+        Destroy(gameObject);
+    }
+
+    private void SetVisibility(bool isVisible)
+    {
+        // Disable all renderers on this object and its children
+        SetRendererVisibility(this.gameObject, isVisible);
+    }
+
+    private void SetRendererVisibility(GameObject obj, bool isVisible)
+    {
+        SpriteRenderer spriteRenderer = obj.GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.enabled = isVisible;
+        }
+        
+        foreach (Transform child in obj.transform)
+        {
+            SetRendererVisibility(child.gameObject, isVisible);
+        }
+    }
+
+    private void DropItem()
     {
         int randomNumber = Random.Range(1, 3);
         if (randomNumber == 1 && _drop != null)
@@ -69,6 +127,5 @@ public class Enemy : Actor
             GameObject bullet = Instantiate(_drop, transform.position + Vector3.up, Quaternion.identity);
             bullet.GetComponent<WorldObject>().Item = new ShotgunBullet(1, "Shotgun Bullet", _dropSprite, 10, 5, ItemRarity.Common);
         }
-        base.Die();
     }
 }
