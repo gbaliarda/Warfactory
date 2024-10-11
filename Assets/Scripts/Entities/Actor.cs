@@ -34,7 +34,7 @@ public class Actor : MonoBehaviour, IDamageable
         
     }
 
-    public int TakeDamage(DamageStats damage)
+    public virtual int TakeDamage(DamageStats damage)
     {
         Debug.Log("TakingDamage");
         if (life > 0)
