@@ -44,7 +44,6 @@ public class Bow : MonoBehaviour, IWeapon
         else 
             cooldownLeft = _stats.Cooldown;
 
-        Debug.Log(cooldownLeft);
     }
 
     public void Attack(Vector2 direction)

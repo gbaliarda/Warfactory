@@ -165,4 +165,4 @@ MonoBehaviour:
   lifetime: 3
   hittableMask:
     serializedVersion: 2
-    m_Bits: 3199
+    m_Bits: 15487

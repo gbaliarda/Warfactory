@@ -39,7 +39,6 @@ public class WorldObject : MonoBehaviour
         if (chest != null && Item != null)
         {
             Item = chest.AddItem(Item);
-            Debug.Log("Item agregado al cofre: " + Item.ItemName);
 
             if (Item.StackAmount <= 0)
             {

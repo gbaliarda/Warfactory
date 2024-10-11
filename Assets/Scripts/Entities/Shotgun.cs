@@ -19,7 +19,7 @@ public class Shotgun : MonoBehaviour, IWeapon
 
     public void Attack(Vector2 origin, Vector2 direction)
     {
-        if (InventoryManager.Instance.GetAmountOfItemType<ShotgunBullet>() == 0) return;
+        // if (!transform.parent.CompareTag("Enemy") && InventoryManager.Instance.GetAmountOfItemType<ShotgunBullet>() == 0) return;
         if (cooldownLeft > 0) return;
 
         int numberOfProjectiles = _stats.Projectiles + _owner.Stats.ProjectileIncrease;

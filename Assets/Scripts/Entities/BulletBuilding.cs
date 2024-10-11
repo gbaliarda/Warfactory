@@ -92,11 +92,8 @@ public class BulletBuilding : MonoBehaviour
 
             LayerMask buildingLayer = LayerMask.GetMask("Building");
             RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero, Mathf.Infinity, buildingLayer);
-            Debug.Log($"ASD {gameObject}");
             if (hit.collider != null && hit.collider.gameObject == gameObject)
             {
-                Debug.Log($"{hit.collider.gameObject}");
-                Debug.Log("DEF");
                 EventManager.Instance.EventOpenBuildingUI(this);
             }
         }
