@@ -64,16 +64,12 @@ public class Projectile : MonoBehaviour, IProjectile
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (owner == null || owner.Owner == null || owner.Owner.CompareTag(other.tag)) return;
-        //Debug.Log(owner.Owner.CompareTag(other.tag));
-        //Debug.Log("next if");
-        //Debug.Log(other.gameObject.layer);
+
+
         if (((1 << other.gameObject.layer) & hittableMask) != 0)
         {
-            Debug.Log(other.transform.name);
-            Debug.Log("adentro");
             if (other.GetComponentInParent<IDamageable>() != null)
             {
-                Debug.Log("Hit trigger");
                 EventQueueManager.Instance.AddEvent(new ApplyDamageCommand(other.GetComponentInParent<IDamageable>(), owner.Stats.DamageStats));
                 if (other.GetComponentInParent<Actor>().IsDead) return;
             }

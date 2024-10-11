@@ -19,7 +19,12 @@ public class TileManager : Singleton<TileManager>
     private Vector3Int? _oldCursorPosition;
     void Start()
     {
-        foreach(var position in _interactableMap.cellBounds.allPositionsWithin)
+        InstantiateInteractableMap();
+    }
+
+    public void InstantiateInteractableMap()
+    {
+        foreach (var position in _interactableMap.cellBounds.allPositionsWithin)
         {
             TileBase currentTile = _interactableMap.GetTile(position);
 
@@ -30,12 +35,24 @@ public class TileManager : Singleton<TileManager>
         }
     }
 
+    public void SetInteractableMap(Tilemap interactableMap)
+    {
+        _interactableMap = interactableMap;
+    }
+
+    public void SetUIHoverMap(Tilemap hoverMap)
+    {
+        _uiHoverMap = hoverMap;
+    }
+
     private void Update()
     {
         if (Player.Instance.BuildingMode)
         {
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
+            int layerToIgnore = LayerMask.GetMask("Camera");
+            int layerMask = ~layerToIgnore;
+            RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero, Mathf.Infinity, layerMask);
             if (hit.collider != null)
             {
                 Vector3 hoverPosition = hit.point;
@@ -54,20 +71,24 @@ public class TileManager : Singleton<TileManager>
                     }
                 } else
                 {
-                    if (_oldCursorPosition != null)
-                    {
-                        _uiHoverMap.SetTile(_oldCursorPosition.Value, null);
-                        _oldCursorPosition = null;
-                    }
+                    hideCursor();
                 }
+            } else
+            {
+                hideCursor();
             }
         } else
         {
-            if (_oldCursorPosition != null)
-            {
-                _uiHoverMap.SetTile(_oldCursorPosition.Value, null);
-                _oldCursorPosition = null;
-            }
+            hideCursor();
+        }
+    }
+
+    void hideCursor()
+    {
+        if (_oldCursorPosition != null)
+        {
+            _uiHoverMap.SetTile(_oldCursorPosition.Value, null);
+            _oldCursorPosition = null;
         }
     }
 

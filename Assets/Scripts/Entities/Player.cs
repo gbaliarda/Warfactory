@@ -93,6 +93,9 @@ public class Player : Actor, IBuffable
     }
     #endregion
 
+    [SerializeField] private GameObject _levelPortal;
+    [SerializeField] private GameObject _basePortal;
+
     new void Update()
     {
         InputMovement();
@@ -103,6 +106,8 @@ public class Player : Actor, IBuffable
         if (Input.GetKey(_hotbarSlot4)) EventManager.Instance.EventHotbarSlotChange(3);
         if (Input.GetKey(_hotbarSlot5)) EventManager.Instance.EventHotbarSlotChange(4);
         if (Input.GetKey(_hotbarSlot6)) EventManager.Instance.EventHotbarSlotChange(5);
+        if (Input.GetKeyDown(KeyCode.P)) Instantiate(_levelPortal, transform.position + transform.rotation * Vector3.up * 2, Quaternion.identity);
+        if (Input.GetKeyDown(KeyCode.O)) Instantiate(_basePortal, transform.position + transform.rotation * Vector3.up * 2, Quaternion.identity);
         if (Input.GetKeyDown(_buildModeKey))
         {
             _buildingMode = !_buildingMode;
@@ -129,7 +134,9 @@ public class Player : Actor, IBuffable
         {
 
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
+            int layerToIgnore = LayerMask.GetMask("Camera");
+            int layerMask = ~layerToIgnore;
+            RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero, Mathf.Infinity, layerMask);
             if (hit.collider != null)
             {
                 Vector3 clickPosition = hit.point;
