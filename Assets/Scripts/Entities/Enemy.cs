@@ -16,6 +16,8 @@ public class Enemy : Actor
 
     private Animator _animator;
     [SerializeField] private float _disappearDelay = 2f; // Time to wait before destroying after disappearing
+    [SerializeField] private string onHitSound = "EnemyHit";
+    
     
     void Awake()
     {
@@ -70,6 +72,7 @@ public class Enemy : Actor
         if (life > 0)
         {
             life -= damage.TotalDamage;
+            AudioManager.Instance.PlaySFX(onHitSound);
             if (_animator != null)
             {
                 _animator.SetTrigger("Hit");
