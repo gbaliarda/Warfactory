@@ -21,15 +21,15 @@ public class Hotbar : MonoBehaviour
         OnHotbarSlotChange(0);
     }
 
-    private void OnInventoryUpdate(Item item)
+    private void OnInventoryUpdate(ItemStack stack)
     {
-        if (item is ShotgunBullet)
-        {
-            //_slots[0].transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = InventoryManager.Instance.GetAmountOfItemType<ShotgunBullet>().ToString();
-        } else if (item is PotionItem)
-        {
-            //_slots[1].transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = InventoryManager.Instance.GetAmountOfItemType<PotionItem>().ToString();
-        }
+        // if (item is ShotgunBullet)
+        // {
+        //     //_slots[0].transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = InventoryManager.Instance.GetAmountOfItemType<ShotgunBullet>().ToString();
+        // } else if (item is PotionItem)
+        // {
+        //     //_slots[1].transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = InventoryManager.Instance.GetAmountOfItemType<PotionItem>().ToString();
+        // }
     }
 
     private void OnHotbarSlotChange(int hotbarSlotIndex)

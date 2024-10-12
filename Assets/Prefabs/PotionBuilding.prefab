@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2469719556424764797}
   - component: {fileID: 5527725667946145379}
-  - component: {fileID: 2796239424791162416}
-  - component: {fileID: 8374387246161286556}
+  - component: {fileID: 7485455887205759895}
+  - component: {fileID: 8448539666178832969}
   m_Layer: 0
   m_Name: PotionBuilding
   m_TagString: Untagged
@@ -86,24 +86,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2796239424791162416
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4926915188028973152}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4357b1a66f76fe743bd1a85bffd50c90, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _potionToFabricate: {fileID: 5902728613753289242, guid: 155793b7db1a0ce40871f67a79b08319, type: 3}
-  _spawnInterval: 5
-  _isOn: 1
-  _objectsContainer: {fileID: 0}
-  _potionSprite: {fileID: 21300000, guid: 107ebf0ce29d56b42b08c21d15d6637e, type: 3}
---- !u!61 &8374387246161286556
+--- !u!61 &7485455887205759895
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -135,16 +118,34 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.034230083}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.25}
-    oldSize: {x: 1, y: 1.5}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.8254244}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &8448539666178832969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4926915188028973152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0478463117261cd4cb8f0823df1e5a60, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  _item: {fileID: 11400000, guid: 4ef06d8cd22318d42b8411f40637e431, type: 2}
+  _spawnInterval: 5
+  _overclock: 1
+  _objectsContainer: {fileID: 0}
+  _isOn: 1
+  _itemEntityPrefab: {fileID: 7431681385107224975, guid: 231deade01d4f4f498fab2b1bef0bf96, type: 3}

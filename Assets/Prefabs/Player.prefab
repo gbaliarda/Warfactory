@@ -664,6 +664,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92e908d07829e3b4e9c311c327336d0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _potionItem: {fileID: 11400000, guid: 4ef06d8cd22318d42b8411f40637e431, type: 2}
   potionStats: {fileID: 11400000, guid: 84f752d9e5e053a4ebf93852746f4f85, type: 2}
 --- !u!212 &4360567388652066452
 SpriteRenderer:

@@ -2,31 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletBuilding : MonoBehaviour
+public class FactoryBuilding : MonoBehaviour
 {
-    [SerializeField] private GameObject _bulletToFabricate;
-    [SerializeField] private Transform _objectsContainer;
-    [SerializeField] private Sprite _bulletSprite;
+    [Header("Stats")]
+    [SerializeField] private Item _item;
     [SerializeField] private float _spawnInterval = 5f;
-    private float _realTimeInterval = 5f;
-    private float _performance = 100f;
-    [SerializeField] private float _overcloak = 1f;
-    [SerializeField] private bool _isOn = true;
+    [SerializeField] private float _overclock = 1f;
 
+    [Header("Etc.")]
+    [SerializeField] private Transform _objectsContainer;
+    [SerializeField] private bool _isOn = true;
+    [SerializeField] private GameObject _itemEntityPrefab;
+
+    public float RealTimeInterval { get; private set; } = 5f;
+    public float Performance { get; private set; } = 100f;
     public float SpawnInterval => _spawnInterval;
-    public float RealTimeInterval => _realTimeInterval;
-    public float Performance => _performance;
-    public float OverCloak => _overcloak;
+    public float Overclock => _overclock;
     public bool IsOn => _isOn;
 
-    private Queue<float> _spawnTimes = new Queue<float>();
+    private readonly Queue<float> _spawnTimes = new();
     private int _maxSpawnRecords = 5;
 
     public void SetOverCloak(float value)
     {
-        _overcloak = value;
-        if (_overcloak == 0) _realTimeInterval = 0;
-        else _realTimeInterval = _spawnInterval / _overcloak;
+        _overclock = value;
+        if (_overclock == 0) RealTimeInterval = 0;
+        else RealTimeInterval = _spawnInterval / _overclock;
     }
     
     public void SetIsOn(bool isOn)
@@ -38,7 +39,7 @@ public class BulletBuilding : MonoBehaviour
         }
     }
 
-    void Start()
+    private void Start()
     {
         if (_objectsContainer == null) _objectsContainer = GameObject.Find("Objects").transform;
 
@@ -49,15 +50,16 @@ public class BulletBuilding : MonoBehaviour
     {
         while (_isOn)
         {
-            yield return new WaitForSeconds(_spawnInterval / _overcloak);
+            yield return new WaitForSeconds(_spawnInterval / _overclock);
 
             if (!IsObjectPresent())
             {
-                Vector3 offset = transform.rotation * Vector3.up;
-                GameObject bullet = Instantiate(_bulletToFabricate, transform.position + offset, Quaternion.identity, _objectsContainer);
-                bullet.GetComponent<WorldObject>().Item = new ShotgunBullet(1, "Shotgun Bullet", _bulletSprite, 10, ItemRarity.Common);
-                
-                float currentTime = Time.time;
+                var offset = transform.rotation * Vector3.up;
+                var go = Instantiate(_itemEntityPrefab, transform.position + offset, Quaternion.identity, _objectsContainer);
+                var itemEntity = go.GetComponent<ItemEntity>();
+                itemEntity.Stack = new ItemStack(_item, 1);
+
+                var currentTime = Time.time;
                 if (_spawnTimes.Count >= _maxSpawnRecords)
                 {
                     _spawnTimes.Dequeue();
@@ -65,14 +67,12 @@ public class BulletBuilding : MonoBehaviour
                 _spawnTimes.Enqueue(currentTime);
             }
 
-
             CalculatePerformance();
         }
     }
 
     private bool IsObjectPresent()
     {
-
         foreach (Transform child in _objectsContainer)
         {
             if (Vector3.Distance(transform.position + Vector3.up, child.position) < 1f)
@@ -84,11 +84,14 @@ public class BulletBuilding : MonoBehaviour
         return false;
     }
 
-    void Update()
+    private void Update()
     {
         if (Input.GetMouseButtonDown(1))
         {
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            var cam = Camera.main;
+            if(!cam) return;
+
+            Vector2 mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
 
             LayerMask buildingLayer = LayerMask.GetMask("Building");
             RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero, Mathf.Infinity, buildingLayer);
@@ -103,16 +106,16 @@ public class BulletBuilding : MonoBehaviour
     {
         if (_spawnTimes.Count < 5) return 100f;
 
-        float[] spawnTimesArray = _spawnTimes.ToArray();
-        float firstTime = spawnTimesArray[0];
-        float lastTime = spawnTimesArray[spawnTimesArray.Length - 1];
-        float totalTime = lastTime - firstTime;
+        var spawnTimesArray = _spawnTimes.ToArray();
+        var firstTime = spawnTimesArray[0];
+        var lastTime = spawnTimesArray[^1];
+        var totalTime = lastTime - firstTime;
 
-        float expectedSpawns = totalTime / (_spawnInterval / _overcloak) + 1;
+        var expectedSpawns = totalTime / (_spawnInterval / _overclock) + 1;
 
         float actualSpawns = _spawnTimes.Count;
 
-        _performance = (actualSpawns / expectedSpawns) * 100f;
-        return Mathf.Clamp(_performance, 0f, 100f);
+        Performance = (actualSpawns / expectedSpawns) * 100f;
+        return Mathf.Clamp(Performance, 0f, 100f);
     }
 }

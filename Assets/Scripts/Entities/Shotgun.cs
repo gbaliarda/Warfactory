@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Shotgun : MonoBehaviour, IWeapon
 {
+    [SerializeField] private Item _shotgunBulletItem;
     [SerializeField] private WeaponStats _stats;
     [SerializeField] private GameObject _prefabToInstantiate;
     [SerializeField] private Transform _bulletOrigin;
-    
+
     private Actor _owner;
     protected float cooldownLeft;
 
@@ -19,7 +20,7 @@ public class Shotgun : MonoBehaviour, IWeapon
 
     public void Attack(Vector2 origin, Vector2 direction)
     {
-        // if (!transform.parent.CompareTag("Enemy") && InventoryManager.Instance.GetAmountOfItemType<ShotgunBullet>() == 0) return;
+        if (InventoryManager.Instance.GetAmountOfItem(_shotgunBulletItem) == 0) return;
         if (cooldownLeft > 0) return;
 
         int numberOfProjectiles = _stats.Projectiles + _owner.Stats.ProjectileIncrease;
@@ -48,7 +49,7 @@ public class Shotgun : MonoBehaviour, IWeapon
         else
             cooldownLeft = _stats.Cooldown;
 
-        InventoryManager.Instance.ConsumeItem<ShotgunBullet>(1);
+        InventoryManager.Instance.ConsumeItem(_shotgunBulletItem, 1);
     }
 
     public void Attack(Vector2 direction)

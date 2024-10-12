@@ -23,26 +23,29 @@ public class InventoryUI : MonoBehaviour
         for (int i = 0; i < _slots.Length; i++)
         {
             GameObject slot = _slots[i].gameObject;
-            List<Item> items = InventoryManager.Instance.Items;
+            List<ItemStack> items = InventoryManager.Instance.Stacks;
             if (i < items.Count)
             {
-                Item item = items[i];
-                Image itemImage = slot.transform.GetChild(0).GetComponent<Image>();
-                itemImage.sprite = item.ItemImage;
-                Color color = itemImage.color;
+                var item = items[i];
+
+                var image = slot.transform.GetChild(0).GetComponent<Image>();
+                image.sprite = item.Item.Sprite;
+                var color = image.color;
                 color.a = 1f;
-                itemImage.color = color;
-                TextMeshProUGUI itemStack = slot.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
-                itemStack.text = item.StackAmount.ToString();
+                image.color = color;
+
+                var stackAmountText = slot.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+                stackAmountText.text = item.Amount.ToString();
             }
             else
             {
-                Image itemImage = slot.transform.GetChild(0).GetComponent<Image>();
-                Color color = itemImage.color;
+                var image = slot.transform.GetChild(0).GetComponent<Image>();
+                var color = image.color;
                 color.a = 0f;
-                itemImage.color = color;
-                TextMeshProUGUI itemStack = slot.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
-                itemStack.text = "";
+                image.color = color;
+
+                var amountText = slot.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+                amountText.text = "";
             }
         }
         InventoryManager.Instance.SetIsOpen(true);

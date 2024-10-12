@@ -1,21 +1,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ChestBuilding : MonoBehaviour
 {
-    [SerializeField] private List<Item> _storedItems = new();
+    [SerializeField] private List<ItemStack> _storedStacks = new();
     [SerializeField] private int _maxCapacity = 20;
     [SerializeField] private LayerMask _chestLayer;
     private bool _isOpen;
 
-    public List<Item> StoredItems => _storedItems;
-
-    void Start()
-    {
-        
-    }
+    public List<ItemStack> StoredStacks => _storedStacks;
 
     void Update()
     {
@@ -39,53 +35,59 @@ public class ChestBuilding : MonoBehaviour
         _isOpen = false;
     }
 
-    public Item AddItem(Item item)
+    public ItemStack AddItemStack(ItemStack newItemStack)
     {
-        foreach (Item storedItem in _storedItems)
+        foreach (ItemStack storedItem in _storedStacks)
         {
-            if (storedItem.ItemId == item.ItemId && storedItem.StackAmount < storedItem.StackSize)
-            {
-                int remainingSpace = storedItem.StackSize - storedItem.StackAmount;
-                int amountToAdd = Mathf.Min(remainingSpace, item.StackAmount);
+            if (storedItem.Item != newItemStack.Item ||
+                storedItem.Amount >= storedItem.Item.MaxStackSize) continue;
 
-                storedItem.IncreaseStack(amountToAdd);
-                item.DecreaseStack(amountToAdd);
+            var remainingSpace = storedItem.Item.MaxStackSize - storedItem.Amount;
+            var amountToAdd = Mathf.Min(remainingSpace, newItemStack.Amount);
 
-                if (item.StackAmount <= 0)
-                {
-                    if (_isOpen) ChestUI.Instance.UpdateItemsInChestUI();
-                    return item;
-                }
-            }
-        }
+            storedItem.IncreaseAmount(amountToAdd);
+            newItemStack.DecreaseAmount(amountToAdd);
 
-        if (item.StackAmount > 0 && _storedItems.Count < _maxCapacity)
-        {
-            _storedItems.Add(item.Clone());
-            item.DecreaseStack(item.StackAmount);
+            if (newItemStack.Amount > 0) continue;
+
             if (_isOpen) ChestUI.Instance.UpdateItemsInChestUI();
-            return item;
+            return newItemStack;
         }
 
-        Debug.Log("No se pudo agregar el ítem al cofre.");
+        if (newItemStack.Amount > 0 && _storedStacks.Count < _maxCapacity)
+        {
+            _storedStacks.Add(newItemStack.Clone());
+            newItemStack.DecreaseAmount(newItemStack.Amount);
+            if (_isOpen) ChestUI.Instance.UpdateItemsInChestUI();
+            return newItemStack;
+        }
+
+        Debug.Log("No se pudo agregar el ï¿½tem al cofre.");
         if (_isOpen) ChestUI.Instance.UpdateItemsInChestUI();
-        return item;
+        return newItemStack;
+    }
+
+    public ItemStack AddItem(Item item, int amount = 1)
+    {
+        var newItemStack = new ItemStack(item, amount);
+        return AddItemStack(newItemStack);
     }
 
     public bool RemoveItem(Item item)
     {
-        if (_storedItems.Contains(item))
-        {
-            _storedItems.Remove(item);
-            if (_isOpen) ChestUI.Instance.UpdateItemsInChestUI();
-            return true;
-        }
+        var indexToRemove = _storedStacks.FindIndex(i => i.Item == item);
+        if (indexToRemove == -1) return false;
 
-        return false;
+        _storedStacks.RemoveAt(indexToRemove);
+        if (_isOpen) ChestUI.Instance.UpdateItemsInChestUI();
+        return true;
     }
 
-    public List<Item> GetStoredItems()
+    public bool RemoveItemStack(ItemStack stack)
     {
-        return _storedItems;
+        var wasRemoved = _storedStacks.Remove(stack);
+        if(_isOpen) ChestUI.Instance.UpdateItemsInChestUI();
+
+        return wasRemoved;
     }
 }
