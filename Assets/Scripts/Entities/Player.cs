@@ -57,6 +57,10 @@ public class Player : Actor, IBuffable
 
     private int _buildingRotation = 1;
 
+    private GameObject _currentZone;
+
+    public GameObject CurrentZone => _currentZone;
+
 
     protected void Awake()
     {
@@ -81,6 +85,7 @@ public class Player : Actor, IBuffable
         EventManager.Instance.OnHotbarItemSelect += OnHotbarItemSelect;
 
         stats = Instantiate(_baseStats);
+        _currentZone = GameObject.Find("Base");
     }
 
     #region MOVEMENT_INPUT
@@ -90,6 +95,11 @@ public class Player : Actor, IBuffable
         float moveY = Input.GetAxisRaw("Vertical");
 
         moveDirection = new Vector2(moveX, moveY).normalized;
+    }
+
+    public void SetCurrentZone(GameObject zone)
+    {
+        _currentZone = zone;
     }
     #endregion
 
@@ -106,8 +116,8 @@ public class Player : Actor, IBuffable
         if (Input.GetKey(_hotbarSlot4)) EventManager.Instance.EventHotbarSlotChange(3);
         if (Input.GetKey(_hotbarSlot5)) EventManager.Instance.EventHotbarSlotChange(4);
         if (Input.GetKey(_hotbarSlot6)) EventManager.Instance.EventHotbarSlotChange(5);
-        if (Input.GetKeyDown(KeyCode.P)) Instantiate(_levelPortal, transform.position + transform.rotation * Vector3.up * 2, Quaternion.identity);
-        if (Input.GetKeyDown(KeyCode.O)) Instantiate(_basePortal, transform.position + transform.rotation * Vector3.up * 2, Quaternion.identity);
+        if (Input.GetKeyDown(KeyCode.P)) Instantiate(_levelPortal, transform.position + transform.rotation * Vector3.up * 2, Quaternion.identity, CurrentZone.transform);
+        if (Input.GetKeyDown(KeyCode.O)) Instantiate(_basePortal, transform.position + transform.rotation * Vector3.up * 2, Quaternion.identity, CurrentZone.transform);
         if (Input.GetKeyDown(_buildModeKey))
         {
             _buildingMode = !_buildingMode;
@@ -151,7 +161,7 @@ public class Player : Actor, IBuffable
                         if (!EventSystem.current.IsPointerOverGameObject() && _potionBuilding.gameObject.activeSelf && _potionBuilding.GetComponent<IBuilding>() != null)
                         {
                             TileManager.Instance.SetOccupied(cellPosition);
-                            (_potionBuilding as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2, _buildingRotation);
+                            (_potionBuilding as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2 + new Vector3(0, 0, -1), _buildingRotation);
                         }
                         if (_slider.gameObject.activeSelf && _slider.GetComponent<IBuilding>() != null)
                         {

@@ -32,7 +32,7 @@ public class BuildingUI : Singleton<BuildingUI>
         _title.text = "Shotgun Bullet Building";
         _time.text = $"{OpenBuilding.RealTimeInterval:F2} sec";
         _performance.text = $"{(OpenBuilding.Performance):F1}%";
-        _overclock.value = OpenBuilding.OverCloak;
+        _overclock.value = OpenBuilding.OverClock;
         _on.isOn = OpenBuilding.IsOn;
     }
 
@@ -43,7 +43,7 @@ public class BuildingUI : Singleton<BuildingUI>
 
     public void OnOvercloakValueChange()
     {
-        OpenBuilding.SetOverCloak(_overclock.value);
+        OpenBuilding.SetOverClock(_overclock.value);
         RefreshOpenBuildingStats();
     }
     

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletBuilding : MonoBehaviour
+public class BulletBuilding : MonoBehaviour, IDamageable
 {
     [SerializeField] private GameObject _bulletToFabricate;
     [SerializeField] private Transform _objectsContainer;
@@ -10,23 +10,26 @@ public class BulletBuilding : MonoBehaviour
     [SerializeField] private float _spawnInterval = 5f;
     private float _realTimeInterval = 5f;
     private float _performance = 100f;
-    [SerializeField] private float _overcloak = 1f;
+    [SerializeField] private float _overclock = 1f;
     [SerializeField] private bool _isOn = true;
+    [SerializeField] protected BuildingStats stats;
+    [SerializeField] private GameObject _healthBarPrefab;
+    private HealthBarUI _healthBar;
 
     public float SpawnInterval => _spawnInterval;
     public float RealTimeInterval => _realTimeInterval;
     public float Performance => _performance;
-    public float OverCloak => _overcloak;
+    public float OverClock => _overclock;
     public bool IsOn => _isOn;
 
-    private Queue<float> _spawnTimes = new Queue<float>();
+    private Queue<float> _spawnTimes = new();
     private int _maxSpawnRecords = 5;
 
-    public void SetOverCloak(float value)
+    public void SetOverClock(float value)
     {
-        _overcloak = value;
-        if (_overcloak == 0) _realTimeInterval = 0;
-        else _realTimeInterval = _spawnInterval / _overcloak;
+        _overclock = value;
+        if (_overclock == 0) _realTimeInterval = 0;
+        else _realTimeInterval = _spawnInterval / _overclock;
     }
     
     public void SetIsOn(bool isOn)
@@ -43,18 +46,25 @@ public class BulletBuilding : MonoBehaviour
         if (_objectsContainer == null) _objectsContainer = GameObject.Find("Objects").transform;
 
         StartCoroutine(SpawnBulletCoroutine());
+        _overclock = stats.Overclock;
+        life = MaxLife;
+
+        GameObject healthBarInstance = Instantiate(_healthBarPrefab, transform.position, Quaternion.identity, FindObjectOfType<Canvas>().transform);
+        healthBarInstance.transform.SetSiblingIndex(0);
+        _healthBar = healthBarInstance.GetComponent<HealthBarUI>();
+        _healthBar.Setup(this, transform);
     }
 
     private IEnumerator SpawnBulletCoroutine()
     {
         while (_isOn)
         {
-            yield return new WaitForSeconds(_spawnInterval / _overcloak);
+            yield return new WaitForSeconds(_spawnInterval / _overclock);
 
             if (!IsObjectPresent())
             {
                 Vector3 offset = transform.rotation * Vector3.up;
-                GameObject bullet = Instantiate(_bulletToFabricate, transform.position + offset, Quaternion.identity, _objectsContainer);
+                GameObject bullet = Instantiate(_bulletToFabricate, transform.position + offset, Quaternion.identity, transform);
                 bullet.GetComponent<WorldObject>().Item = new ShotgunBullet(1, "Shotgun Bullet", _bulletSprite, 10, ItemRarity.Common);
                 
                 float currentTime = Time.time;
@@ -108,11 +118,46 @@ public class BulletBuilding : MonoBehaviour
         float lastTime = spawnTimesArray[spawnTimesArray.Length - 1];
         float totalTime = lastTime - firstTime;
 
-        float expectedSpawns = totalTime / (_spawnInterval / _overcloak) + 1;
+        float expectedSpawns = totalTime / (_spawnInterval / _overclock) + 1;
 
         float actualSpawns = _spawnTimes.Count;
 
         _performance = (actualSpawns / expectedSpawns) * 100f;
         return Mathf.Clamp(_performance, 0f, 100f);
+    }
+
+    protected bool isDead = false;
+    protected int life;
+
+    public int MaxLife => stats.MaxLife;
+
+    public int Life => life;
+
+    public bool IsDead => isDead;
+
+    public int TakeDamage(DamageStats damage)
+    {
+        Debug.Log("Building life is" + life);
+        if (life > 0)
+            life -= damage.TotalDamage;
+
+        if (life <= 0)
+            Die();
+
+        return life;
+    }
+
+    public virtual void Die()
+    {
+        if (isDead) return;
+        isDead = true;
+
+        Destroy(_healthBar.gameObject);
+        Destroy(gameObject);
+    }
+
+    public int HealDamage(DamageStats damage)
+    {
+        throw new System.NotImplementedException();
     }
 }

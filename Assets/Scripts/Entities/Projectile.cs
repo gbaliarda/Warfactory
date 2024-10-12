@@ -68,10 +68,9 @@ public class Projectile : MonoBehaviour, IProjectile
 
         if (((1 << other.gameObject.layer) & hittableMask) != 0)
         {
-            if (other.GetComponentInParent<IDamageable>() != null)
+            if (other.GetComponentInParent<IDamageable>() != null && !(owner.Owner.CompareTag("Player") && other.CompareTag("Building")))
             {
                 EventQueueManager.Instance.AddEvent(new ApplyDamageCommand(other.GetComponentInParent<IDamageable>(), owner.Stats.DamageStats));
-                if (other.GetComponentInParent<Actor>().IsDead) return;
             }
             Die();
         }

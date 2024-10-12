@@ -102,8 +102,10 @@ MonoBehaviour:
   _objectsContainer: {fileID: 0}
   _bulletSprite: {fileID: 21300000, guid: 27315f781d922f240af5885485b4f6ad, type: 3}
   _spawnInterval: 5
-  _overcloak: 1
+  _overclock: 1
   _isOn: 1
+  stats: {fileID: 11400000, guid: 38303e95cbd89fc48b33b087aeb678f3, type: 2}
+  _healthBarPrefab: {fileID: 3385906106993239456, guid: 83be5fb738f7cc94aa86588e1e3aff35, type: 3}
 --- !u!61 &5669238183982359888
 BoxCollider2D:
   m_ObjectHideFlags: 0

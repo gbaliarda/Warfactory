@@ -4,7 +4,7 @@ namespace Entities
 {
     public class WeaponEnemy : Enemy
     {
-        [SerializeField] private MonoBehaviour _weapon;
+        [SerializeField] protected MonoBehaviour _weapon;
         public IWeapon Weapon => _weapon as IWeapon;
 
         [SerializeField] private bool _facingRight = true;
@@ -12,7 +12,7 @@ namespace Entities
         protected override void Attack()
         {
             var player = Player.Instance;
-            FacePlayer(player.transform);
+            FaceTarget(player.transform);
             
             if (_weapon == null || _weapon is not IWeapon)
             {
@@ -29,10 +29,10 @@ namespace Entities
             base.Chase();
             
             var player = Player.Instance;
-            FacePlayer(player.transform);
+            FaceTarget(player.transform);
         }
         
-        private void FacePlayer(Transform target)
+        protected void FaceTarget(Transform target)
         {
             if (target.position.x > transform.position.x && !_facingRight)
             {

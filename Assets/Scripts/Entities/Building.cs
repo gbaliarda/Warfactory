@@ -28,6 +28,6 @@ public class Building : MonoBehaviour, IBuilding
 
         Quaternion targetRotation = Quaternion.Euler(0, 0, -90 * (rotation - 1));
 
-        Instantiate(_buildingPrefab, position, targetRotation);
+        Instantiate(_buildingPrefab, position, targetRotation, Player.Instance.CurrentZone.transform);
     }
 }

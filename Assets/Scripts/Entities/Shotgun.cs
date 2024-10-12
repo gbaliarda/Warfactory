@@ -19,7 +19,8 @@ public class Shotgun : MonoBehaviour, IWeapon
 
     public void Attack(Vector2 origin, Vector2 direction)
     {
-        // if (!transform.parent.CompareTag("Enemy") && InventoryManager.Instance.GetAmountOfItemType<ShotgunBullet>() == 0) return;
+        if (!transform.parent.CompareTag("Enemy") && InventoryManager.Instance.GetAmountOfItemType<ShotgunBullet>() == 0) return;
+        if (Owner.IsDead) return;
         if (cooldownLeft > 0) return;
 
         int numberOfProjectiles = _stats.Projectiles + _owner.Stats.ProjectileIncrease;
@@ -48,7 +49,7 @@ public class Shotgun : MonoBehaviour, IWeapon
         else
             cooldownLeft = _stats.Cooldown;
 
-        InventoryManager.Instance.ConsumeItem<ShotgunBullet>(1);
+        if (transform.parent.CompareTag("Player")) InventoryManager.Instance.ConsumeItem<ShotgunBullet>(1);
     }
 
     public void Attack(Vector2 direction)
