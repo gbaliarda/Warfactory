@@ -41,7 +41,7 @@ public class BuildingUI : Singleton<BuildingUI>
 
     public void OnOvercloakValueChange()
     {
-        OpenBuilding.SetOverCloak(_overclock.value);
+        OpenBuilding.SetOverclock(_overclock.value);
         RefreshOpenBuildingStats();
     }
     

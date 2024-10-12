@@ -100,7 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _shotgunBulletItem: {fileID: 11400000, guid: 11daeb71571a0ef41b8f72fc29dd0445, type: 2}
   _stats: {fileID: 11400000, guid: fd018a49a32483e4e83c8df2c11b3609, type: 2}
-  _prefabToInstantiate: {fileID: 3081791885587078914, guid: 06362b4c14735a64d8d1becf97ec5e3b, type: 3}
+  _prefabToInstantiate: {fileID: 3081791885587078914, guid: 8902db26320ab0a45a668b21424b80cd, type: 3}
   _bulletOrigin: {fileID: 6255145797217282967}
 --- !u!1 &8048821600331310914
 GameObject:

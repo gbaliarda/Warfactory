@@ -16,6 +16,7 @@ public class Player : Actor, IBuffable
     [SerializeField] private MonoBehaviour _potionBuilding;
     [SerializeField] private MonoBehaviour _chestBuilding;
     [SerializeField] private MonoBehaviour _slider;
+    [SerializeField] private MonoBehaviour _extractor;
     [SerializeField] private ActorStats _baseStats;
     [SerializeField] private Transform _hotbarItems;
     [SerializeField] private Transform _buildHotbarItems;
@@ -167,6 +168,11 @@ public class Player : Actor, IBuffable
                         {
                             TileManager.Instance.SetOccupied(cellPosition);
                             (_chestBuilding as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2, _buildingRotation);
+                        }
+                        if(_extractor.gameObject.activeSelf && _extractor.GetComponent<IBuilding>() != null)
+                        {
+                            TileManager.Instance.SetOccupied(cellPosition);
+                            (_extractor as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2, _buildingRotation);
                         }
                     }
                     /*if (TileManager.Instance.IsInteractable(cellPosition))

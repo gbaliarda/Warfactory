@@ -64,6 +64,12 @@ public class ItemEntity : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("Pick up item");
+            EventManager.Instance.EventPickUpItemEntity(this);
+        }
+
         var chest = collision.gameObject.GetComponent<ChestBuilding>();
         if (chest == null || Stack == null) return;
 

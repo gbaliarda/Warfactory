@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class FactoryBuilding : MonoBehaviour
 {
+    #region Serialized Fields
+
     [Header("Stats")]
     [SerializeField] private Item _item;
     [SerializeField] private float _spawnInterval = 5f;
@@ -14,16 +16,22 @@ public class FactoryBuilding : MonoBehaviour
     [SerializeField] private bool _isOn = true;
     [SerializeField] private GameObject _itemEntityPrefab;
 
+    #endregion
+
+    #region Properties
+
     public float RealTimeInterval { get; private set; } = 5f;
     public float Performance { get; private set; } = 100f;
     public float SpawnInterval => _spawnInterval;
     public float Overclock => _overclock;
     public bool IsOn => _isOn;
 
+    #endregion
+
     private readonly Queue<float> _spawnTimes = new();
     private int _maxSpawnRecords = 5;
 
-    public void SetOverCloak(float value)
+    public void SetOverclock(float value)
     {
         _overclock = value;
         if (_overclock == 0) RealTimeInterval = 0;
@@ -35,18 +43,18 @@ public class FactoryBuilding : MonoBehaviour
         _isOn = isOn;
         if (_isOn)
         {
-            StartCoroutine(SpawnBulletCoroutine());
+            StartCoroutine(SpawnItemCoroutine());
         }
     }
 
-    private void Start()
+    protected virtual void Start()
     {
         if (_objectsContainer == null) _objectsContainer = GameObject.Find("Objects").transform;
 
-        StartCoroutine(SpawnBulletCoroutine());
+        StartCoroutine(SpawnItemCoroutine());
     }
 
-    private IEnumerator SpawnBulletCoroutine()
+    protected virtual IEnumerator SpawnItemCoroutine()
     {
         while (_isOn)
         {
@@ -71,7 +79,7 @@ public class FactoryBuilding : MonoBehaviour
         }
     }
 
-    private bool IsObjectPresent()
+    protected virtual bool IsObjectPresent()
     {
         foreach (Transform child in _objectsContainer)
         {
@@ -84,7 +92,7 @@ public class FactoryBuilding : MonoBehaviour
         return false;
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         if (Input.GetMouseButtonDown(1))
         {
