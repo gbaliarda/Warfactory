@@ -18,8 +18,7 @@ public class Enemy : Actor
     [SerializeField] private float _disappearDelay = 2f; // Time to wait before destroying after disappearing
     [SerializeField] private string onHitSound = "EnemyHit";
 
-
-    void Awake()
+    protected override void Awake()
     {
         moveController = GetComponent<MoveController>();
         _animator = GetComponent<Animator>();

@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -9,7 +7,7 @@ public class Player : Actor, IBuffable
 {
     public static Player Instance { get; private set; }
 
-    private Vector2 moveDirection;
+    private Vector2 _moveDirection;
 
     [SerializeField] private MonoBehaviour _weapon;
     [SerializeField] private MonoBehaviour _potion;
@@ -20,7 +18,7 @@ public class Player : Actor, IBuffable
     [SerializeField] private ActorStats _baseStats;
     [SerializeField] private Transform _hotbarItems;
     [SerializeField] private Transform _buildHotbarItems;
-    
+
     // SFX
     [SerializeField] private string deadSound = "PlayerDead";
 
@@ -64,7 +62,7 @@ public class Player : Actor, IBuffable
     [SerializeField] private GameObject grave;
 
 
-    protected void Awake()
+    protected override void Awake()
     {
         if (Instance != null && this.gameObject != null)
         {
@@ -82,7 +80,7 @@ public class Player : Actor, IBuffable
     {
         base.Start();
 
-        buffs ??= new();
+        buffs ??= new List<IPotion>();
 
         EventManager.Instance.OnHotbarItemSelect += OnHotbarItemSelect;
 
@@ -92,17 +90,17 @@ public class Player : Actor, IBuffable
     #region MOVEMENT_INPUT
     void InputMovement()
     {
-        float moveX = Input.GetAxisRaw("Horizontal");
-        float moveY = Input.GetAxisRaw("Vertical");
+        var moveX = Input.GetAxisRaw("Horizontal");
+        var moveY = Input.GetAxisRaw("Vertical");
 
-        moveDirection = new Vector2(moveX, moveY).normalized;
+        _moveDirection = new Vector2(moveX, moveY).normalized;
     }
     #endregion
 
     [SerializeField] private GameObject _levelPortal;
     [SerializeField] private GameObject _basePortal;
 
-    new void Update()
+    protected override void Update()
     {
         InputMovement();
 
@@ -138,19 +136,21 @@ public class Player : Actor, IBuffable
 
         if (Input.GetKeyDown(_interact) && _buildingMode)
         {
+            var cam = Camera.main;
+            if(!cam) return;
 
-            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            var mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
             int layerToIgnore = LayerMask.GetMask("Camera");
             int layerMask = ~layerToIgnore;
-            RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero, Mathf.Infinity, layerMask);
+            var hit = Physics2D.Raycast(mousePosition, Vector2.zero, Mathf.Infinity, layerMask);
             if (hit.collider != null)
             {
                 Vector3 clickPosition = hit.point;
-                GameObject clickedObject = hit.collider.gameObject;
+                var clickedObject = hit.collider.gameObject;
 
                 if (clickedObject.TryGetComponent<Tilemap>(out var tilemap))
                 {
-                    Vector3Int cellPosition = tilemap.WorldToCell(clickPosition);
+                    var cellPosition = tilemap.WorldToCell(clickPosition);
 
                     if (TileManager.Instance.IsInteractable(cellPosition))
                     {
@@ -224,12 +224,12 @@ public class Player : Actor, IBuffable
         Move();
     }
 
-    void Move()
+    private void Move()
     {
-        Rigidbody.velocity = moveDirection * stats.MovementSpeed;
+        Rigidbody.velocity = _moveDirection * stats.MovementSpeed;
     }
 
-    private void OnHotbarItemSelect(GameObject gameObject)
+    private void OnHotbarItemSelect(GameObject go)
     {
 
     }
@@ -263,15 +263,15 @@ public class Player : Actor, IBuffable
         stats.RemoveStats(potion.PotionStats);
         buffs.Remove(potion);
     }
-    
+
     // Override the Die method from Actor to display the death animation
     protected override IEnumerator DestroyAfterAnimation()
     {
         yield return new WaitForSeconds(deathAnimationDuration);
-        
+
         GameObject graveInstance = Instantiate(grave, transform.position, Quaternion.identity);
         AudioManager.Instance.PlaySFX(deadSound);
-        
+
         Destroy(gameObject);
     }
 }
