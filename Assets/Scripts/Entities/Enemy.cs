@@ -19,6 +19,9 @@ public class Enemy : Actor
 
     public float SightRange => _sightRange;
 
+    [SerializeField] private string onHitSound = "EnemyHit";
+    
+    
     void Awake()
     {
         moveController = GetComponent<MoveController>();
@@ -66,8 +69,26 @@ public class Enemy : Actor
 
         /*attackController.Attack(Player.Instance.transform.position);*/
     }
-    
-    
+
+    public override int TakeDamage(DamageStats damage)
+    {
+        if (life > 0)
+        {
+            life -= damage.TotalDamage;
+            AudioManager.Instance.PlaySFX(onHitSound);
+            if (_animator != null)
+            {
+                _animator.SetTrigger("Hit");
+            }
+        }
+
+        if (life <= 0)
+            Die();
+
+        return life;
+    }
+
+
     public override void Die()
     {
         if (isDead) return;
@@ -126,7 +147,7 @@ public class Enemy : Actor
         int randomNumber = Random.Range(1, 3);
         if (randomNumber == 1 && _drop != null)
         {
-            GameObject bullet = Instantiate(_drop, transform.position + Vector3.up, Quaternion.identity, transform.parent);
+            GameObject bullet = Instantiate(_drop, transform.position, Quaternion.identity, transform.parent);
             bullet.GetComponent<WorldObject>().Item = new ShotgunBullet(1, "Shotgun Bullet", _dropSprite, 10, 5, ItemRarity.Common);
         }
     }

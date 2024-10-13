@@ -156,6 +156,11 @@ public class BulletBuilding : MonoBehaviour, IDamageable
         Destroy(gameObject);
     }
 
+    void OnDestroy()
+    {
+        if (_healthBar != null) Destroy(_healthBar.gameObject);
+    }
+
     public int HealDamage(DamageStats damage)
     {
         throw new System.NotImplementedException();

@@ -394,6 +394,7 @@ MonoBehaviour:
   _buildModeKey: 113
   _rotateBuilding: 114
   _shootOriginDistance: 1.3
+  grave: {fileID: 2256571799273295018, guid: fc8bf2e434871904fa34bcb95db9e790, type: 3}
   _levelPortal: {fileID: 0}
   _basePortal: {fileID: 0}
 --- !u!50 &311994115042161609

@@ -20,6 +20,9 @@ public class Player : Actor, IBuffable
     [SerializeField] private ActorStats _baseStats;
     [SerializeField] private Transform _hotbarItems;
     [SerializeField] private Transform _buildHotbarItems;
+    
+    // SFX
+    [SerializeField] private string deadSound = "PlayerDead";
 
     public bool BuildingMode => _buildingMode;
 
@@ -61,6 +64,7 @@ public class Player : Actor, IBuffable
     private GameObject _currentZone;
 
     public GameObject CurrentZone => _currentZone;
+    [SerializeField] private GameObject grave;
 
 
     protected void Awake()
@@ -303,5 +307,16 @@ public class Player : Actor, IBuffable
         if (TemporalLevel.Instance != null) Destroy(TemporalLevel.Instance.gameObject);
         if (LevelPortal.Instance != null) Destroy(LevelPortal.Instance.gameObject);
         if (BasePortal.Instance != null) Destroy(BasePortal.Instance.gameObject);
+    }
+    
+    // Override the Die method from Actor to display the death animation
+    protected override IEnumerator DestroyAfterAnimation()
+    {
+        yield return new WaitForSeconds(deathAnimationDuration);
+        
+        GameObject graveInstance = Instantiate(grave, transform.position, Quaternion.identity);
+        AudioManager.Instance.PlaySFX(deadSound);
+        
+        Destroy(gameObject);
     }
 }
