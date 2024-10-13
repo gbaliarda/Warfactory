@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,7 @@ public class FactoryBuilding : MonoBehaviour
     #region Serialized Fields
 
     [Header("Stats")]
-    [SerializeField] private Item _item;
+    [SerializeField] private ItemRecipe _recipe;
     [SerializeField] private float _spawnInterval = 5f;
     [SerializeField] private float _overclock = 1f;
 
@@ -25,11 +26,20 @@ public class FactoryBuilding : MonoBehaviour
     public float SpawnInterval => _spawnInterval;
     public float Overclock => _overclock;
     public bool IsOn => _isOn;
+    public IInventory Inventory => _inventory;
 
     #endregion
 
     private readonly Queue<float> _spawnTimes = new();
     private int _maxSpawnRecords = 5;
+    private IInventory _inventory;
+
+    private void Awake()
+    {
+        _inventory = GetComponent<IInventory>();
+        if (_inventory == null && _recipe.Ingredients.Length > 0)
+            throw new Exception("Inventory component is required if recipe has ingredients");
+    }
 
     public void SetOverclock(float value)
     {
@@ -60,12 +70,12 @@ public class FactoryBuilding : MonoBehaviour
         {
             yield return new WaitForSeconds(_spawnInterval / _overclock);
 
-            if (!IsObjectPresent())
+            if (!IsObjectPresent() && _recipe.CanCraft(_inventory))
             {
                 var offset = transform.rotation * Vector3.up;
                 var go = Instantiate(_itemEntityPrefab, transform.position + offset, Quaternion.identity, _objectsContainer);
                 var itemEntity = go.GetComponent<ItemEntity>();
-                itemEntity.Stack = new ItemStack(_item, 1);
+                itemEntity.Stack = _recipe.Craft(_inventory);
 
                 var currentTime = Time.time;
                 if (_spawnTimes.Count >= _maxSpawnRecords)

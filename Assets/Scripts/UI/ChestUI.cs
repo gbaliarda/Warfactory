@@ -27,7 +27,7 @@ public class ChestUI : Singleton<ChestUI>
 
     public void UpdateItemsInChestUI()
     {
-        var stacks = OpenChest.StoredStacks;
+        var stacks = OpenChest.Stacks;
         for (int i = 0; i < _slots.Length; i++)
         {
             var slot = _slots[i].gameObject;

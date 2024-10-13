@@ -1,25 +1,31 @@
+using System;
+using UnityEngine;
 
+[Serializable]
 public class ItemStack
 {
-    public Item Item { get; protected set; }
-    public int Amount { get; protected set; }
+    [SerializeField] private Item _item;
+    [SerializeField] private int _amount;
+
+    public Item Item => _item;
+    public int Amount => _amount;
 
     public ItemStack(Item item, int amount)
     {
-        Item = item;
-        Amount = amount;
+        _item = item;
+        _amount = amount;
     }
 
     public void IncreaseAmount(int amount)
     {
         if (Amount + amount <= Item.MaxStackSize)
         { 
-            Amount += amount;
+            _amount += amount;
         }
     }
 
     public void DecreaseAmount(int amount) {
-        Amount -= amount;
+        _amount -= amount;
     }
 
 

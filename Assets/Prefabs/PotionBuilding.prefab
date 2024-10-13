@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0478463117261cd4cb8f0823df1e5a60, type: 3}
   m_Name:
   m_EditorClassIdentifier:
-  _item: {fileID: 11400000, guid: 4ef06d8cd22318d42b8411f40637e431, type: 2}
+  _recipe: {fileID: 11400000, guid: 37eb3bf7ffe1e5940988dd955f6dfb3c, type: 2}
   _spawnInterval: 5
   _overclock: 1
   _objectsContainer: {fileID: 0}

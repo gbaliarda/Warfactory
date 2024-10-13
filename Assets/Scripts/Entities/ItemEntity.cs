@@ -70,15 +70,13 @@ public class ItemEntity : MonoBehaviour
             EventManager.Instance.EventPickUpItemEntity(this);
         }
 
-        var chest = collision.gameObject.GetComponent<ChestBuilding>();
-        if (chest == null || Stack == null) return;
+        var inventory = collision.gameObject.GetComponentInParent<IInventory>();
+        if (inventory == null || Stack == null) return;
 
-        Stack = chest.AddItemStack(Stack);
+        Stack = inventory.AddItemStack(Stack);
         Debug.Log("Item agregado al cofre: " + _item.Name);
 
         if (Stack.Amount <= 0)
-        {
             Destroy(gameObject);
-        }
     }
 }
