@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2646531651972596788}
   - component: {fileID: 5247236137354107349}
   - component: {fileID: 5669238183982359888}
-  - component: {fileID: 3787752243502293230}
+  - component: {fileID: 9213971767818421520}
   m_Layer: 12
   m_Name: ExtractorBuilding
   m_TagString: Building
@@ -131,7 +131,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &3787752243502293230
+--- !u!114 &9213971767818421520
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,12 +140,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 4472525941911544458}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0478463117261cd4cb8f0823df1e5a60, type: 3}
+  m_Script: {fileID: 11500000, guid: 5b8f6904a15046dfa0fa1471ec4302f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _recipe: {fileID: 11400000, guid: fa828abf4965f604c9385a4096509d0d, type: 2}
+  _recipe: {fileID: 0}
   _spawnInterval: 5
   _overclock: 1
   _objectsContainer: {fileID: 0}
   _isOn: 1
   _itemEntityPrefab: {fileID: 7431681385107224975, guid: 231deade01d4f4f498fab2b1bef0bf96, type: 3}
+  _resourceTiles:
+  - tile: {fileID: 11400000, guid: a345216a898d18c4ba41a23dccd67a2b, type: 2}
+    item: {fileID: 11400000, guid: 0f00c8fa298093f43aa6685df5df2f85, type: 2}

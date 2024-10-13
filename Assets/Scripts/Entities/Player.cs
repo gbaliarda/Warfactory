@@ -171,8 +171,15 @@ public class Player : Actor, IBuffable
                         }
                         if(_extractor.gameObject.activeSelf && _extractor.GetComponent<IBuilding>() != null)
                         {
-                            TileManager.Instance.SetOccupied(cellPosition);
-                            (_extractor as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2, _buildingRotation);
+                            if (TileManager.Instance.IsResource(cellPosition))
+                            {
+                                var tile = TileManager.Instance.GetResourceTile(cellPosition);
+
+                                TileManager.Instance.SetOccupied(cellPosition);
+                                var go = (_extractor as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2, _buildingRotation);
+                                var extractor = go.GetComponent<ExtractorBuilding>();
+                                extractor.Tile = tile;
+                            }
                         }
                     }
                     /*if (TileManager.Instance.IsInteractable(cellPosition))

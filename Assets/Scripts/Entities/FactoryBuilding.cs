@@ -8,14 +8,14 @@ public class FactoryBuilding : MonoBehaviour
     #region Serialized Fields
 
     [Header("Stats")]
-    [SerializeField] private ItemRecipe _recipe;
-    [SerializeField] private float _spawnInterval = 5f;
-    [SerializeField] private float _overclock = 1f;
+    [SerializeField] protected ItemRecipe _recipe;
+    [SerializeField] protected float _spawnInterval = 5f;
+    [SerializeField] protected float _overclock = 1f;
 
     [Header("Etc.")]
-    [SerializeField] private Transform _objectsContainer;
-    [SerializeField] private bool _isOn = true;
-    [SerializeField] private GameObject _itemEntityPrefab;
+    [SerializeField] protected Transform _objectsContainer;
+    [SerializeField] protected bool _isOn = true;
+    [SerializeField] protected GameObject _itemEntityPrefab;
 
     #endregion
 
@@ -37,7 +37,7 @@ public class FactoryBuilding : MonoBehaviour
     private void Awake()
     {
         _inventory = GetComponent<IInventory>();
-        if (_inventory == null && _recipe.Ingredients.Length > 0)
+        if (_inventory == null && _recipe != null && _recipe.Ingredients.Length > 0)
             throw new Exception("Inventory component is required if recipe has ingredients");
     }
 
@@ -69,6 +69,8 @@ public class FactoryBuilding : MonoBehaviour
         while (_isOn)
         {
             yield return new WaitForSeconds(_spawnInterval / _overclock);
+
+            if(_recipe == null) continue;
 
             if (!IsObjectPresent() && _recipe.CanCraft(_inventory))
             {

@@ -6,9 +6,14 @@ using UnityEngine;
 public class ItemRecipe : ScriptableObject
 {
     [SerializeField] private ItemStack _result;
-    [SerializeField] private ItemStack[] _ingredients;
+    [SerializeField] private ItemStack[] _ingredients = Array.Empty<ItemStack>();
 
-    public ItemStack Result => _result;
+    public ItemStack Result
+    {
+        get => _result;
+        set => _result = value;
+    }
+
     public ItemStack[] Ingredients => _ingredients;
 
     public bool CanCraft(IInventory inventory)

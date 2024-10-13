@@ -1,14 +1,11 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using UnityEngine.UIElements;
 
 public class TileManager : Singleton<TileManager>
 {
     [SerializeField] private Tilemap _interactableMap;
     [SerializeField] private Tilemap _uiHoverMap;
+    [SerializeField] private Tilemap _resourceMap;
 
     [SerializeField] private Tile _hiddenInteractableTile;
     [SerializeField] private Tile _uiHoverTile;
@@ -17,6 +14,8 @@ public class TileManager : Singleton<TileManager>
     [SerializeField] private Tile _tileToReplace;
 
     private Vector3Int? _oldCursorPosition;
+    private GameObject _extractorToolbar;
+
     void Start()
     {
         InstantiateInteractableMap();
@@ -33,6 +32,8 @@ public class TileManager : Singleton<TileManager>
                 _interactableMap.SetTile(position, _hiddenInteractableTile);
             }
         }
+
+        _extractorToolbar = Player.Instance.BuildHotbarItems.Find("ExtractorBuilding").gameObject;
     }
 
     public void SetInteractableMap(Tilemap interactableMap)
@@ -53,23 +54,22 @@ public class TileManager : Singleton<TileManager>
             int layerToIgnore = LayerMask.GetMask("Camera");
             int layerMask = ~layerToIgnore;
             RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero, Mathf.Infinity, layerMask);
-            if (hit.collider != null)
+            if (hit.collider == null) return;
+
+            Vector3 hoverPosition = hit.point;
+            GameObject hoverObject = hit.collider.gameObject;
+
+            if (hoverObject.TryGetComponent<Tilemap>(out var tilemap))
             {
-                Vector3 hoverPosition = hit.point;
-                GameObject hoverObject = hit.collider.gameObject;
+                Vector3Int cellPosition = tilemap.WorldToCell(hoverPosition);
 
-                if (hoverObject.TryGetComponent<Tilemap>(out var tilemap))
-                {
-                    Vector3Int cellPosition = tilemap.WorldToCell(hoverPosition);
+                TileBase currentTile = _uiHoverMap.GetTile(cellPosition);
 
-                    TileBase currentTile = _uiHoverMap.GetTile(cellPosition);
-                    if (currentTile == null || currentTile.name != "BoxWhiteOutlineSquared")
-                    {
-                        if (_oldCursorPosition != null) _uiHoverMap.SetTile(_oldCursorPosition.Value, null);
-                        _uiHoverMap.SetTile(cellPosition, _uiHoverTile);
-                        _oldCursorPosition = cellPosition;
-                    }
-                } else
+                var isResource = IsResource(cellPosition);
+                var extractorInHand = _extractorToolbar.gameObject.activeSelf;
+
+                if ( (!extractorInHand || isResource) &&
+                     (currentTile == null || currentTile.name != "BoxWhiteOutlineSquared"))
                 {
                     hideCursor();
                 }
@@ -105,6 +105,18 @@ public class TileManager : Singleton<TileManager>
         }
 
         return false;
+    }
+
+    public bool IsResource(Vector3Int position)
+    {
+        var tile = GetResourceTile(position);
+
+        return tile != null;
+    }
+
+    public TileBase GetResourceTile(Vector3Int position)
+    {
+        return _resourceMap.GetTile(position);
     }
 
     public void SetInteractable(Vector3Int position)
