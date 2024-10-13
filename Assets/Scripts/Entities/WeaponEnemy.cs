@@ -12,6 +12,7 @@ namespace Entities
         protected override void Attack()
         {
             var player = Player.Instance;
+            if (player.IsDead) return;
             FaceTarget(player.transform);
             
             if (_weapon == null || _weapon is not IWeapon)
@@ -26,6 +27,7 @@ namespace Entities
 
         protected override void Chase()
         {
+            if (Player.Instance.IsDead) return;
             base.Chase();
             
             var player = Player.Instance;

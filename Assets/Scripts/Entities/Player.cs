@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
@@ -108,6 +109,7 @@ public class Player : Actor, IBuffable
 
     new void Update()
     {
+        if (isDead) return;
         InputMovement();
 
         if (Input.GetKey(_hotbarSlot1)) EventManager.Instance.EventHotbarSlotChange(0);
@@ -261,5 +263,45 @@ public class Player : Actor, IBuffable
         if (isDead) return;
         stats.RemoveStats(potion.PotionStats);
         buffs.Remove(potion);
+    }
+
+    public override void Die()
+    {
+        if (isDead) return;
+        isDead = true;
+        if (animator != null) animator.SetBool("Dead", true);
+
+        // if (GetComponent<Collider2D>() != null) GetComponent<Collider2D>().enabled = false;
+
+        DeathScreenUI.Instance.Popup();
+    }
+
+    public void Respawn()
+    {
+        buffs ??= new();
+
+        stats = _baseStats;
+        _currentZone = GameObject.Find("Base");
+        isDead = false;
+        life = MaxLife;
+        moveDirection = new Vector2(0, 0);
+
+        transform.SetPositionAndRotation(Base.Instance.Spawner.position, transform.rotation);
+        CinemachineConfiner2D _cinemachineConfiner = GameObject.Find("VirtualCamera").GetComponent<CinemachineConfiner2D>();
+        if (_cinemachineConfiner != null && Base.Instance.CameraConfiner != null)
+        {
+            _cinemachineConfiner.m_BoundingShape2D = Base.Instance.CameraConfiner;
+            CinemachineVirtualCamera vcam = _cinemachineConfiner.GetComponent<CinemachineVirtualCamera>();
+            if (vcam != null)
+            {
+                vcam.OnTargetObjectWarped(transform, Base.Instance.Spawner.position - transform.position);
+
+                vcam.PreviousStateIsValid = false;
+            }
+        }
+
+        if (TemporalLevel.Instance != null) Destroy(TemporalLevel.Instance.gameObject);
+        if (LevelPortal.Instance != null) Destroy(LevelPortal.Instance.gameObject);
+        if (BasePortal.Instance != null) Destroy(BasePortal.Instance.gameObject);
     }
 }

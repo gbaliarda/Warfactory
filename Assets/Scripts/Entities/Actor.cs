@@ -77,4 +77,9 @@ public class Actor : MonoBehaviour, IDamageable
     {
         throw new System.NotImplementedException();
     }
+
+    private void OnDestroy()
+    {
+        if (_healthBar != null) Destroy(_healthBar.gameObject);
+    }
 }

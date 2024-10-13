@@ -17,6 +17,7 @@ public class EnemyDestroyer : WeaponEnemy
 
             foreach (Collider2D collider in colliders)
             {
+                if (collider.gameObject.GetComponent<IDamageable>() == null || collider.gameObject.GetComponent<IDamageable>().IsDead == true) continue;
                 Vector3 directionToTarget = collider.transform.position - currentPosition;
                 float distanceSqrToTarget = directionToTarget.sqrMagnitude;
 
@@ -54,6 +55,7 @@ public class EnemyDestroyer : WeaponEnemy
 
             foreach (Collider2D collider in colliders)
             {
+                if (collider.gameObject.GetComponent<IDamageable>() == null || collider.gameObject.GetComponent<IDamageable>().IsDead == true) continue;
                 Vector3 directionToTarget = collider.transform.position - currentPosition;
                 float distanceSqrToTarget = directionToTarget.sqrMagnitude;
 
