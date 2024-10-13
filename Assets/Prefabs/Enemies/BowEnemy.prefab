@@ -16,6 +16,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bow
       objectReference: {fileID: 0}
+    - target: {fileID: 6468522444203926020, guid: c5423108cd53d5748af9088b77183858, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 6468522444203926020, guid: c5423108cd53d5748af9088b77183858, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 7011406313525794397, guid: c5423108cd53d5748af9088b77183858, type: 3}
       propertyPath: _prefabToInstantiate
       value: 
@@ -92,6 +100,10 @@ PrefabInstance:
     - target: {fileID: 3571091223179788414, guid: 37dc26933dfc55340881ba829a9b20fc, type: 3}
       propertyPath: m_Name
       value: BowEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 3571091223179788414, guid: 37dc26933dfc55340881ba829a9b20fc, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 7476587642831109742, guid: 37dc26933dfc55340881ba829a9b20fc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -184,7 +196,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: a700ff5702846ba4d9c8e790adfb2f23, type: 2}
   deathAnimationDuration: 1
-  _playerLayer:
+  _healthBarPrefab: {fileID: 3385906106993239456, guid: 83be5fb738f7cc94aa86588e1e3aff35, type: 3}
+  _targetLayer:
     serializedVersion: 2
     m_Bits: 64
   _sightRange: 10

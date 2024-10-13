@@ -38,6 +38,7 @@ public class LevelPortal : MonoBehaviour
     {
         if(other.GetComponentInParent<Player>() != null)
         {
+            Player.Instance.SetCurrentZone(TemporalLevel.Instance.gameObject);
             other.transform.parent.SetPositionAndRotation(TemporalLevel.Instance.Spawner.position, other.transform.parent.rotation);
             if (_cinemachineConfiner != null && TemporalLevel.Instance.CameraConfiner != null)
             {
