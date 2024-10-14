@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -157,7 +158,7 @@ public class Player : Actor, IBuffable
                         if (!EventSystem.current.IsPointerOverGameObject() && _potionBuilding.gameObject.activeSelf && _potionBuilding.GetComponent<IBuilding>() != null)
                         {
                             TileManager.Instance.SetOccupied(cellPosition);
-                            (_potionBuilding as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2, _buildingRotation);
+                            (_potionBuilding as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2 + new Vector3(0, 0, -1), _buildingRotation);
                         }
                         if (_slider.gameObject.activeSelf && _slider.GetComponent<IBuilding>() != null)
                         {
@@ -167,7 +168,7 @@ public class Player : Actor, IBuffable
                         if (_chestBuilding.gameObject.activeSelf && _chestBuilding.GetComponent<IBuilding>() != null)
                         {
                             TileManager.Instance.SetOccupied(cellPosition);
-                            (_chestBuilding as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2, _buildingRotation);
+                            (_chestBuilding as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2 + new Vector3(0, 0, -1), _buildingRotation);
                         }
                         if(_extractor.gameObject.activeSelf && _extractor.GetComponent<IBuilding>() != null)
                         {
@@ -176,7 +177,7 @@ public class Player : Actor, IBuffable
                                 var tile = TileManager.Instance.GetResourceTile(cellPosition);
 
                                 TileManager.Instance.SetOccupied(cellPosition);
-                                var go = (_extractor as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2, _buildingRotation);
+                                var go = (_extractor as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2 + new Vector3(0, 0, -1), _buildingRotation);
                                 var extractor = go.GetComponent<ExtractorBuilding>();
                                 extractor.Tile = tile;
                             }

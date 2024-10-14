@@ -54,7 +54,11 @@ public class TileManager : Singleton<TileManager>
             int layerToIgnore = LayerMask.GetMask("Camera");
             int layerMask = ~layerToIgnore;
             RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero, Mathf.Infinity, layerMask);
-            if (hit.collider == null) return;
+            if (hit.collider == null)
+            {
+                hideCursor();
+                return;
+            }
 
             Vector3 hoverPosition = hit.point;
             GameObject hoverObject = hit.collider.gameObject;
@@ -71,8 +75,12 @@ public class TileManager : Singleton<TileManager>
                 if ( (!extractorInHand || isResource) &&
                      (currentTile == null || currentTile.name != "BoxWhiteOutlineSquared"))
                 {
-                    hideCursor();
+                    if (_oldCursorPosition != null) _uiHoverMap.SetTile(_oldCursorPosition.Value, null);
+                    _uiHoverMap.SetTile(cellPosition, _uiHoverTile);
+                    _oldCursorPosition = cellPosition;
                 }
+
+                if (extractorInHand && !isResource) hideCursor();
             } else
             {
                 hideCursor();
