@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class ChestSlot : MonoBehaviour
 {
-    public Item Item { get; set; }
+    public ItemStack Stack { get; set; }
     private GraphicRaycaster _raycaster;
     private EventSystem _eventSystem;
 
@@ -33,7 +33,7 @@ public class ChestSlot : MonoBehaviour
             {
                 if (result.gameObject == gameObject)
                 {
-                    if (Item != null)
+                    if (Stack != null)
                     {
                         EventManager.Instance.EventPickUpChestItem(this);
                     }

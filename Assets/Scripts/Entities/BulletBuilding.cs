@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletBuilding : MonoBehaviour, IDamageable
+public class BulletBuilding : MonoBehaviour
 {
-    [SerializeField] private GameObject _bulletToFabricate;
+    /*[SerializeField] private GameObject _bulletToFabricate;
     [SerializeField] private Transform _objectsContainer;
     [SerializeField] private Sprite _bulletSprite;
     [SerializeField] private float _spawnInterval = 5f;
@@ -164,5 +164,5 @@ public class BulletBuilding : MonoBehaviour, IDamageable
     public int HealDamage(DamageStats damage)
     {
         throw new System.NotImplementedException();
-    }
+    }*/
 }

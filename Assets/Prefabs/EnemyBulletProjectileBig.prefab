@@ -64,6 +64,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyBulletProjectileBig
       objectReference: {fileID: 0}
+    - target: {fileID: 9172203538309098633, guid: 06362b4c14735a64d8d1becf97ec5e3b, type: 3}
+      propertyPath: m_Radius
+      value: 0.4
     - target: {fileID: 8994900235396394457, guid: 06362b4c14735a64d8d1becf97ec5e3b, type: 3}
       propertyPath: hittableMask.m_Bits
       value: 13439

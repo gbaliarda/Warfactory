@@ -27,21 +27,23 @@ public class ChestUI : Singleton<ChestUI>
 
     public void UpdateItemsInChestUI()
     {
-        List<Item> items = OpenChest.StoredItems;
+        var stacks = OpenChest.Stacks;
         for (int i = 0; i < _slots.Length; i++)
         {
-            GameObject slot = _slots[i].gameObject;
-            if (i < items.Count)
+            var slot = _slots[i].gameObject;
+            if (i < stacks.Count)
             {
-                Item item = items[i];
-                Image itemImage = slot.transform.GetChild(0).GetComponent<Image>();
-                itemImage.sprite = item.ItemImage;
-                Color color = itemImage.color;
+                var stack = stacks[i];
+
+                var image = slot.transform.GetChild(0).GetComponent<Image>();
+                image.sprite = stack.Item.Sprite;
+                var color = image.color;
                 color.a = 1f;
-                itemImage.color = color;
-                TextMeshProUGUI itemStack = slot.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
-                itemStack.text = item.StackAmount.ToString();
-                _slots[i].Item = item;
+                image.color = color;
+
+                var amountText = slot.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+                amountText.text = stack.Amount.ToString();
+                _slots[i].Stack = stack;
             }
             else
             {
@@ -51,7 +53,7 @@ public class ChestUI : Singleton<ChestUI>
                 itemImage.color = color;
                 TextMeshProUGUI itemStack = slot.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
                 itemStack.text = "";
-                _slots[i].Item = null;
+                _slots[i].Stack = null;
             }
         }
     }

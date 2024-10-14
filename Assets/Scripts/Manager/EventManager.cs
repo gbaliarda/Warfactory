@@ -9,12 +9,12 @@ public class EventManager : Singleton<EventManager>
     public event Action<int> OnHotbarSlotChange;
     public event Action<GameObject> OnHotbarItemSelect;
     public event Action<ChestBuilding> OnOpenChestUI;
-    public event Action<BulletBuilding> OnOpenBuildingUI;
+    public event Action<FactoryBuilding> OnOpenBuildingUI;
     public event Action OnOpenInventoryUI;
     public event Action OnCloseInventoryUI;
-    public event Action<WorldObject> OnPickUpWorldObject;
+    public event Action<ItemEntity> OnPickUpWorldObject;
     public event Action<ChestSlot> OnPickUpChestItem;
-    public event Action<Item> OnInventoryUpdate;
+    public event Action<ItemStack> OnInventoryUpdate;
     public event Action<bool> OnBuildModeActive;
     public void EventHotbarSlotChange(int idx)
     {
@@ -31,7 +31,7 @@ public class EventManager : Singleton<EventManager>
         OnOpenChestUI?.Invoke(chest);
     }
     
-    public void EventOpenBuildingUI(BulletBuilding building)
+    public void EventOpenBuildingUI(FactoryBuilding building)
     {
         OnOpenBuildingUI?.Invoke(building);
     }
@@ -45,17 +45,17 @@ public class EventManager : Singleton<EventManager>
     {
         OnCloseInventoryUI?.Invoke();
     }
-    public void EventPickUpWorldObject(WorldObject worldObject)
+    public void EventPickUpItemEntity(ItemEntity itemEntity)
     {
-        OnPickUpWorldObject?.Invoke(worldObject);
+        OnPickUpWorldObject?.Invoke(itemEntity);
     }
     public void EventPickUpChestItem(ChestSlot chestItem)
     {
         OnPickUpChestItem?.Invoke(chestItem);
     }
-    public void EventInventoryUpdate(Item item)
+    public void EventInventoryUpdate(ItemStack stack)
     {
-        OnInventoryUpdate?.Invoke(item);
+        OnInventoryUpdate?.Invoke(stack);
     }
     
     public void EventBuildModeActive(bool active)

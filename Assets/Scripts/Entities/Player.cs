@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
@@ -10,17 +9,18 @@ public class Player : Actor, IBuffable
 {
     public static Player Instance { get; private set; }
 
-    private Vector2 moveDirection;
+    private Vector2 _moveDirection;
 
     [SerializeField] private MonoBehaviour _weapon;
     [SerializeField] private MonoBehaviour _potion;
     [SerializeField] private MonoBehaviour _potionBuilding;
     [SerializeField] private MonoBehaviour _chestBuilding;
     [SerializeField] private MonoBehaviour _slider;
+    [SerializeField] private MonoBehaviour _extractor;
     [SerializeField] private ActorStats _baseStats;
     [SerializeField] private Transform _hotbarItems;
     [SerializeField] private Transform _buildHotbarItems;
-    
+
     // SFX
     [SerializeField] private string deadSound = "PlayerDead";
 
@@ -67,7 +67,7 @@ public class Player : Actor, IBuffable
     [SerializeField] private GameObject grave;
 
 
-    protected void Awake()
+    protected override void Awake()
     {
         if (Instance != null && this.gameObject != null)
         {
@@ -85,7 +85,7 @@ public class Player : Actor, IBuffable
     {
         base.Start();
 
-        buffs ??= new();
+        buffs ??= new List<IPotion>();
 
         EventManager.Instance.OnHotbarItemSelect += OnHotbarItemSelect;
 
@@ -96,10 +96,10 @@ public class Player : Actor, IBuffable
     #region MOVEMENT_INPUT
     void InputMovement()
     {
-        float moveX = Input.GetAxisRaw("Horizontal");
-        float moveY = Input.GetAxisRaw("Vertical");
+        var moveX = Input.GetAxisRaw("Horizontal");
+        var moveY = Input.GetAxisRaw("Vertical");
 
-        moveDirection = new Vector2(moveX, moveY).normalized;
+        _moveDirection = new Vector2(moveX, moveY).normalized;
     }
 
     public void SetCurrentZone(GameObject zone)
@@ -111,7 +111,7 @@ public class Player : Actor, IBuffable
     [SerializeField] private GameObject _levelPortal;
     [SerializeField] private GameObject _basePortal;
 
-    new void Update()
+    protected override void Update()
     {
         if (isDead) return;
         InputMovement();
@@ -148,19 +148,21 @@ public class Player : Actor, IBuffable
 
         if (Input.GetKeyDown(_interact) && _buildingMode)
         {
+            var cam = Camera.main;
+            if(!cam) return;
 
-            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            var mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
             int layerToIgnore = LayerMask.GetMask("Camera");
             int layerMask = ~layerToIgnore;
-            RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero, Mathf.Infinity, layerMask);
+            var hit = Physics2D.Raycast(mousePosition, Vector2.zero, Mathf.Infinity, layerMask);
             if (hit.collider != null)
             {
                 Vector3 clickPosition = hit.point;
-                GameObject clickedObject = hit.collider.gameObject;
+                var clickedObject = hit.collider.gameObject;
 
                 if (clickedObject.TryGetComponent<Tilemap>(out var tilemap))
                 {
-                    Vector3Int cellPosition = tilemap.WorldToCell(clickPosition);
+                    var cellPosition = tilemap.WorldToCell(clickPosition);
 
                     if (TileManager.Instance.IsInteractable(cellPosition))
                     {
@@ -177,7 +179,19 @@ public class Player : Actor, IBuffable
                         if (_chestBuilding.gameObject.activeSelf && _chestBuilding.GetComponent<IBuilding>() != null)
                         {
                             TileManager.Instance.SetOccupied(cellPosition);
-                            (_chestBuilding as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2, _buildingRotation);
+                            (_chestBuilding as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2 + new Vector3(0, 0, -1), _buildingRotation);
+                        }
+                        if(_extractor.gameObject.activeSelf && _extractor.GetComponent<IBuilding>() != null)
+                        {
+                            if (TileManager.Instance.IsResource(cellPosition))
+                            {
+                                var tile = TileManager.Instance.GetResourceTile(cellPosition);
+
+                                TileManager.Instance.SetOccupied(cellPosition);
+                                var go = (_extractor as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2 + new Vector3(0, 0, -1), _buildingRotation);
+                                var extractor = go.GetComponent<ExtractorBuilding>();
+                                extractor.Tile = tile;
+                            }
                         }
                     }
                     /*if (TileManager.Instance.IsInteractable(cellPosition))
@@ -229,12 +243,12 @@ public class Player : Actor, IBuffable
         Move();
     }
 
-    void Move()
+    private void Move()
     {
-        Rigidbody.velocity = moveDirection * stats.MovementSpeed;
+        Rigidbody.velocity = _moveDirection * stats.MovementSpeed;
     }
 
-    private void OnHotbarItemSelect(GameObject gameObject)
+    private void OnHotbarItemSelect(GameObject go)
     {
 
     }
@@ -288,7 +302,7 @@ public class Player : Actor, IBuffable
         _currentZone = GameObject.Find("Base");
         isDead = false;
         life = MaxLife;
-        moveDirection = new Vector2(0, 0);
+        _moveDirection = new Vector2(0, 0);
 
         transform.SetPositionAndRotation(Base.Instance.Spawner.position, transform.rotation);
         CinemachineConfiner2D _cinemachineConfiner = GameObject.Find("VirtualCamera").GetComponent<CinemachineConfiner2D>();
@@ -313,10 +327,10 @@ public class Player : Actor, IBuffable
     protected override IEnumerator DestroyAfterAnimation()
     {
         yield return new WaitForSeconds(deathAnimationDuration);
-        
+
         GameObject graveInstance = Instantiate(grave, transform.position, Quaternion.identity);
         AudioManager.Instance.PlaySFX(deadSound);
-        
+
         Destroy(gameObject);
     }
 }

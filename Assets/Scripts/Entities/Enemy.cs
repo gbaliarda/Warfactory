@@ -20,9 +20,8 @@ public class Enemy : Actor
     public float SightRange => _sightRange;
 
     [SerializeField] private string onHitSound = "EnemyHit";
-    
-    
-    void Awake()
+
+    protected override void Awake()
     {
         moveController = GetComponent<MoveController>();
         _animator = GetComponent<Animator>();
@@ -33,7 +32,7 @@ public class Enemy : Actor
     protected override void Update()
     {
         if (isDead) return;
-        
+
         base.Update();
 
         _targetInSight = Physics2D.OverlapCircle(transform.position, _sightRange, _targetLayer);
@@ -94,7 +93,7 @@ public class Enemy : Actor
         if (isDead) return;
 
         isDead = true;
-        
+
         // Trigger death animation
         if (_animator != null)
         {
@@ -113,12 +112,12 @@ public class Enemy : Actor
     {
         // Wait for the death animation to finish
         yield return new WaitForSeconds(deathAnimationDuration);
-        
+
         SetVisibility(false);
         DropItem();
-        
+
         yield return new WaitForSeconds(_disappearDelay);
-        
+
         Destroy(gameObject);
     }
 
@@ -135,7 +134,7 @@ public class Enemy : Actor
         {
             spriteRenderer.enabled = isVisible;
         }
-        
+
         foreach (Transform child in obj.transform)
         {
             SetRendererVisibility(child.gameObject, isVisible);
@@ -147,8 +146,7 @@ public class Enemy : Actor
         int randomNumber = Random.Range(1, 3);
         if (randomNumber == 1 && _drop != null)
         {
-            GameObject bullet = Instantiate(_drop, transform.position, Quaternion.identity, transform.parent);
-            bullet.GetComponent<WorldObject>().Item = new ShotgunBullet(1, "Shotgun Bullet", _dropSprite, 10, 5, ItemRarity.Common);
+            var bullet = Instantiate(_drop, transform.position, Quaternion.identity, transform.parent);
         }
     }
 }

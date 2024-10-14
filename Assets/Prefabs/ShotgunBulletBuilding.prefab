@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2646531651972596788}
   - component: {fileID: 5247236137354107349}
-  - component: {fileID: 3787752243502293230}
   - component: {fileID: 5669238183982359888}
+  - component: {fileID: 1111709323200329018}
+  - component: {fileID: 3787752243502293230}
   m_Layer: 12
   m_Name: ShotgunBulletBuilding
   m_TagString: Building
@@ -86,26 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3787752243502293230
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4472525941911544458}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0478463117261cd4cb8f0823df1e5a60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _bulletToFabricate: {fileID: 7431681385107224975, guid: c7f72f23ffce629458f12e9819803721, type: 3}
-  _objectsContainer: {fileID: 0}
-  _bulletSprite: {fileID: 21300000, guid: 27315f781d922f240af5885485b4f6ad, type: 3}
-  _spawnInterval: 5
-  _overclock: 1
-  _isOn: 1
-  stats: {fileID: 11400000, guid: 38303e95cbd89fc48b33b087aeb678f3, type: 2}
-  _healthBarPrefab: {fileID: 3385906106993239456, guid: 83be5fb738f7cc94aa86588e1e3aff35, type: 3}
 --- !u!61 &5669238183982359888
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -151,3 +132,40 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.82980114}
   m_EdgeRadius: 0
+--- !u!114 &1111709323200329018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4472525941911544458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 602cb73a94064d229b4ae251fcdcca63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stackCapacity: 1
+  _allowedItems:
+  - {fileID: 11400000, guid: 0f00c8fa298093f43aa6685df5df2f85, type: 2}
+  _stacks: []
+  _onModified:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &3787752243502293230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4472525941911544458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0478463117261cd4cb8f0823df1e5a60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _recipe: {fileID: 11400000, guid: c66aa2386fdc7464a83cbdaf9f71d950, type: 2}
+  _spawnInterval: 5
+  _overclock: 1
+  _objectsContainer: {fileID: 0}
+  _isOn: 1
+  _itemEntityPrefab: {fileID: 7431681385107224975, guid: 231deade01d4f4f498fab2b1bef0bf96, type: 3}

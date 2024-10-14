@@ -73,7 +73,7 @@ public class Actor : MonoBehaviour, IDamageable
         Destroy(gameObject);
     }
 
-    public int HealDamage(DamageStats damage)
+    public virtual int HealDamage(DamageStats damage)
     {
         throw new System.NotImplementedException();
     }

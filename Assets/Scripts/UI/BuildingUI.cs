@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,7 +9,7 @@ public class BuildingUI : Singleton<BuildingUI>
     [SerializeField] private TextMeshProUGUI _performance;
     [SerializeField] private UnityEngine.UI.Slider _overclock;
     [SerializeField] private Toggle _on;
-    public BulletBuilding OpenBuilding { get; private set; }
+    public FactoryBuilding OpenBuilding { get; private set; }
     void Start()
     {
         EventManager.Instance.OnOpenBuildingUI += OnOpenBuildingUI;
@@ -20,7 +18,7 @@ public class BuildingUI : Singleton<BuildingUI>
     }
 
 
-    private void OnOpenBuildingUI(BulletBuilding building)
+    private void OnOpenBuildingUI(FactoryBuilding building)
     {
         OpenBuilding = building;
         RefreshOpenBuildingStats();
@@ -32,7 +30,7 @@ public class BuildingUI : Singleton<BuildingUI>
         _title.text = "Shotgun Bullet Building";
         _time.text = $"{OpenBuilding.RealTimeInterval:F2} sec";
         _performance.text = $"{(OpenBuilding.Performance):F1}%";
-        _overclock.value = OpenBuilding.OverClock;
+        _overclock.value = OpenBuilding.Overclock;
         _on.isOn = OpenBuilding.IsOn;
     }
 
@@ -43,7 +41,7 @@ public class BuildingUI : Singleton<BuildingUI>
 
     public void OnOvercloakValueChange()
     {
-        OpenBuilding.SetOverClock(_overclock.value);
+        OpenBuilding.SetOverclock(_overclock.value);
         RefreshOpenBuildingStats();
     }
     

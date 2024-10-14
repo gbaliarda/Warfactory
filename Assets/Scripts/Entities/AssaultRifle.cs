@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AssaultRifle : MonoBehaviour, IWeapon
 {
+    [SerializeField] private Item _assaultRifleBulletItem;
     public GameObject PrefabToInstantiate => _prefabToInstantiate;
     public WeaponStats Stats => _stats;
     public Transform BulletOrigin => _bulletOrigin;
@@ -20,7 +21,7 @@ public class AssaultRifle : MonoBehaviour, IWeapon
 
     public void Attack(Vector2 origin, Vector2 direction)
     {
-        if (!transform.parent.CompareTag("Enemy") && InventoryManager.Instance.GetAmountOfItemType<ShotgunBullet>() == 0) return;
+        if (!transform.parent.CompareTag("Enemy") && InventoryManager.Instance.GetAmountOfItem(_assaultRifleBulletItem) == 0) return;
         if (Owner.IsDead) return;
         if (cooldownLeft > 0) return;
 
@@ -50,7 +51,7 @@ public class AssaultRifle : MonoBehaviour, IWeapon
         else
             cooldownLeft = _stats.Cooldown;
 
-        if (transform.parent.CompareTag("Player")) InventoryManager.Instance.ConsumeItem<ShotgunBullet>(1);
+        if (transform.parent.CompareTag("Player")) InventoryManager.Instance.ConsumeItem(_assaultRifleBulletItem, 1);
     }
 
     public void Attack(Vector2 direction)
