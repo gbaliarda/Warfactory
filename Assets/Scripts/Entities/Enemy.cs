@@ -4,18 +4,21 @@ using UnityEngine;
 
 public class Enemy : Actor
 {
-    [SerializeField] private LayerMask _playerLayer;
-    [SerializeField] private float _sightRange, _attackRange;
+    [SerializeField] protected LayerMask _targetLayer;
+    [SerializeField] protected float _sightRange, _attackRange;
 
     [SerializeField] private GameObject _drop;
     [SerializeField] private Sprite _dropSprite;
 
     protected MoveController moveController;
     protected AttackController attackController;
-    private bool _playerInSight, _playerInAttack;
+    private bool _targetInSight, _targetInAttack;
 
     private Animator _animator;
     [SerializeField] private float _disappearDelay = 2f; // Time to wait before destroying after disappearing
+
+    public float SightRange => _sightRange;
+
     [SerializeField] private string onHitSound = "EnemyHit";
 
     protected override void Awake()
@@ -32,13 +35,13 @@ public class Enemy : Actor
 
         base.Update();
 
-        _playerInSight = Physics2D.OverlapCircle(transform.position, _sightRange, _playerLayer);
-        _playerInAttack = Physics2D.OverlapCircle(transform.position, _attackRange, _playerLayer);
+        _targetInSight = Physics2D.OverlapCircle(transform.position, _sightRange, _targetLayer);
+        _targetInAttack = Physics2D.OverlapCircle(transform.position, _attackRange, _targetLayer);
 
-
-        if (!_playerInSight && !_playerInAttack) Patrol();
-        if (_playerInSight && !_playerInAttack) Chase();
-        if (_playerInSight && _playerInAttack) Attack();
+        
+        if (!_targetInSight && !_targetInAttack) Patrol();
+        if (_targetInSight && !_targetInAttack) Chase();
+        if (_targetInSight && _targetInAttack) Attack();
     }
 
     protected virtual void Patrol()
@@ -143,7 +146,7 @@ public class Enemy : Actor
         int randomNumber = Random.Range(1, 3);
         if (randomNumber == 1 && _drop != null)
         {
-            var bullet = Instantiate(_drop, transform.position, Quaternion.identity);
+            var bullet = Instantiate(_drop, transform.position, Quaternion.identity, transform.parent);
         }
     }
 }

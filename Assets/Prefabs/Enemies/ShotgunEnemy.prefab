@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShotgunEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 3571091223179788414, guid: 37dc26933dfc55340881ba829a9b20fc, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 7476587642831109742, guid: 37dc26933dfc55340881ba829a9b20fc, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.445753
@@ -102,7 +106,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: a700ff5702846ba4d9c8e790adfb2f23, type: 2}
   deathAnimationDuration: 1
-  _playerLayer:
+  _healthBarPrefab: {fileID: 3385906106993239456, guid: 83be5fb738f7cc94aa86588e1e3aff35, type: 3}
+  _targetLayer:
     serializedVersion: 2
     m_Bits: 64
   _sightRange: 8
@@ -194,9 +199,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shotgun
       objectReference: {fileID: 0}
+    - target: {fileID: 2244050993519179158, guid: 66aa6cff1a999014281e38bc63f1c922, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 2244050993519179158, guid: 66aa6cff1a999014281e38bc63f1c922, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 7484028787710077935, guid: 66aa6cff1a999014281e38bc63f1c922, type: 3}
       propertyPath: m_SortingOrder
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8048821600331310914, guid: 66aa6cff1a999014281e38bc63f1c922, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

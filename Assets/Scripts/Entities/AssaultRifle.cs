@@ -2,25 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shotgun : MonoBehaviour, IWeapon
+public class AssaultRifle : MonoBehaviour, IWeapon
 {
-    [SerializeField] private Item _shotgunBulletItem;
-    [SerializeField] private WeaponStats _stats;
-    [SerializeField] private GameObject _prefabToInstantiate;
-    [SerializeField] private Transform _bulletOrigin;
-
-    private Actor _owner;
-    protected float cooldownLeft;
-
+    [SerializeField] private Item _assaultRifleBulletItem;
     public GameObject PrefabToInstantiate => _prefabToInstantiate;
     public WeaponStats Stats => _stats;
     public Transform BulletOrigin => _bulletOrigin;
     public Actor Owner => _owner;
+
     public float CooldownLeft => cooldownLeft;
+
+    private Actor _owner;
+    protected float cooldownLeft;
+
+    [SerializeField] private WeaponStats _stats;
+    [SerializeField] private GameObject _prefabToInstantiate;
+    [SerializeField] private Transform _bulletOrigin;
 
     public void Attack(Vector2 origin, Vector2 direction)
     {
-        if (!transform.parent.CompareTag("Enemy") && InventoryManager.Instance.GetAmountOfItem(_shotgunBulletItem) == 0) return;
+        if (!transform.parent.CompareTag("Enemy") && InventoryManager.Instance.GetAmountOfItem(_assaultRifleBulletItem) == 0) return;
         if (Owner.IsDead) return;
         if (cooldownLeft > 0) return;
 
@@ -50,7 +51,7 @@ public class Shotgun : MonoBehaviour, IWeapon
         else
             cooldownLeft = _stats.Cooldown;
 
-        if (transform.parent.CompareTag("Player")) InventoryManager.Instance.ConsumeItem(_shotgunBulletItem, 1);
+        if (transform.parent.CompareTag("Player")) InventoryManager.Instance.ConsumeItem(_assaultRifleBulletItem, 1);
     }
 
     public void Attack(Vector2 direction)

@@ -15,6 +15,8 @@ public class Actor : MonoBehaviour, IDamageable
 
     [SerializeField] protected ActorStats stats;
     [SerializeField] protected float deathAnimationDuration = 1f;
+    [SerializeField] private GameObject _healthBarPrefab;
+    private HealthBarUI _healthBar;
 
     protected bool isDead = false;
     protected int life;
@@ -26,7 +28,12 @@ public class Actor : MonoBehaviour, IDamageable
     }
     protected virtual void Start()
     {
-        life = MaxLife;    
+        life = MaxLife;
+
+        GameObject healthBarInstance = Instantiate(_healthBarPrefab, transform.position, Quaternion.identity, FindObjectOfType<Canvas>().transform);
+        healthBarInstance.transform.SetSiblingIndex(0);
+        _healthBar = healthBarInstance.GetComponent<HealthBarUI>();
+        _healthBar.Setup(this, transform);
     }
 
     protected virtual void Update()
@@ -36,7 +43,6 @@ public class Actor : MonoBehaviour, IDamageable
 
     public virtual int TakeDamage(DamageStats damage)
     {
-        Debug.Log("TakingDamage");
         if (life > 0)
             life -= damage.TotalDamage;
 
@@ -63,12 +69,17 @@ public class Actor : MonoBehaviour, IDamageable
 
         // Override this in derived classes if you need to do something before destruction
         // For example, Enemy class can override to spawn drops
-
+        Destroy(_healthBar.gameObject);
         Destroy(gameObject);
     }
 
     public virtual int HealDamage(DamageStats damage)
     {
         throw new System.NotImplementedException();
+    }
+
+    private void OnDestroy()
+    {
+        if (_healthBar != null) Destroy(_healthBar.gameObject);
     }
 }
