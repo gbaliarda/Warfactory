@@ -1,16 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
-public class FactoryBuilding : MonoBehaviour
+public class FactoryBuilding : MonoBehaviour, IDamageable
 {
     #region Serialized Fields
 
     [Header("Stats")]
     [SerializeField] protected ItemRecipe _recipe;
-    [SerializeField] protected float _spawnInterval = 5f;
-    [SerializeField] protected float _overclock = 1f;
+    [SerializeField] protected BuildingStats stats;
 
     [Header("Etc.")]
     [SerializeField] protected Transform _objectsContainer;
@@ -21,12 +21,17 @@ public class FactoryBuilding : MonoBehaviour
 
     #region Properties
 
+    protected float _overclock;
+    protected float _spawnInterval;
     public float RealTimeInterval { get; private set; } = 5f;
     public float Performance { get; private set; } = 100f;
     public float SpawnInterval => _spawnInterval;
     public float Overclock => _overclock;
     public bool IsOn => _isOn;
     public IInventory Inventory => _inventory;
+
+    [SerializeField] private GameObject _healthBarPrefab;
+    private HealthBarUI _healthBar;
 
     #endregion
 
@@ -39,6 +44,9 @@ public class FactoryBuilding : MonoBehaviour
         _inventory = GetComponent<IInventory>();
         if (_inventory == null && _recipe != null && _recipe.Ingredients.Length > 0)
             throw new Exception("Inventory component is required if recipe has ingredients");
+
+        _overclock = stats.Overclock;
+        _spawnInterval = stats.SpawnInterval;
     }
 
     public void SetOverclock(float value)
@@ -62,6 +70,13 @@ public class FactoryBuilding : MonoBehaviour
         if (_objectsContainer == null) _objectsContainer = GameObject.Find("Objects").transform;
 
         StartCoroutine(SpawnItemCoroutine());
+
+        life = MaxLife;
+
+        GameObject healthBarInstance = Instantiate(_healthBarPrefab, transform.position, Quaternion.identity, FindObjectOfType<Canvas>().transform);
+        healthBarInstance.transform.SetSiblingIndex(0);
+        _healthBar = healthBarInstance.GetComponent<HealthBarUI>();
+        _healthBar.Setup(this, transform);
     }
 
     protected virtual IEnumerator SpawnItemCoroutine()
@@ -137,5 +152,45 @@ public class FactoryBuilding : MonoBehaviour
 
         Performance = (actualSpawns / expectedSpawns) * 100f;
         return Mathf.Clamp(Performance, 0f, 100f);
+    }
+
+    protected bool isDead = false;
+    protected int life;
+
+    public int MaxLife => stats.MaxLife;
+
+    public int Life => life;
+
+    public bool IsDead => isDead;
+
+    public int TakeDamage(DamageStats damage)
+    {
+        Debug.Log("Building life is" + life);
+        if (life > 0)
+            life -= damage.TotalDamage;
+
+        if (life <= 0)
+            Die();
+
+        return life;
+    }
+
+    public virtual void Die()
+    {
+        if (isDead) return;
+        isDead = true;
+
+        Destroy(_healthBar.gameObject);
+        Destroy(gameObject);
+    }
+
+    void OnDestroy()
+    {
+        if (_healthBar != null) Destroy(_healthBar.gameObject);
+    }
+
+    public int HealDamage(DamageStats damage)
+    {
+        throw new System.NotImplementedException();
     }
 }

@@ -679,7 +679,7 @@ MonoBehaviour:
   startButton: {fileID: 672735578}
   optionsButton: {fileID: 1489039763}
   quitButton: {fileID: 600226399}
-  firstLevelScene: level1
+  firstLevelScene: BaseTesting
   menuMusicTrack: MenuTheme
   audioManagerPrefab: {fileID: 1612642175}
 --- !u!4 &652614602

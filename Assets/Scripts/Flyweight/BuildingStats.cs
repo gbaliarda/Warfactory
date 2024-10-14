@@ -9,6 +9,7 @@ public class BuildingStats : ScriptableObject
 
     public int MaxLife => _buildingStatValues.MaxLife;
     public float Overclock => _buildingStatValues.Overclock;
+    public float SpawnInterval => _buildingStatValues.SpawnInterval;
 }
 
 [System.Serializable]
@@ -16,4 +17,5 @@ public struct BuildingStatValues
 {
     public int MaxLife;
     public float Overclock;
+    public float SpawnInterval;
 }

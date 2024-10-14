@@ -15,3 +15,4 @@ MonoBehaviour:
   _buildingStatValues:
     MaxLife: 1000
     Overclock: 1
+    SpawnInterval: 5

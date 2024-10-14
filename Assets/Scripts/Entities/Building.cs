@@ -27,7 +27,6 @@ public class Building : MonoBehaviour, IBuilding
             return null;
 
         Quaternion targetRotation = Quaternion.Euler(0, 0, -90 * (rotation - 1));
-
         return Instantiate(_buildingPrefab, position, targetRotation, Player.Instance.CurrentZone.transform);
     }
 }

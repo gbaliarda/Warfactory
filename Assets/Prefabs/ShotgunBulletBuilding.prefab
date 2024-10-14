@@ -164,8 +164,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _recipe: {fileID: 11400000, guid: c66aa2386fdc7464a83cbdaf9f71d950, type: 2}
-  _spawnInterval: 5
-  _overclock: 1
+  stats: {fileID: 11400000, guid: 38303e95cbd89fc48b33b087aeb678f3, type: 2}
   _objectsContainer: {fileID: 0}
   _isOn: 1
   _itemEntityPrefab: {fileID: 7431681385107224975, guid: 231deade01d4f4f498fab2b1bef0bf96, type: 3}
+  _healthBarPrefab: {fileID: 3385906106993239456, guid: 83be5fb738f7cc94aa86588e1e3aff35, type: 3}

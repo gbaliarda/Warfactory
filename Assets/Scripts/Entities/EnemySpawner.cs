@@ -37,7 +37,7 @@ public class EnemySpawner : MonoBehaviour
             {
                 GameObject randomEnemy = _enemiesToSpawn[Random.Range(0, _enemiesToSpawn.Length)].gameObject;
 
-                Instantiate(randomEnemy, transform.position, Quaternion.identity);
+                Instantiate(randomEnemy, transform.position, Quaternion.identity, transform.parent);
 
                 yield return new WaitForSeconds(0.5f);
             }
