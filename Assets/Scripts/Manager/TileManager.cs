@@ -46,6 +46,11 @@ public class TileManager : Singleton<TileManager>
         _uiHoverMap = hoverMap;
     }
 
+    public void SetResourceMap(Tilemap resourceMap)
+    {
+        _resourceMap = resourceMap;
+    }
+
     private void Update()
     {
         if (Player.Instance.BuildingMode)
