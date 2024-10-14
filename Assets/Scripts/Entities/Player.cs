@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
@@ -60,6 +61,9 @@ public class Player : Actor, IBuffable
 
     private int _buildingRotation = 1;
 
+    private GameObject _currentZone;
+
+    public GameObject CurrentZone => _currentZone;
     [SerializeField] private GameObject grave;
 
 
@@ -86,6 +90,7 @@ public class Player : Actor, IBuffable
         EventManager.Instance.OnHotbarItemSelect += OnHotbarItemSelect;
 
         stats = Instantiate(_baseStats);
+        _currentZone = GameObject.Find("Base");
     }
 
     #region MOVEMENT_INPUT
@@ -96,6 +101,11 @@ public class Player : Actor, IBuffable
 
         moveDirection = new Vector2(moveX, moveY).normalized;
     }
+
+    public void SetCurrentZone(GameObject zone)
+    {
+        _currentZone = zone;
+    }
     #endregion
 
     [SerializeField] private GameObject _levelPortal;
@@ -103,6 +113,7 @@ public class Player : Actor, IBuffable
 
     new void Update()
     {
+        if (isDead) return;
         InputMovement();
 
         if (Input.GetKey(_hotbarSlot1)) EventManager.Instance.EventHotbarSlotChange(0);
@@ -111,8 +122,8 @@ public class Player : Actor, IBuffable
         if (Input.GetKey(_hotbarSlot4)) EventManager.Instance.EventHotbarSlotChange(3);
         if (Input.GetKey(_hotbarSlot5)) EventManager.Instance.EventHotbarSlotChange(4);
         if (Input.GetKey(_hotbarSlot6)) EventManager.Instance.EventHotbarSlotChange(5);
-        if (Input.GetKeyDown(KeyCode.P)) Instantiate(_levelPortal, transform.position + transform.rotation * Vector3.up * 2, Quaternion.identity);
-        if (Input.GetKeyDown(KeyCode.O)) Instantiate(_basePortal, transform.position + transform.rotation * Vector3.up * 2, Quaternion.identity);
+        if (Input.GetKeyDown(KeyCode.P)) Instantiate(_levelPortal, transform.position + transform.rotation * Vector3.up * 2, Quaternion.identity, CurrentZone.transform);
+        if (Input.GetKeyDown(KeyCode.O)) Instantiate(_basePortal, transform.position + transform.rotation * Vector3.up * 2, Quaternion.identity, CurrentZone.transform);
         if (Input.GetKeyDown(_buildModeKey))
         {
             _buildingMode = !_buildingMode;
@@ -156,7 +167,7 @@ public class Player : Actor, IBuffable
                         if (!EventSystem.current.IsPointerOverGameObject() && _potionBuilding.gameObject.activeSelf && _potionBuilding.GetComponent<IBuilding>() != null)
                         {
                             TileManager.Instance.SetOccupied(cellPosition);
-                            (_potionBuilding as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2, _buildingRotation);
+                            (_potionBuilding as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2 + new Vector3(0, 0, -1), _buildingRotation);
                         }
                         if (_slider.gameObject.activeSelf && _slider.GetComponent<IBuilding>() != null)
                         {
@@ -256,6 +267,46 @@ public class Player : Actor, IBuffable
         if (isDead) return;
         stats.RemoveStats(potion.PotionStats);
         buffs.Remove(potion);
+    }
+
+    public override void Die()
+    {
+        if (isDead) return;
+        isDead = true;
+        if (animator != null) animator.SetBool("Dead", true);
+
+        // if (GetComponent<Collider2D>() != null) GetComponent<Collider2D>().enabled = false;
+
+        DeathScreenUI.Instance.Popup();
+    }
+
+    public void Respawn()
+    {
+        buffs ??= new();
+
+        stats = _baseStats;
+        _currentZone = GameObject.Find("Base");
+        isDead = false;
+        life = MaxLife;
+        moveDirection = new Vector2(0, 0);
+
+        transform.SetPositionAndRotation(Base.Instance.Spawner.position, transform.rotation);
+        CinemachineConfiner2D _cinemachineConfiner = GameObject.Find("VirtualCamera").GetComponent<CinemachineConfiner2D>();
+        if (_cinemachineConfiner != null && Base.Instance.CameraConfiner != null)
+        {
+            _cinemachineConfiner.m_BoundingShape2D = Base.Instance.CameraConfiner;
+            CinemachineVirtualCamera vcam = _cinemachineConfiner.GetComponent<CinemachineVirtualCamera>();
+            if (vcam != null)
+            {
+                vcam.OnTargetObjectWarped(transform, Base.Instance.Spawner.position - transform.position);
+
+                vcam.PreviousStateIsValid = false;
+            }
+        }
+
+        if (TemporalLevel.Instance != null) Destroy(TemporalLevel.Instance.gameObject);
+        if (LevelPortal.Instance != null) Destroy(LevelPortal.Instance.gameObject);
+        if (BasePortal.Instance != null) Destroy(BasePortal.Instance.gameObject);
     }
     
     // Override the Die method from Actor to display the death animation

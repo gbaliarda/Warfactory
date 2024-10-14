@@ -66,7 +66,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8994900235396394457, guid: 06362b4c14735a64d8d1becf97ec5e3b, type: 3}
       propertyPath: hittableMask.m_Bits
-      value: 15487
+      value: 13439
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

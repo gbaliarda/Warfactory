@@ -50,6 +50,7 @@ public class PlayerAnimator : MonoBehaviour
 
     private void UpdateLookDir()
     {
+        if (Player.Instance.IsDead) return;
         var cam = Camera.main;
         if(!cam) return;
 

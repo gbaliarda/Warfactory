@@ -2,20 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shotgun : MonoBehaviour, IWeapon
+public class AssaultRifle : MonoBehaviour, IWeapon
 {
-    [SerializeField] private WeaponStats _stats;
-    [SerializeField] private GameObject _prefabToInstantiate;
-    [SerializeField] private Transform _bulletOrigin;
-    
-    private Actor _owner;
-    protected float cooldownLeft;
-
     public GameObject PrefabToInstantiate => _prefabToInstantiate;
     public WeaponStats Stats => _stats;
     public Transform BulletOrigin => _bulletOrigin;
     public Actor Owner => _owner;
+
     public float CooldownLeft => cooldownLeft;
+
+    private Actor _owner;
+    protected float cooldownLeft;
+
+    [SerializeField] private WeaponStats _stats;
+    [SerializeField] private GameObject _prefabToInstantiate;
+    [SerializeField] private Transform _bulletOrigin;
 
     public void Attack(Vector2 origin, Vector2 direction)
     {
