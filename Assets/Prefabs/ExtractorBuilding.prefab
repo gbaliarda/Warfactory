@@ -152,3 +152,5 @@ MonoBehaviour:
   _resourceTiles:
   - tile: {fileID: 11400000, guid: a345216a898d18c4ba41a23dccd67a2b, type: 2}
     item: {fileID: 11400000, guid: 0f00c8fa298093f43aa6685df5df2f85, type: 2}
+  - tile: {fileID: 11400000, guid: 391abc098f1e3b94faece0506f7e3aed, type: 2}
+    item: {fileID: 11400000, guid: 994c611e4d093b54495634880c28b5a6, type: 2}
