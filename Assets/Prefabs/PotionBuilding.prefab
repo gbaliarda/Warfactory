@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5527725667946145379}
   - component: {fileID: 7485455887205759895}
   - component: {fileID: 8448539666178832969}
+  - component: {fileID: 8379708474540291881}
   m_Layer: 12
   m_Name: PotionBuilding
   m_TagString: Building
@@ -149,3 +150,22 @@ MonoBehaviour:
   _isOn: 1
   _itemEntityPrefab: {fileID: 7431681385107224975, guid: 231deade01d4f4f498fab2b1bef0bf96, type: 3}
   _healthBarPrefab: {fileID: 3385906106993239456, guid: 83be5fb738f7cc94aa86588e1e3aff35, type: 3}
+--- !u!114 &8379708474540291881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4926915188028973152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 602cb73a94064d229b4ae251fcdcca63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stackCapacity: 1
+  _allowedItems:
+  - {fileID: 11400000, guid: 994c611e4d093b54495634880c28b5a6, type: 2}
+  _stacks: []
+  _onModified:
+    m_PersistentCalls:
+      m_Calls: []

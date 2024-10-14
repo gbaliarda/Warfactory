@@ -7,6 +7,7 @@ public class ExtractorBuilding : FactoryBuilding
 {
     [Header("Extractor settings")]
     [SerializeField] private ResourceTile[] _resourceTiles = Array.Empty<ResourceTile>();
+    [SerializeField] private Item _hardcodedOutput;
 
     private ResourceTile _currentResourceTile;
 
@@ -38,6 +39,9 @@ public class ExtractorBuilding : FactoryBuilding
 
     protected override void Start()
     {
+        if(_hardcodedOutput != null)
+            UpdateResource(_hardcodedOutput);
+
         base.Start();
     }
 

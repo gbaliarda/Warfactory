@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
 
 public class Player : Actor, IBuffable
@@ -13,7 +14,8 @@ public class Player : Actor, IBuffable
 
     [SerializeField] private MonoBehaviour _weapon;
     [SerializeField] private MonoBehaviour _potion;
-    [SerializeField] private MonoBehaviour _potionBuilding;
+    [FormerlySerializedAs("_potionBuilding")] [SerializeField] private MonoBehaviour _shotgunBulletBuilding;
+    [SerializeField] private MonoBehaviour _potionFactory;
     [SerializeField] private MonoBehaviour _chestBuilding;
     [SerializeField] private MonoBehaviour _slider;
     [SerializeField] private MonoBehaviour _extractor;
@@ -166,10 +168,15 @@ public class Player : Actor, IBuffable
 
                     if (TileManager.Instance.IsInteractable(cellPosition))
                     {
-                        if (!EventSystem.current.IsPointerOverGameObject() && _potionBuilding.gameObject.activeSelf && _potionBuilding.GetComponent<IBuilding>() != null)
+                        if (!EventSystem.current.IsPointerOverGameObject() && _shotgunBulletBuilding.gameObject.activeSelf && _shotgunBulletBuilding.GetComponent<IBuilding>() != null)
                         {
                             TileManager.Instance.SetOccupied(cellPosition);
-                            (_potionBuilding as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2 + new Vector3(0, 0, -1), _buildingRotation);
+                            (_shotgunBulletBuilding as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2 + new Vector3(0, 0, -1), _buildingRotation);
+                        }
+                        if (!EventSystem.current.IsPointerOverGameObject() && _potionFactory.gameObject.activeSelf && _potionFactory.GetComponent<IBuilding>() != null)
+                        {
+                            TileManager.Instance.SetOccupied(cellPosition);
+                            (_potionFactory as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2 + new Vector3(0, 0, -1), _buildingRotation);
                         }
                         if (_slider.gameObject.activeSelf && _slider.GetComponent<IBuilding>() != null)
                         {
