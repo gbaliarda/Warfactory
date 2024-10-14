@@ -9,6 +9,7 @@ public class TemporalLevel : Singleton<TemporalLevel>
     [SerializeField] private Collider2D _cameraConfiner;
     [SerializeField] private Tilemap _interactableMap;
     [SerializeField] private Tilemap _uiHoverMap;
+    [SerializeField] private Tilemap _resourceMap;
 
     public Transform Spawner => _spawner;
     public Collider2D CameraConfiner => _cameraConfiner;
@@ -16,6 +17,7 @@ public class TemporalLevel : Singleton<TemporalLevel>
     {
         TileManager.Instance.SetInteractableMap(_interactableMap);
         TileManager.Instance.SetUIHoverMap(_uiHoverMap);
+        TileManager.Instance.SetResourceMap(_resourceMap);
         TileManager.Instance.InstantiateInteractableMap();
     }
 

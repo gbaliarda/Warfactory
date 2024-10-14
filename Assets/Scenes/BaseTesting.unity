@@ -12424,6 +12424,7 @@ MonoBehaviour:
   _cameraConfiner: {fileID: 98447326}
   _interactableMap: {fileID: 2126400817}
   _uiHoverMap: {fileID: 964795074}
+  _resourceMap: {fileID: 540213520}
 --- !u!1001 &1546861045
 PrefabInstance:
   m_ObjectHideFlags: 0
