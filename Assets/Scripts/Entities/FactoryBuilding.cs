@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
-public class FactoryBuilding : MonoBehaviour, IDamageable
+public class FactoryBuilding : MonoBehaviour, IDamageable, IDestroyable
 {
     #region Serialized Fields
 
@@ -55,7 +55,7 @@ public class FactoryBuilding : MonoBehaviour, IDamageable
         if (_overclock == 0) RealTimeInterval = 0;
         else RealTimeInterval = _spawnInterval / _overclock;
     }
-    
+
     public void SetIsOn(bool isOn)
     {
         _isOn = isOn;
@@ -85,7 +85,7 @@ public class FactoryBuilding : MonoBehaviour, IDamageable
         {
             yield return new WaitForSeconds(_spawnInterval / _overclock);
 
-            if(_recipe == null) continue;
+            if (_recipe == null) continue;
 
             if (!IsObjectPresent() && _recipe.CanCraft(_inventory))
             {
@@ -121,10 +121,10 @@ public class FactoryBuilding : MonoBehaviour, IDamageable
 
     protected virtual void Update()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1) && !Player.Instance.DeleteBuildingMode)
         {
             var cam = Camera.main;
-            if(!cam) return;
+            if (!cam) return;
 
             Vector2 mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
 
@@ -192,5 +192,10 @@ public class FactoryBuilding : MonoBehaviour, IDamageable
     public int HealDamage(DamageStats damage)
     {
         throw new System.NotImplementedException();
+    }
+
+    public void Destroy()
+    {
+        Destroy(gameObject);
     }
 }

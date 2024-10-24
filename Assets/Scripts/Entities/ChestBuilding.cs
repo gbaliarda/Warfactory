@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ChestBuilding : Inventory
+public class ChestBuilding : Inventory, IDestroyable
 {
     [SerializeField] private LayerMask _chestLayer;
     private bool _isOpen;
@@ -17,7 +17,7 @@ public class ChestBuilding : Inventory
 
     private void Update()
     {
-        if (!Input.GetMouseButtonDown(1)) return;
+        if (!Input.GetMouseButtonDown(1) || Player.Instance.DeleteBuildingMode) return;
 
         var cam = Camera.main;
         if (!cam) return;
@@ -48,5 +48,10 @@ public class ChestBuilding : Inventory
     public void CloseChest()
     {
         _isOpen = false;
+    }
+
+    public void Destroy()
+    {
+        Destroy(gameObject);
     }
 }

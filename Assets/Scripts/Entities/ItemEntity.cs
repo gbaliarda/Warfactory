@@ -50,7 +50,6 @@ public class ItemEntity : MonoBehaviour
 
             if (hit.collider != null && hit.collider.gameObject == gameObject)
             {
-                Debug.Log("Pick up item");
                 EventManager.Instance.EventPickUpItemEntity(this);
             }
         }
@@ -66,7 +65,6 @@ public class ItemEntity : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Pick up item");
             EventManager.Instance.EventPickUpItemEntity(this);
         }
 
@@ -74,7 +72,6 @@ public class ItemEntity : MonoBehaviour
         if (inventory == null || Stack == null) return;
 
         Stack = inventory.AddItemStack(Stack);
-        Debug.Log("Item agregado al cofre: " + _item.Name);
 
         if (Stack.Amount <= 0)
             Destroy(gameObject);

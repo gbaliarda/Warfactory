@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.RuleTile.TilingRuleOutput;
 
-public class Slider : MonoBehaviour
+public class Slider : MonoBehaviour, IDestroyable
 {
     [SerializeField] private float _moveSpeed = 5f;
     [SerializeField] private Vector3 _direction;
@@ -60,5 +60,10 @@ public class Slider : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void Destroy()
+    {
+        Destroy(gameObject);
     }
 }

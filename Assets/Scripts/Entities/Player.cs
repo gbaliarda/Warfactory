@@ -27,8 +27,10 @@ public class Player : Actor, IBuffable
     [SerializeField] private string deadSound = "PlayerDead";
 
     public bool BuildingMode => _buildingMode;
+    public bool DeleteBuildingMode => _deleteBuildingMode;
 
     private bool _buildingMode = false;
+    private bool _deleteBuildingMode = false;
     public Transform HotbarItems => _hotbarItems;
     public Transform BuildHotbarItems => _buildHotbarItems;
     public Rigidbody2D Rigidbody { get; private set; }
@@ -50,6 +52,7 @@ public class Player : Actor, IBuffable
     [SerializeField] private KeyCode _inventory = KeyCode.I;
     [SerializeField] private KeyCode _buildModeKey = KeyCode.Q;
     [SerializeField] private KeyCode _rotateBuilding = KeyCode.R;
+    [SerializeField] private KeyCode _deleteBuilding = KeyCode.Z;
     #endregion
 
     #region PARAMS
@@ -126,6 +129,14 @@ public class Player : Actor, IBuffable
         if (Input.GetKey(_hotbarSlot6)) EventManager.Instance.EventHotbarSlotChange(5);
         if (Input.GetKeyDown(KeyCode.P)) Instantiate(_levelPortal, transform.position + transform.rotation * Vector3.up * 2, Quaternion.identity, CurrentZone.transform);
         if (Input.GetKeyDown(KeyCode.O)) Instantiate(_basePortal, transform.position + transform.rotation * Vector3.up * 2, Quaternion.identity, CurrentZone.transform);
+        if (Input.GetKeyDown(_deleteBuilding))
+        {
+            if (_buildingMode)
+            {
+                _deleteBuildingMode = !_deleteBuildingMode;
+                EventManager.Instance.EventDeleteBuildModeActive(_deleteBuildingMode);
+            }
+        }
         if (Input.GetKeyDown(_buildModeKey))
         {
             _buildingMode = !_buildingMode;
@@ -148,7 +159,28 @@ public class Player : Actor, IBuffable
                 EventManager.Instance.EventOpenInventoryUI();
         }
 
-        if (Input.GetKeyDown(_interact) && _buildingMode)
+        if (Input.GetKeyDown(_interact) && _buildingMode && _deleteBuildingMode)
+        {
+            var cam = Camera.main;
+            if (!cam) return;
+
+            var mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
+            int layerToIgnore = LayerMask.GetMask("Camera");
+            int layerMask = ~layerToIgnore;
+            var hit = Physics2D.Raycast(mousePosition, Vector2.zero, Mathf.Infinity, layerMask);
+            if (hit.collider != null)
+            {
+                var clickedObject = hit.collider.gameObject;
+                Debug.Log(clickedObject);
+
+                if (clickedObject.TryGetComponent<IDestroyable>(out var destroyable))
+                {
+                    destroyable.Destroy();
+                }
+            }
+        }
+
+        if (Input.GetKeyDown(_interact) && _buildingMode && !_deleteBuildingMode)
         {
             var cam = Camera.main;
             if(!cam) return;
