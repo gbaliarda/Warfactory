@@ -90,4 +90,25 @@ public class Inventory : MonoBehaviour, IInventory
 
     public int GetItemAmount(Item item)
         => _stacks.Where(s => s.Item == item).Sum(s => s.Amount);
+
+    public Item PopLastItem()
+    {
+        if (_stacks.Count == 0)
+        {
+            return null;
+        }
+
+        ItemStack lastStack = _stacks[_stacks.Count - 1];
+
+        lastStack.DecreaseAmount(1);
+        _onModified?.Invoke(this);
+
+        if (lastStack.Amount <= 0)
+        {
+            _stacks.RemoveAt(_stacks.Count - 1);
+        }
+        _onModified?.Invoke(this);
+
+        return lastStack.Item;
+    }
 }

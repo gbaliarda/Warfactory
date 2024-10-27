@@ -143,7 +143,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19f68778c23cc294696c080356d1acc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxCapacity: 20
+  _stackCapacity: 20
+  _allowedItems: []
+  _stacks: []
+  _onModified:
+    m_PersistentCalls:
+      m_Calls: []
   _chestLayer:
     serializedVersion: 2
     m_Bits: 1024
+  _spawnInterval: 3
+  _objectsContainer: {fileID: 0}
+  _itemEntityPrefab: {fileID: 7431681385107224975, guid: 231deade01d4f4f498fab2b1bef0bf96, type: 3}

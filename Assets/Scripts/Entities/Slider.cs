@@ -11,6 +11,8 @@ public class Slider : MonoBehaviour, IDestroyable
     private HashSet<Rigidbody2D> _rigidBodyToMove = new();
     private bool _isMoving = false;
 
+    public Vector3 Direction => _direction;
+
     private void Awake()
     {
         _direction = transform.rotation * Vector3.up;
