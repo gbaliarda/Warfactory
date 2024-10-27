@@ -14,6 +14,7 @@ public class InventoryManager : Singleton<InventoryManager>
     {
         EventManager.Instance.OnPickUpWorldObject += OnPickUpItemEntity;
         EventManager.Instance.OnPickUpChestItem += OnPickUpChestStack;
+        EventManager.Instance.OnSaveItemInChest += OnSaveItemInChest;
 
         Stacks = new();
         IsOpen = false;
@@ -92,9 +93,17 @@ public class InventoryManager : Singleton<InventoryManager>
 
     private void OnPickUpChestStack(ChestSlot chestSlot)
     {
+        Debug.Log("Hola!");
         var leftStack = AddItemStack(chestSlot.Stack);
 
         ChestUI.Instance.OpenChest.RemoveItemStack(leftStack);
+    }
+    
+    private void OnSaveItemInChest(InventorySlot inventorySlot)
+    {
+        ChestUI.Instance.OpenChest.AddItemStack(inventorySlot.Stack);
+        RemoveItemStack(inventorySlot.Stack);
+
     }
 
     public void SetIsOpen(bool isOpen)

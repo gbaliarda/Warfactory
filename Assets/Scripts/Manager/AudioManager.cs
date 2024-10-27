@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 public class AudioManager : Singleton<AudioManager>
 {
-    public static AudioManager Instance;
 
     [System.Serializable]
     public class Sound
@@ -26,17 +25,6 @@ public class AudioManager : Singleton<AudioManager>
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
-
         foreach (Sound s in sfx)
         {
             s.source = gameObject.AddComponent<AudioSource>();

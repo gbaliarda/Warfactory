@@ -14,6 +14,7 @@ public class EventManager : Singleton<EventManager>
     public event Action OnCloseInventoryUI;
     public event Action<ItemEntity> OnPickUpWorldObject;
     public event Action<ChestSlot> OnPickUpChestItem;
+    public event Action<InventorySlot> OnSaveItemInChest;
     public event Action<ItemStack> OnInventoryUpdate;
     public event Action<bool> OnBuildModeActive;
     public event Action<bool> OnDeleteBuildModeActive;
@@ -53,6 +54,10 @@ public class EventManager : Singleton<EventManager>
     public void EventPickUpChestItem(ChestSlot chestItem)
     {
         OnPickUpChestItem?.Invoke(chestItem);
+    }
+    public void EventSaveItemInChest(InventorySlot inventoryItem)
+    {
+        OnSaveItemInChest?.Invoke(inventoryItem);
     }
     public void EventInventoryUpdate(ItemStack stack)
     {

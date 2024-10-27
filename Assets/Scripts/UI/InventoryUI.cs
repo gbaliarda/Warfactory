@@ -35,6 +35,7 @@ public class InventoryUI : MonoBehaviour
 
                 var stackAmountText = slot.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
                 stackAmountText.text = item.Amount.ToString();
+                _slots[i].Stack = item;
             }
             else
             {
@@ -45,6 +46,7 @@ public class InventoryUI : MonoBehaviour
 
                 var amountText = slot.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
                 amountText.text = "";
+                _slots[i].Stack = null;
             }
         }
         InventoryManager.Instance.SetIsOpen(true);
