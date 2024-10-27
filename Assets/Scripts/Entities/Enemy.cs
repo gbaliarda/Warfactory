@@ -14,7 +14,6 @@ public class Enemy : Actor
     protected AttackController attackController;
     private bool _targetInSight, _targetInAttack;
 
-    private Animator _animator;
     [SerializeField] private float _disappearDelay = 2f; // Time to wait before destroying after disappearing
 
     public float SightRange => _sightRange;
@@ -23,8 +22,8 @@ public class Enemy : Actor
 
     protected override void Awake()
     {
+        base.Awake();
         moveController = GetComponent<MoveController>();
-        _animator = GetComponent<Animator>();
 
         if (moveController != null) moveController.SetSpeed(stats.MovementSpeed);
     }
@@ -75,9 +74,9 @@ public class Enemy : Actor
         {
             life -= damage.TotalDamage;
             AudioManager.Instance.PlaySFX(onHitSound);
-            if (_animator != null)
+            if (animator != null)
             {
-                _animator.SetTrigger("Hit");
+                animator.SetTrigger("Hit");
             }
         }
 
@@ -95,9 +94,9 @@ public class Enemy : Actor
         isDead = true;
 
         // Trigger death animation
-        if (_animator != null)
+        if (animator != null)
         {
-            _animator.SetBool("Dead", true);
+            animator.SetBool("Dead", true);
         }
 
         // Disable components

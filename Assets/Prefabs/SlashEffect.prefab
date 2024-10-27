@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2486532976817105538}
   - component: {fileID: 999426407624558582}
-  - component: {fileID: 4105644833814600210}
   m_Layer: 0
   m_Name: SlashEffect
   m_TagString: Untagged
@@ -85,18 +84,3 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4105644833814600210
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5902234085710276169}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51cd0e3de8fce684282e8e61807925dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _fadeSpeed: 1
-  _moveSpeed: 3
-  _fadeOut: 1
