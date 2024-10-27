@@ -102,7 +102,7 @@ public class FactoryBuilding : MonoBehaviour, IDamageable, IDestroyable
                 _spawnTimes.Enqueue(currentTime);
             }
 
-            CalculatePerformance();
+            Performance = CalculatePerformance();
         }
     }
 
@@ -150,8 +150,8 @@ public class FactoryBuilding : MonoBehaviour, IDamageable, IDestroyable
 
         float actualSpawns = _spawnTimes.Count;
 
-        Performance = (actualSpawns / expectedSpawns) * 100f;
-        return Mathf.Clamp(Performance, 0f, 100f);
+        var performance = (actualSpawns / expectedSpawns) * 100f;
+        return Mathf.Clamp(performance, 0f, 100f);
     }
 
     protected bool isDead = false;
