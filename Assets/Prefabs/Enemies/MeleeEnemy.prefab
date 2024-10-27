@@ -18,11 +18,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7476587642831109742, guid: 37dc26933dfc55340881ba829a9b20fc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.57
+      value: -2.573906
       objectReference: {fileID: 0}
     - target: {fileID: 7476587642831109742, guid: 37dc26933dfc55340881ba829a9b20fc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.09
+      value: -13.035852
       objectReference: {fileID: 0}
     - target: {fileID: 7476587642831109742, guid: 37dc26933dfc55340881ba829a9b20fc, type: 3}
       propertyPath: m_LocalPosition.z
@@ -34,15 +34,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7476587642831109742, guid: 37dc26933dfc55340881ba829a9b20fc, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7476587642831109742, guid: 37dc26933dfc55340881ba829a9b20fc, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7476587642831109742, guid: 37dc26933dfc55340881ba829a9b20fc, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7476587642831109742, guid: 37dc26933dfc55340881ba829a9b20fc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -138,5 +138,6 @@ MonoBehaviour:
   _facingRight: 1
   _attackOffset: {x: 1, y: 0}
   _attackSize: {x: 1.5, y: 1.5}
-  _attackFlashColor: {r: 1, g: 0, b: 0, a: 1}
-  _flashDuration: 0.1
+  _slashPrefab: {fileID: 5902234085710276169, guid: 90d003235501fbc49b11e8a7f3e27538, type: 3}
+  _slashOffset: {x: 0.5, y: 0}
+  _slashRotation: {x: 0, y: 0, z: -45}
