@@ -12,7 +12,9 @@ public class Player : Actor, IBuffable
 
     private Vector2 _moveDirection;
 
-    [SerializeField] private MonoBehaviour _weapon;
+    [SerializeField] private MonoBehaviour[] _weapons;
+    private int _currentWeaponIndex = 0;
+    [SerializeField] private KeyCode _switchWeapon = KeyCode.Tab;
     [SerializeField] private MonoBehaviour _potion;
     [FormerlySerializedAs("_potionBuilding")] [SerializeField] private MonoBehaviour _shotgunBulletBuilding;
     [SerializeField] private MonoBehaviour _potionFactory;
@@ -96,6 +98,12 @@ public class Player : Actor, IBuffable
 
         stats = Instantiate(_baseStats);
         _currentZone = GameObject.Find("Base");
+        // Initialize weapons - disable all except the first one
+        for (int i = 0; i < _weapons.Length; i++)
+        {
+            if (_weapons[i] != null)
+                _weapons[i].gameObject.SetActive(i == _currentWeaponIndex);
+        }
     }
 
     #region MOVEMENT_INPUT
@@ -120,6 +128,11 @@ public class Player : Actor, IBuffable
     {
         if (isDead) return;
         InputMovement();
+        
+        if (Input.GetKeyDown(_switchWeapon) && !_buildingMode)
+        {
+            SwitchWeapon();
+        }
 
         if (Input.GetKey(_hotbarSlot1)) EventManager.Instance.EventHotbarSlotChange(0);
         if (Input.GetKey(_hotbarSlot2)) EventManager.Instance.EventHotbarSlotChange(1);
@@ -246,7 +259,9 @@ public class Player : Actor, IBuffable
 
         if (Input.GetKeyDown(_shoot) && !_buildingMode)
         {
-            if (!EventSystem.current.IsPointerOverGameObject() && _weapon.gameObject.activeSelf && _weapon.GetComponent<IWeapon>() != null)
+            if (!EventSystem.current.IsPointerOverGameObject() && 
+                _weapons[_currentWeaponIndex].gameObject.activeSelf && 
+                _weapons[_currentWeaponIndex].GetComponent<IWeapon>() != null)
             {
                 ShootWeapon();
             }
@@ -300,7 +315,7 @@ public class Player : Actor, IBuffable
         Vector2 mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
         var dir = (mousePosition - (Vector2)transform.position).normalized;
         var origin = (Vector2)transform.position + _shootOriginDistance * dir;
-        ((IWeapon)_weapon).Attack(origin, dir);
+        ((IWeapon)_weapons[_currentWeaponIndex]).Attack(origin, dir);
     }
 
     private void UsePotion()
@@ -372,5 +387,20 @@ public class Player : Actor, IBuffable
 
         Destroy(gameObject);
     }
+    
+    #region WEAPON_SWITCH
+    private void SwitchWeapon()
+    {
+        if (_weapons.Length == 0) return;
+
+        if (_weapons[_currentWeaponIndex] != null)
+            _weapons[_currentWeaponIndex].gameObject.SetActive(false);
+
+        _currentWeaponIndex = (_currentWeaponIndex + 1) % _weapons.Length;
+
+        if (_weapons[_currentWeaponIndex] != null)
+            _weapons[_currentWeaponIndex].gameObject.SetActive(true);
+    }
+    #endregion
     
 }

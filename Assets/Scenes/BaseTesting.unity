@@ -7549,7 +7549,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 0bd93f6a338786a459341a0bf39705f8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -18882,6 +18882,11 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!4 &1624264974 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1366266514941702581, guid: e1d8b60e6e8427b499fe490636b4313e, type: 3}
+  m_PrefabInstance: {fileID: 1816058389556832784}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1626520580 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2202258722203273560, guid: 17196b761fd73a045a7496b4e954a894, type: 3}
@@ -19398,6 +19403,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 92df16c340470744fb25de6cc56fa3d8, type: 3}
+--- !u!114 &1687108558 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1441809224062838785, guid: e1d8b60e6e8427b499fe490636b4313e, type: 3}
+  m_PrefabInstance: {fileID: 1816058389556832784}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 015e1d6afda97484390dc6e26f2a52f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1688898625
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19730,6 +19746,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7942282625662581351, guid: 92df16c340470744fb25de6cc56fa3d8, type: 3}
   m_PrefabInstance: {fileID: 1438262346}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1752226328 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4159158914636536779, guid: e1d8b60e6e8427b499fe490636b4313e, type: 3}
+  m_PrefabInstance: {fileID: 1816058389556832784}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84bc162784ff5eb46818c8730d00f92f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1769601397
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -45617,9 +45644,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1441809224062838785, guid: e1d8b60e6e8427b499fe490636b4313e, type: 3}
+      propertyPath: _stats
+      value: 
+      objectReference: {fileID: 11400000, guid: 3c6e9347a71bda04d9e779a300df3c76, type: 2}
+    - target: {fileID: 1441809224062838785, guid: e1d8b60e6e8427b499fe490636b4313e, type: 3}
+      propertyPath: _bulletOrigin
+      value: 
+      objectReference: {fileID: 1624264974}
+    - target: {fileID: 1441809224062838785, guid: e1d8b60e6e8427b499fe490636b4313e, type: 3}
+      propertyPath: _prefabToInstantiate
+      value: 
+      objectReference: {fileID: 3081791885587078914, guid: bd09c34f0d8005547882e8c9b232bac1, type: 3}
     - target: {fileID: 2801850703530412939, guid: e1d8b60e6e8427b499fe490636b4313e, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 3398238204678806519, guid: e1d8b60e6e8427b499fe490636b4313e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4599762863980784052, guid: e1d8b60e6e8427b499fe490636b4313e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -45662,10 +45705,19 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8155172185628780504, guid: e1d8b60e6e8427b499fe490636b4313e, type: 3}
-      propertyPath: _deleteBuilding
-      value: 122
+      propertyPath: _weapons.Array.size
+      value: 2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8155172185628780504, guid: e1d8b60e6e8427b499fe490636b4313e, type: 3}
+      propertyPath: _weapons.Array.data[0]
+      value: 
+      objectReference: {fileID: 1687108558}
+    - target: {fileID: 8155172185628780504, guid: e1d8b60e6e8427b499fe490636b4313e, type: 3}
+      propertyPath: _weapons.Array.data[1]
+      value: 
+      objectReference: {fileID: 1752226328}
+    m_RemovedComponents:
+    - {fileID: 5588838462009831304, guid: e1d8b60e6e8427b499fe490636b4313e, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
