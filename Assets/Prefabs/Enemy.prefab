@@ -163,11 +163,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: a700ff5702846ba4d9c8e790adfb2f23, type: 2}
-  _playerLayer:
+  deathAnimationDuration: 1
+  _healthBarPrefab: {fileID: 0}
+  _targetLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   _sightRange: 10
   _attackRange: 2
+  _lootTable: {fileID: 11400000, guid: ae1914639fedb5e4f8d49d899576521b, type: 2}
+  _itemEntityPrefab: {fileID: 7431681385107224975, guid: 231deade01d4f4f498fab2b1bef0bf96, type: 3}
+  _disappearDelay: 2
+  onHitSound: EnemyHit
 --- !u!114 &2660983326830659141
 MonoBehaviour:
   m_ObjectHideFlags: 0

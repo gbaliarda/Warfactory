@@ -117,9 +117,10 @@ MonoBehaviour:
     m_Bits: 64
   _sightRange: 10
   _attackRange: 8
-  _drop: {fileID: 7431681385107224975, guid: c7f72f23ffce629458f12e9819803721, type: 3}
-  _dropSprite: {fileID: 21300000, guid: 27315f781d922f240af5885485b4f6ad, type: 3}
+  _lootTable: {fileID: 11400000, guid: ae1914639fedb5e4f8d49d899576521b, type: 2}
+  _itemEntityPrefab: {fileID: 7431681385107224975, guid: 231deade01d4f4f498fab2b1bef0bf96, type: 3}
   _disappearDelay: 2
+  onHitSound: EnemyHit
   _weapon: {fileID: 6035970468646195532}
   _facingRight: 1
 --- !u!95 &432979274754341130
@@ -259,6 +260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19a6323a0c6b3f64d83e36a75ec8d130, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _assaultRifleBulletItem: {fileID: 0}
   _stats: {fileID: 11400000, guid: 4a168cbc7c3d71a458900c8fcf5220e7, type: 2}
   _prefabToInstantiate: {fileID: 1838722454431763204, guid: b461e74265ed15a44a0dbc3505bd0cbb, type: 3}
   _bulletOrigin: {fileID: 4141372051591911627}
