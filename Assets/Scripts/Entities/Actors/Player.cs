@@ -11,11 +11,9 @@ public class Player : Actor, IBuffable
     public static Player Instance { get; private set; }
 
     private Vector2 _moveDirection;
-
-    [SerializeField] private MonoBehaviour[] _weapons;
-    private int _currentWeaponIndex = 0;
-    [SerializeField] private KeyCode _switchWeapon = KeyCode.Tab;
-    [SerializeField] private MonoBehaviour _potion;
+    [SerializeField] private MonoBehaviour _pistol;
+    [SerializeField] private MonoBehaviour _shotgun;
+    [SerializeField] private MonoBehaviour _ragePotion;
     [FormerlySerializedAs("_potionBuilding")] [SerializeField] private MonoBehaviour _shotgunBulletBuilding;
     [SerializeField] private MonoBehaviour _potionFactory;
     [SerializeField] private MonoBehaviour _chestBuilding;
@@ -24,6 +22,7 @@ public class Player : Actor, IBuffable
     [SerializeField] private ActorStats _baseStats;
     [SerializeField] private Transform _hotbarItems;
     [SerializeField] private Transform _buildHotbarItems;
+    private int _currentHotbarItemIndex = 0;
 
     // SFX
     [SerializeField] private string deadSound = "PlayerDead";
@@ -98,12 +97,6 @@ public class Player : Actor, IBuffable
 
         stats = Instantiate(_baseStats);
         _currentZone = GameObject.Find("Base");
-        // Initialize weapons - disable all except the first one
-        for (int i = 0; i < _weapons.Length; i++)
-        {
-            if (_weapons[i] != null)
-                _weapons[i].gameObject.SetActive(i == _currentWeaponIndex);
-        }
     }
 
     #region MOVEMENT_INPUT
@@ -111,7 +104,6 @@ public class Player : Actor, IBuffable
     {
         var moveX = Input.GetAxisRaw("Horizontal");
         var moveY = Input.GetAxisRaw("Vertical");
-
         _moveDirection = new Vector2(moveX, moveY).normalized;
     }
 
@@ -128,18 +120,13 @@ public class Player : Actor, IBuffable
     {
         if (isDead) return;
         InputMovement();
-        
-        if (Input.GetKeyDown(_switchWeapon) && !_buildingMode)
-        {
-            SwitchWeapon();
-        }
 
-        if (Input.GetKey(_hotbarSlot1)) EventManager.Instance.EventHotbarSlotChange(0);
-        if (Input.GetKey(_hotbarSlot2)) EventManager.Instance.EventHotbarSlotChange(1);
-        if (Input.GetKey(_hotbarSlot3)) EventManager.Instance.EventHotbarSlotChange(2);
-        if (Input.GetKey(_hotbarSlot4)) EventManager.Instance.EventHotbarSlotChange(3);
-        if (Input.GetKey(_hotbarSlot5)) EventManager.Instance.EventHotbarSlotChange(4);
-        if (Input.GetKey(_hotbarSlot6)) EventManager.Instance.EventHotbarSlotChange(5);
+        if (Input.GetKeyDown(_hotbarSlot1)) hotbarSlotChange(0);
+        if (Input.GetKeyDown(_hotbarSlot2)) hotbarSlotChange(1);
+        if (Input.GetKeyDown(_hotbarSlot3)) hotbarSlotChange(2);
+        if (Input.GetKeyDown(_hotbarSlot4)) hotbarSlotChange(3);
+        if (Input.GetKeyDown(_hotbarSlot5)) hotbarSlotChange(4);
+        if (Input.GetKeyDown(_hotbarSlot6)) hotbarSlotChange(5);
         if (Input.GetKeyDown(KeyCode.P)) Instantiate(_levelPortal, transform.position + transform.rotation * Vector3.up * 2, Quaternion.identity, CurrentZone.transform);
         if (Input.GetKeyDown(KeyCode.O)) Instantiate(_basePortal, transform.position + transform.rotation * Vector3.up * 2, Quaternion.identity, CurrentZone.transform);
         if (Input.GetKeyDown(_deleteBuilding))
@@ -155,6 +142,7 @@ public class Player : Actor, IBuffable
             _buildingMode = !_buildingMode;
             _hotbarItems.gameObject.SetActive(!_buildingMode);
             _buildHotbarItems.gameObject.SetActive(_buildingMode);
+            hotbarSlotChange(0);
             EventManager.Instance.EventBuildModeActive(_buildingMode);
         }
         if(Input.GetKeyDown(_rotateBuilding))
@@ -226,12 +214,12 @@ public class Player : Actor, IBuffable
                         if (_slider.gameObject.activeSelf && _slider.GetComponent<IBuilding>() != null)
                         {
                             TileManager.Instance.SetOccupied(cellPosition);
-                            (_slider as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2, _buildingRotation);
+                            (_slider as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2 + new Vector3(0, 0, -0.25f), _buildingRotation);
                         }
                         if (_chestBuilding.gameObject.activeSelf && _chestBuilding.GetComponent<IBuilding>() != null)
                         {
                             TileManager.Instance.SetOccupied(cellPosition);
-                            (_chestBuilding as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2 + new Vector3(0, 0, -1), _buildingRotation);
+                            (_chestBuilding as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2 + new Vector3(0, 0, -1), 1); // Can not rotate chest
                         }
                         if(_extractor.gameObject.activeSelf && _extractor.GetComponent<IBuilding>() != null)
                         {
@@ -259,15 +247,17 @@ public class Player : Actor, IBuffable
 
         if (Input.GetKeyDown(_shoot) && !_buildingMode)
         {
-            if (!EventSystem.current.IsPointerOverGameObject() && 
-                _weapons[_currentWeaponIndex].gameObject.activeSelf && 
-                _weapons[_currentWeaponIndex].GetComponent<IWeapon>() != null)
+            if (!EventSystem.current.IsPointerOverGameObject() && _shotgun.gameObject.activeSelf && _shotgun.GetComponent<IWeapon>() != null)
             {
-                ShootWeapon();
+                ShootWeapon(_shotgun.GetComponent<IWeapon>());
             }
-            if (_potion.gameObject.activeSelf && _potion.GetComponent<IPotion>() != null)
+            if (!EventSystem.current.IsPointerOverGameObject() && _pistol.gameObject.activeSelf && _pistol.GetComponent<IWeapon>() != null)
             {
-                UsePotion();
+                ShootWeapon(_pistol.GetComponent<IWeapon>());
+            }
+            if (_ragePotion.gameObject.activeSelf && _ragePotion.GetComponent<IPotion>() != null)
+            {
+                UsePotion(_ragePotion.GetComponent<IPotion>());
             }
         }
 
@@ -277,6 +267,26 @@ public class Player : Actor, IBuffable
         } else
         {
             _objectInHand = GetFirstActiveChild(_hotbarItems);
+        }
+    }
+
+    private void hotbarSlotChange(int hotbarSlot)
+    {
+        int _oldCurrentSlot = _currentHotbarItemIndex;
+        if (_oldCurrentSlot == hotbarSlot) return;
+        EventManager.Instance.EventHotbarSlotChange(hotbarSlot);
+        if(_buildingMode && hotbarSlot < _buildHotbarItems.childCount)
+        {
+            _buildHotbarItems.GetChild(hotbarSlot).gameObject.SetActive(true);
+            if (_oldCurrentSlot < _buildHotbarItems.childCount)
+                _buildHotbarItems.GetChild(_oldCurrentSlot).gameObject.SetActive(false);
+            _currentHotbarItemIndex = hotbarSlot;
+        } else if(!_buildingMode && hotbarSlot < _hotbarItems.childCount)
+        {
+            _hotbarItems.GetChild(hotbarSlot).gameObject.SetActive(true);
+            if (_oldCurrentSlot < _hotbarItems.childCount)
+                _hotbarItems.GetChild(_oldCurrentSlot).gameObject.SetActive(false);
+            _currentHotbarItemIndex = hotbarSlot;
         }
     }
 
@@ -307,7 +317,7 @@ public class Player : Actor, IBuffable
 
     }
 
-    private void ShootWeapon()
+    private void ShootWeapon(IWeapon weapon)
     {
         var cam = Camera.main;
         if(!cam) return;
@@ -315,12 +325,12 @@ public class Player : Actor, IBuffable
         Vector2 mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
         var dir = (mousePosition - (Vector2)transform.position).normalized;
         var origin = (Vector2)transform.position + _shootOriginDistance * dir;
-        ((IWeapon)_weapons[_currentWeaponIndex]).Attack(origin, dir);
+        weapon.Attack(origin, dir);
     }
 
-    private void UsePotion()
+    private void UsePotion(IPotion potion)
     {
-        ((IPotion)_potion).Buff();
+        potion.Buff();
     }
 
     public void AddBuff(IPotion potion)
@@ -341,6 +351,7 @@ public class Player : Actor, IBuffable
     {
         if (isDead) return;
         isDead = true;
+        _moveDirection = new Vector2(0, 0).normalized;
         if (animator != null) animator.SetBool("Dead", true);
 
         // if (GetComponent<Collider2D>() != null) GetComponent<Collider2D>().enabled = false;
@@ -387,20 +398,5 @@ public class Player : Actor, IBuffable
 
         Destroy(gameObject);
     }
-    
-    #region WEAPON_SWITCH
-    private void SwitchWeapon()
-    {
-        if (_weapons.Length == 0) return;
-
-        if (_weapons[_currentWeaponIndex] != null)
-            _weapons[_currentWeaponIndex].gameObject.SetActive(false);
-
-        _currentWeaponIndex = (_currentWeaponIndex + 1) % _weapons.Length;
-
-        if (_weapons[_currentWeaponIndex] != null)
-            _weapons[_currentWeaponIndex].gameObject.SetActive(true);
-    }
-    #endregion
     
 }

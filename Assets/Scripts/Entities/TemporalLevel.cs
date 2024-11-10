@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class TemporalLevel : Singleton<TemporalLevel>
+public class TemporalLevel : Singleton<TemporalLevel>, IZone
 {
     [SerializeField] private Transform _spawner;
     [SerializeField] private Collider2D _cameraConfiner;
@@ -13,7 +13,20 @@ public class TemporalLevel : Singleton<TemporalLevel>
 
     public Transform Spawner => _spawner;
     public Collider2D CameraConfiner => _cameraConfiner;
+    [SerializeField] private Transform _objectsContainer;
+    public Transform ObjectsContainer => _objectsContainer;
+
     void Start()
+    {
+
+    }
+
+    void Update()
+    {
+        
+    }
+
+    public void updateTileManager()
     {
         TileManager.Instance.SetInteractableMap(_interactableMap);
         TileManager.Instance.SetUIHoverMap(_uiHoverMap);
@@ -21,8 +34,8 @@ public class TemporalLevel : Singleton<TemporalLevel>
         TileManager.Instance.InstantiateInteractableMap();
     }
 
-    void Update()
+    private void OnDestroy()
     {
-        
+        TileManager.Instance.RestoreBaseTilemaps();
     }
 }

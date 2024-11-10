@@ -376,11 +376,9 @@ MonoBehaviour:
   stats: {fileID: 11400000, guid: 7385b344dcfdc1148a01751d6b8db71f, type: 2}
   deathAnimationDuration: 1
   _healthBarPrefab: {fileID: 3385906106993239456, guid: 83be5fb738f7cc94aa86588e1e3aff35, type: 3}
-  _weapons:
-  - {fileID: 1441809224062838785}
-  - {fileID: 4159158914636536779}
-  _switchWeapon: 9
-  _potion: {fileID: 2272100309901005295}
+  _pistol: {fileID: 1441809224062838785}
+  _shotgun: {fileID: 4159158914636536779}
+  _ragePotion: {fileID: 2272100309901005295}
   _shotgunBulletBuilding: {fileID: 2135848899117651382}
   _potionFactory: {fileID: 1493724141926131540}
   _chestBuilding: {fileID: 2832818961439216814}
@@ -837,7 +835,7 @@ GameObject:
   - component: {fileID: 2272100309901005295}
   - component: {fileID: 4360567388652066452}
   m_Layer: 6
-  m_Name: ProjPotion
+  m_Name: RagePotion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

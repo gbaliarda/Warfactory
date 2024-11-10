@@ -34,29 +34,6 @@ public class Hotbar : MonoBehaviour
 
     private void OnHotbarSlotChange(int hotbarSlotIndex)
     {
-        if (Player.Instance.BuildingMode && hotbarSlotIndex < Player.Instance.BuildHotbarItems.childCount)
-        {
-            Player.Instance.BuildHotbarItems.GetChild(hotbarSlotIndex).gameObject.SetActive(true);
-        } else if (!Player.Instance.BuildingMode && hotbarSlotIndex < Player.Instance.HotbarItems.childCount)
-        {
-            Player.Instance.HotbarItems.GetChild(hotbarSlotIndex).gameObject.SetActive(true);
-        }
-    
-        for (int i = 0; i < _slots.Length; i++)
-        {
-            if (i == hotbarSlotIndex) continue;
-            if (Player.Instance.BuildingMode)
-            {
-                if (i >= Player.Instance.BuildHotbarItems.childCount) break;
-                Player.Instance.BuildHotbarItems.GetChild(i).gameObject.SetActive(false);
-            }
-            else
-            {
-                if (i >= Player.Instance.HotbarItems.childCount) break;
-                Player.Instance.HotbarItems.GetChild(i).gameObject.SetActive(false);
-            }
-        }
-
         _slots[_activeSlotIndex].SetActive(false);
         _activeSlotIndex = hotbarSlotIndex;
         _slots[_activeSlotIndex].SetActive(true);

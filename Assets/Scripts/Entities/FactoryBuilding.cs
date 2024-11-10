@@ -67,7 +67,7 @@ public class FactoryBuilding : MonoBehaviour, IDamageable, IDestroyable
 
     protected virtual void Start()
     {
-        if (_objectsContainer == null) _objectsContainer = GameObject.Find("Objects").transform;
+        if (_objectsContainer == null) _objectsContainer = GetComponentInParent<IZone>().ObjectsContainer;
 
         StartCoroutine(SpawnItemCoroutine());
 

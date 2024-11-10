@@ -25,7 +25,7 @@ public class ChestBuilding : Inventory, IDestroyable
 
     private void Start()
     {
-        if (_objectsContainer == null) _objectsContainer = GameObject.Find("Objects").transform;
+        if (_objectsContainer == null) _objectsContainer = GetComponentInParent<IZone>().ObjectsContainer;
 
         _spawnItemPositions = new();
         _currentSpawnPosition = 0;

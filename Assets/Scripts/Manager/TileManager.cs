@@ -7,6 +7,10 @@ public class TileManager : Singleton<TileManager>
     [SerializeField] private Tilemap _uiHoverMap;
     [SerializeField] private Tilemap _resourceMap;
 
+    [SerializeField]  private Tilemap _baseInteractableMap;
+    [SerializeField]  private Tilemap _baseUiHoverMap;
+    [SerializeField]  private Tilemap _baseResourceMap;
+
     [SerializeField] private Tile _hiddenInteractableTile;
     [SerializeField] private Tile _uiHoverTile;
     [SerializeField] private Tile _interactedTile;
@@ -18,6 +22,9 @@ public class TileManager : Singleton<TileManager>
 
     void Start()
     {
+        _interactableMap = _baseInteractableMap;
+        _uiHoverMap = _baseUiHoverMap;
+        _resourceMap = _baseResourceMap;
         InstantiateInteractableMap();
     }
 
@@ -38,6 +45,7 @@ public class TileManager : Singleton<TileManager>
 
     public void SetInteractableMap(Tilemap interactableMap)
     {
+        Debug.Log("Updating interactable tilemap");
         _interactableMap = interactableMap;
     }
 
@@ -140,5 +148,12 @@ public class TileManager : Singleton<TileManager>
     public void SetOccupied(Vector3Int position)
     {
         _interactableMap.SetTile(position, _occupiedTile);
+    }
+
+    public void RestoreBaseTilemaps()
+    {
+        _interactableMap = _baseInteractableMap;
+        _uiHoverMap = _baseUiHoverMap;
+        _resourceMap = _baseResourceMap;
     }
 }
