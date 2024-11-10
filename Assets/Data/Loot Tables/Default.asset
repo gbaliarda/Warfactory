@@ -13,6 +13,22 @@ MonoBehaviour:
   m_Name: Default
   m_EditorClassIdentifier: 
   _guaranteedItems: []
-  _randomEntries: []
+  _randomEntries:
+  - _stack:
+      _item: {fileID: 11400000, guid: 11daeb71571a0ef41b8f72fc29dd0445, type: 2}
+      _amount: 1
+    _weight: 10
+  - _stack:
+      _item: {fileID: 11400000, guid: 11daeb71571a0ef41b8f72fc29dd0445, type: 2}
+      _amount: 5
+    _weight: 1
+  - _stack:
+      _item: {fileID: 11400000, guid: 4ef06d8cd22318d42b8411f40637e431, type: 2}
+      _amount: 1
+    _weight: 1
+  - _stack:
+      _item: {fileID: 11400000, guid: 0f00c8fa298093f43aa6685df5df2f85, type: 2}
+      _amount: 1
+    _weight: 5
   _randomRolls: 1
-  _totalWeight: 0
+  _totalWeight: 17
