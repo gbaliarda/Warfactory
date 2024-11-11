@@ -13,8 +13,10 @@ public class Player : Actor, IBuffable
     private Vector2 _moveDirection;
     [SerializeField] private MonoBehaviour _pistol;
     [SerializeField] private MonoBehaviour _shotgun;
+    [SerializeField] private MonoBehaviour _assaultRifle;
     [SerializeField] private MonoBehaviour _ragePotion;
     [FormerlySerializedAs("_potionBuilding")] [SerializeField] private MonoBehaviour _shotgunBulletBuilding;
+    [SerializeField] private MonoBehaviour _assaultRifleBulletBuilding;
     [SerializeField] private MonoBehaviour _potionFactory;
     [SerializeField] private MonoBehaviour _chestBuilding;
     [SerializeField] private MonoBehaviour _slider;
@@ -139,10 +141,10 @@ public class Player : Actor, IBuffable
         }
         if (Input.GetKeyDown(_buildModeKey))
         {
+            hotbarSlotChange(0);
             _buildingMode = !_buildingMode;
             _hotbarItems.gameObject.SetActive(!_buildingMode);
             _buildHotbarItems.gameObject.SetActive(_buildingMode);
-            hotbarSlotChange(0);
             EventManager.Instance.EventBuildModeActive(_buildingMode);
         }
         if(Input.GetKeyDown(_rotateBuilding))
@@ -172,11 +174,11 @@ public class Player : Actor, IBuffable
             if (hit.collider != null)
             {
                 var clickedObject = hit.collider.gameObject;
-                Debug.Log(clickedObject);
 
                 if (clickedObject.TryGetComponent<IDestroyable>(out var destroyable))
                 {
                     destroyable.Destroy();
+                    TileManager.Instance.SetUnoccupied(hit.point);
                 }
             }
         }
@@ -205,6 +207,11 @@ public class Player : Actor, IBuffable
                         {
                             TileManager.Instance.SetOccupied(cellPosition);
                             (_shotgunBulletBuilding as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2 + new Vector3(0, 0, -1), _buildingRotation);
+                        }
+                        if (!EventSystem.current.IsPointerOverGameObject() && _assaultRifleBulletBuilding.gameObject.activeSelf && _assaultRifleBulletBuilding.GetComponent<IBuilding>() != null)
+                        {
+                            TileManager.Instance.SetOccupied(cellPosition);
+                            (_assaultRifleBulletBuilding as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2 + new Vector3(0, 0, -1), _buildingRotation);
                         }
                         if (!EventSystem.current.IsPointerOverGameObject() && _potionFactory.gameObject.activeSelf && _potionFactory.GetComponent<IBuilding>() != null)
                         {
@@ -245,7 +252,7 @@ public class Player : Actor, IBuffable
         }
 
 
-        if (Input.GetKeyDown(_shoot) && !_buildingMode)
+        if (Input.GetKey(_shoot) && !_buildingMode)
         {
             if (!EventSystem.current.IsPointerOverGameObject() && _shotgun.gameObject.activeSelf && _shotgun.GetComponent<IWeapon>() != null)
             {
@@ -254,6 +261,10 @@ public class Player : Actor, IBuffable
             if (!EventSystem.current.IsPointerOverGameObject() && _pistol.gameObject.activeSelf && _pistol.GetComponent<IWeapon>() != null)
             {
                 ShootWeapon(_pistol.GetComponent<IWeapon>());
+            }
+            if (!EventSystem.current.IsPointerOverGameObject() && _assaultRifle.gameObject.activeSelf && _assaultRifle.GetComponent<IWeapon>() != null)
+            {
+                ShootWeapon(_assaultRifle.GetComponent<IWeapon>());
             }
             if (_ragePotion.gameObject.activeSelf && _ragePotion.GetComponent<IPotion>() != null)
             {
@@ -274,19 +285,20 @@ public class Player : Actor, IBuffable
     {
         int _oldCurrentSlot = _currentHotbarItemIndex;
         if (_oldCurrentSlot == hotbarSlot) return;
-        EventManager.Instance.EventHotbarSlotChange(hotbarSlot);
         if(_buildingMode && hotbarSlot < _buildHotbarItems.childCount)
         {
             _buildHotbarItems.GetChild(hotbarSlot).gameObject.SetActive(true);
             if (_oldCurrentSlot < _buildHotbarItems.childCount)
                 _buildHotbarItems.GetChild(_oldCurrentSlot).gameObject.SetActive(false);
             _currentHotbarItemIndex = hotbarSlot;
+            EventManager.Instance.EventHotbarSlotChange(hotbarSlot);
         } else if(!_buildingMode && hotbarSlot < _hotbarItems.childCount)
         {
             _hotbarItems.GetChild(hotbarSlot).gameObject.SetActive(true);
             if (_oldCurrentSlot < _hotbarItems.childCount)
                 _hotbarItems.GetChild(_oldCurrentSlot).gameObject.SetActive(false);
             _currentHotbarItemIndex = hotbarSlot;
+            EventManager.Instance.EventHotbarSlotChange(hotbarSlot);
         }
     }
 

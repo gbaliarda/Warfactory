@@ -7,7 +7,7 @@ namespace Entities
         [SerializeField] protected MonoBehaviour _weapon;
         public IWeapon Weapon => _weapon as IWeapon;
 
-           [SerializeField] private bool _facingRight = true;
+        [SerializeField] private bool _facingRight = true;
 
         protected override void Attack()
         {

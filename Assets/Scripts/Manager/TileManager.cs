@@ -1,3 +1,4 @@
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -148,6 +149,12 @@ public class TileManager : Singleton<TileManager>
     public void SetOccupied(Vector3Int position)
     {
         _interactableMap.SetTile(position, _occupiedTile);
+    }
+    
+    public void SetUnoccupied(Vector2 raycastHitPoint)
+    {
+        var cellPosition = _interactableMap.WorldToCell(raycastHitPoint);
+        _interactableMap.SetTile(cellPosition, _hiddenInteractableTile);
     }
 
     public void RestoreBaseTilemaps()

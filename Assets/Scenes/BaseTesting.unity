@@ -5542,6 +5542,17 @@ RectTransform:
   m_AnchoredPosition: {x: 500, y: 150}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &664401952 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5850952596900767342, guid: e1d8b60e6e8427b499fe490636b4313e, type: 3}
+  m_PrefabInstance: {fileID: 1816058389556832784}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19a6323a0c6b3f64d83e36a75ec8d130, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &707679992
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10614,7 +10625,7 @@ PrefabInstance:
     - target: {fileID: 153927505521723961, guid: 92df16c340470744fb25de6cc56fa3d8, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 21300000, guid: c9c7f3750ab841640a0d73a3e7ec5527, type: 3}
     - target: {fileID: 423860660296817067, guid: 92df16c340470744fb25de6cc56fa3d8, type: 3}
       propertyPath: m_Name
       value: Slot4
@@ -10625,7 +10636,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7772627836210846771, guid: 92df16c340470744fb25de6cc56fa3d8, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7942282625662581351, guid: 92df16c340470744fb25de6cc56fa3d8, type: 3}
       propertyPath: m_Pivot.x
@@ -12031,7 +12042,7 @@ PrefabInstance:
     - target: {fileID: 153927505521723961, guid: 92df16c340470744fb25de6cc56fa3d8, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 107ebf0ce29d56b42b08c21d15d6637e, type: 3}
+      objectReference: {fileID: -144335857, guid: 0d5e657ee5a074e4baa53d5b248a01d2, type: 3}
     - target: {fileID: 423860660296817067, guid: 92df16c340470744fb25de6cc56fa3d8, type: 3}
       propertyPath: m_Name
       value: Slot3
@@ -12836,6 +12847,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2109068307}
     m_Modifications:
+    - target: {fileID: 153927505521723961, guid: 92df16c340470744fb25de6cc56fa3d8, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 423860660296817067, guid: 92df16c340470744fb25de6cc56fa3d8, type: 3}
       propertyPath: m_Name
       value: Slot6
@@ -45711,6 +45726,10 @@ PrefabInstance:
       propertyPath: _prefabToInstantiate
       value: 
       objectReference: {fileID: 3081791885587078914, guid: bd09c34f0d8005547882e8c9b232bac1, type: 3}
+    - target: {fileID: 1645333102090854713, guid: e1d8b60e6e8427b499fe490636b4313e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2801850703530412939, guid: e1d8b60e6e8427b499fe490636b4313e, type: 3}
       propertyPath: m_Name
       value: Player
@@ -45727,6 +45746,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4360567388652066452, guid: e1d8b60e6e8427b499fe490636b4313e, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c9c7f3750ab841640a0d73a3e7ec5527, type: 3}
     - target: {fileID: 4599762863980784052, guid: e1d8b60e6e8427b499fe490636b4313e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -45767,6 +45790,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5006267273397742363, guid: e1d8b60e6e8427b499fe490636b4313e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5261129978907621928, guid: e1d8b60e6e8427b499fe490636b4313e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.339
@@ -45783,6 +45810,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RagePotion
       objectReference: {fileID: 0}
+    - target: {fileID: 7547926619871963118, guid: e1d8b60e6e8427b499fe490636b4313e, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3981c8073ec81234d84d5eb73e3c53ac, type: 3}
     - target: {fileID: 8155172185628780504, guid: e1d8b60e6e8427b499fe490636b4313e, type: 3}
       propertyPath: _pistol
       value: 
@@ -45795,6 +45826,10 @@ PrefabInstance:
       propertyPath: _ragePotion
       value: 
       objectReference: {fileID: 801482190}
+    - target: {fileID: 8155172185628780504, guid: e1d8b60e6e8427b499fe490636b4313e, type: 3}
+      propertyPath: _assaultRifle
+      value: 
+      objectReference: {fileID: 664401952}
     - target: {fileID: 8155172185628780504, guid: e1d8b60e6e8427b499fe490636b4313e, type: 3}
       propertyPath: _weapons.Array.size
       value: 2

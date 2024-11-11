@@ -73,7 +73,8 @@ public class Enemy : Actor
         if (life > 0)
         {
             life -= damage.TotalDamage;
-            AudioManager.Instance.PlaySFX(onHitSound);
+            if (AudioManager.Instance != null && onHitSound != null)
+                AudioManager.Instance.PlaySFX(onHitSound);
             if (animator != null)
             {
                 animator.SetTrigger("Hit");
