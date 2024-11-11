@@ -21,7 +21,7 @@ namespace Entities
                 return;
             }
             
-            var dir = (player.transform.position - transform.position).normalized;
+            var dir = (player.transform.position - Weapon.BulletOrigin.transform.position).normalized;
             Weapon.Attack(dir);
         }
 

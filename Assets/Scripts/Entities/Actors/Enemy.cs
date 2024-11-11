@@ -20,7 +20,7 @@ public class Enemy : Actor
 
     public float SightRange => _sightRange;
 
-    [SerializeField] private string onHitSound = "EnemyHit";
+    [SerializeField] private string onHitSound = "enemyHit";
 
     protected override void Awake()
     {

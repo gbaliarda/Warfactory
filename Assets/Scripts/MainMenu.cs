@@ -8,25 +8,20 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private Button optionsButton;
     [SerializeField] private Button quitButton;
     [SerializeField] private string firstLevelScene = "level1";
-    [SerializeField] private string menuMusicTrack = "MenuTheme";
-    [SerializeField] private GameObject audioManagerPrefab;
+    [SerializeField] private string menuMusicTrack = "theme";
 
     private void Start()
     {
         startButton.onClick.AddListener(StartGame);
         optionsButton.onClick.AddListener(OpenOptions);
         quitButton.onClick.AddListener(QuitGame);
-
-        if (AudioManager.Instance == null && audioManagerPrefab != null)
-        {
-            Instantiate(audioManagerPrefab);
-        }
         
-        AudioManager.Instance?.PlayMusic(menuMusicTrack);
+        AudioManager.Instance.PlayMusic(menuMusicTrack);
     }
 
     private void StartGame()
     {
+        AudioManager.Instance.StopMusic();
         SceneManager.LoadScene(firstLevelScene);
     }
 

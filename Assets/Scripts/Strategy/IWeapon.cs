@@ -4,9 +4,10 @@ using UnityEngine;
 
 public interface IWeapon
 {
-    GameObject PrefabToInstantiate {  get; }
+    GameObject PrefabToInstantiate { get; }
     WeaponStats Stats { get; }
     Actor Owner { get; }
+    Transform BulletOrigin { get; }
 
     float CooldownLeft { get; }
     void Attack();
