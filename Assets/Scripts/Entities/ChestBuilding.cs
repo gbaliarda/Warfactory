@@ -33,7 +33,7 @@ public class ChestBuilding : Inventory, IDestroyable
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(1) && !Player.Instance.DeleteBuildingMode)
+        /*if (Input.GetMouseButtonDown(1) && !Player.Instance.DeleteBuildingMode)
         {
             var cam = Camera.main;
             if (!cam) return;
@@ -46,7 +46,7 @@ public class ChestBuilding : Inventory, IDestroyable
             {
                 OpenChest();
             }
-        }
+        }*/
 
         CheckNeighbourSliders();
 

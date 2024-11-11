@@ -21,6 +21,7 @@ public class Player : Actor, IBuffable
     [SerializeField] private MonoBehaviour _chestBuilding;
     [SerializeField] private MonoBehaviour _slider;
     [SerializeField] private MonoBehaviour _extractor;
+    [SerializeField] private MonoBehaviour _turret;
     [SerializeField] private ActorStats _baseStats;
     [SerializeField] private Transform _hotbarItems;
     [SerializeField] private Transform _buildHotbarItems;
@@ -52,6 +53,7 @@ public class Player : Actor, IBuffable
     [SerializeField] private KeyCode _hotbarSlot4 = KeyCode.Alpha4;
     [SerializeField] private KeyCode _hotbarSlot5 = KeyCode.Alpha5;
     [SerializeField] private KeyCode _hotbarSlot6 = KeyCode.Alpha6;
+    [SerializeField] private KeyCode _hotbarSlot7 = KeyCode.Alpha7;
     [SerializeField] private KeyCode _inventory = KeyCode.I;
     [SerializeField] private KeyCode _buildModeKey = KeyCode.Q;
     [SerializeField] private KeyCode _rotateBuilding = KeyCode.R;
@@ -129,6 +131,7 @@ public class Player : Actor, IBuffable
         if (Input.GetKeyDown(_hotbarSlot4)) hotbarSlotChange(3);
         if (Input.GetKeyDown(_hotbarSlot5)) hotbarSlotChange(4);
         if (Input.GetKeyDown(_hotbarSlot6)) hotbarSlotChange(5);
+        if (Input.GetKeyDown(_hotbarSlot7)) hotbarSlotChange(6);
         if (Input.GetKeyDown(KeyCode.P)) Instantiate(_levelPortal, transform.position + transform.rotation * Vector3.up * 2, Quaternion.identity, CurrentZone.transform);
         if (Input.GetKeyDown(KeyCode.O)) Instantiate(_basePortal, transform.position + transform.rotation * Vector3.up * 2, Quaternion.identity, CurrentZone.transform);
         if (Input.GetKeyDown(KeyCode.L)) Instantiate(_enemy, transform.position + transform.rotation * Vector3.up * 2, Quaternion.identity, CurrentZone.transform);
@@ -214,6 +217,11 @@ public class Player : Actor, IBuffable
                             TileManager.Instance.SetOccupied(cellPosition);
                             (_assaultRifleBulletBuilding as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2 + new Vector3(0, 0, -1), _buildingRotation);
                         }
+                        if (!EventSystem.current.IsPointerOverGameObject() && _turret.gameObject.activeSelf && _turret.GetComponent<IBuilding>() != null)
+                        {
+                            TileManager.Instance.SetOccupied(cellPosition);
+                            (_turret as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2 + new Vector3(0, 0, -1), 1);
+                        }
                         if (!EventSystem.current.IsPointerOverGameObject() && _potionFactory.gameObject.activeSelf && _potionFactory.GetComponent<IBuilding>() != null)
                         {
                             TileManager.Instance.SetOccupied(cellPosition);
@@ -244,13 +252,28 @@ public class Player : Actor, IBuffable
                             }
                         }
                     }
-                    /*if (TileManager.Instance.IsInteractable(cellPosition))
-                    {
-                        TileManager.Instance.SetInteractable(cellPosition);
-                    }*/
                 }
 
-                //EventQueueManager.Instance.AddEvent(_cmdLeftClick);
+            }
+        }
+
+        if (Input.GetKeyDown(_interact) && !_deleteBuildingMode)
+        {
+            var cam = Camera.main;
+            if (!cam) return;
+
+            var mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
+            int layerToIgnore = LayerMask.GetMask("Camera");
+            int layerMask = ~layerToIgnore;
+            var hit = Physics2D.Raycast(mousePosition, Vector2.zero, Mathf.Infinity, layerMask);
+            if (hit.collider != null)
+            {
+                var clickedObject = hit.collider.gameObject;
+                if (clickedObject.TryGetComponent<ChestBuilding>(out var chestBuildingClicked))
+                {
+                    Debug.Log(chestBuildingClicked);
+                    chestBuildingClicked.OpenChest();
+                }
             }
         }
 
