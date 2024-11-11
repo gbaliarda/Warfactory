@@ -21,16 +21,19 @@ public class Turret : Actor, IDestroyable
         Destroy(gameObject);
     }
 
-    private void Awake()
+    protected override void Awake()
     {
         if (!TryGetComponent(out _inventory))
             throw new Exception("Inventory component is required");
 
+        base.Awake();
     }
 
-    void Update()
+    protected override void Update()
     {
         if (isDead) return;
+
+        base.Update();
 
 
         Collider2D[] enemiesInSight = Physics2D.OverlapCircleAll(transform.position, _sightRange, _targetLayer);
