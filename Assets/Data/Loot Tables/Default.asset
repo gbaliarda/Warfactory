@@ -12,23 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fcc13cd470ab164baab2aa0959843c2, type: 3}
   m_Name: Default
   m_EditorClassIdentifier: 
-  _guaranteedItems: []
+  _guaranteedItems:
+  - _item: {fileID: 11400000, guid: f591f60fcfc6bc84ab7da1f149284aca, type: 2}
+    _amount: 1
   _randomEntries:
   - _stack:
-      _item: {fileID: 11400000, guid: 11daeb71571a0ef41b8f72fc29dd0445, type: 2}
+      _item: {fileID: 11400000, guid: f591f60fcfc6bc84ab7da1f149284aca, type: 2}
       _amount: 1
     _weight: 10
   - _stack:
       _item: {fileID: 11400000, guid: 11daeb71571a0ef41b8f72fc29dd0445, type: 2}
-      _amount: 5
-    _weight: 1
+      _amount: 1
+    _weight: 5
   - _stack:
       _item: {fileID: 11400000, guid: 4ef06d8cd22318d42b8411f40637e431, type: 2}
       _amount: 1
     _weight: 1
-  - _stack:
-      _item: {fileID: 11400000, guid: 0f00c8fa298093f43aa6685df5df2f85, type: 2}
-      _amount: 1
-    _weight: 5
   _randomRolls: 1
-  _totalWeight: 17
+  _totalWeight: 16

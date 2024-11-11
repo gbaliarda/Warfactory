@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class Building : MonoBehaviour, IBuilding
 {
-    public GameObject BuildingPrefab => _buildingPrefab;
     [SerializeField] private GameObject _buildingPrefab;
+    [SerializeField] private int _scrapCost;
+    [SerializeField] private Item _scrapItem;
+
+    public GameObject BuildingPrefab => _buildingPrefab;
+    public int ScrapCost => _scrapCost;
+
     public void Destroy()
     {
         throw new System.NotImplementedException();
@@ -25,6 +30,16 @@ public class Building : MonoBehaviour, IBuilding
     {
         if (_buildingPrefab == null)
             return null;
+
+        var inv = InventoryManager.Instance;
+        var scrapAmount = inv.GetAmountOfItem(_scrapItem);
+        if (scrapAmount < _scrapCost)
+        {
+            Debug.Log("Not enough scrap to build");
+            return null;
+        }
+
+        inv.ConsumeItem(_scrapItem, _scrapCost);
 
         Quaternion targetRotation = Quaternion.Euler(0, 0, -90 * (rotation - 1));
         return Instantiate(_buildingPrefab, position, targetRotation, Player.Instance.CurrentZone.transform);

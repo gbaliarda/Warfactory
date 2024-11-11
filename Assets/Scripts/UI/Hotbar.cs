@@ -45,12 +45,20 @@ public class Hotbar : MonoBehaviour
         if (active)
         {
             int i = 0;
-            foreach (var spriteRenderer in Player.Instance.BuildHotbarItems.GetComponentsInChildren<SpriteRenderer>(true))
+            foreach (var building in Player.Instance.BuildHotbarItems.GetComponentsInChildren<Building>(true))
             {
+                var spriteRenderer = building.GetComponent<SpriteRenderer>();
+
                 Debug.Log(spriteRenderer.sprite);
                 _slots[i].transform.GetChild(1).gameObject.SetActive(true);
                 _slots[i].transform.GetChild(1).GetComponent<Image>().sprite = spriteRenderer.sprite;
                 _slots[i].transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "";
+
+
+                var scrapCostUI = _slots[i].transform.GetChild(3);
+                scrapCostUI.gameObject.SetActive(true);
+                scrapCostUI.GetChild(1).GetComponent<TextMeshProUGUI>().text = building.ScrapCost.ToString();
+
                 i++;
             }
             for (; i < _slots.Length; i++)
@@ -66,11 +74,13 @@ public class Hotbar : MonoBehaviour
                 _slots[i].transform.GetChild(1).gameObject.SetActive(true);
                 _slots[i].transform.GetChild(1).GetComponent<Image>().sprite = spriteRenderer.sprite;
                 _slots[i].transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "";
+                _slots[i].transform.GetChild(3).gameObject.SetActive(false);
                 i++;
             }
             for (; i < _slots.Length; i++)
             {
                 _slots[i].transform.GetChild(1).gameObject.SetActive(false);
+                _slots[i].transform.GetChild(3).gameObject.SetActive(false);
             }
         }
 

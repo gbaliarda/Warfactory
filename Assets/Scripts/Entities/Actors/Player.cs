@@ -229,6 +229,8 @@ public class Player : Actor, IBuffable
 
                                 TileManager.Instance.SetOccupied(cellPosition);
                                 var go = (_extractor as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2 + new Vector3(0, 0, -1), _buildingRotation);
+                                if (!go) return;
+                                
                                 var extractor = go.GetComponent<ExtractorBuilding>();
                                 extractor.Tile = tile;
                             }
