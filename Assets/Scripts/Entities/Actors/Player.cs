@@ -117,7 +117,7 @@ public class Player : Actor, IBuffable
 
     [SerializeField] private GameObject _levelPortal;
     [SerializeField] private GameObject _basePortal;
-
+    [SerializeField] private GameObject _enemy; // TODO: Delete, just for testing
     protected override void Update()
     {
         if (isDead) return;
@@ -131,6 +131,7 @@ public class Player : Actor, IBuffable
         if (Input.GetKeyDown(_hotbarSlot6)) hotbarSlotChange(5);
         if (Input.GetKeyDown(KeyCode.P)) Instantiate(_levelPortal, transform.position + transform.rotation * Vector3.up * 2, Quaternion.identity, CurrentZone.transform);
         if (Input.GetKeyDown(KeyCode.O)) Instantiate(_basePortal, transform.position + transform.rotation * Vector3.up * 2, Quaternion.identity, CurrentZone.transform);
+        if (Input.GetKeyDown(KeyCode.L)) Instantiate(_enemy, transform.position + transform.rotation * Vector3.up * 2, Quaternion.identity, CurrentZone.transform);
         if (Input.GetKeyDown(_deleteBuilding))
         {
             if (_buildingMode)

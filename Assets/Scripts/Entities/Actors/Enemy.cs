@@ -10,6 +10,8 @@ public class Enemy : Actor
     [SerializeField] private LootTable _lootTable;
     [SerializeField] private GameObject _itemEntityPrefab;
 
+    [SerializeField] private GameObject _cannon;
+
     protected MoveController moveController;
     protected AttackController attackController;
     private bool _targetInSight, _targetInAttack;
