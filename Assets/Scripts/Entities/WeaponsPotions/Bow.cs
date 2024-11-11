@@ -14,6 +14,9 @@ public class Bow : MonoBehaviour, IWeapon
     public Actor Owner => _owner;
     public float CooldownLeft => cooldownLeft;
 
+    public Transform BulletOrigin => _bulletOrigin;
+    [SerializeField] private Transform _bulletOrigin;
+
     public void Attack(Vector2 origin, Vector2 direction)
     {
         if (cooldownLeft > 0) return;
@@ -48,17 +51,18 @@ public class Bow : MonoBehaviour, IWeapon
 
     public void Attack(Vector2 direction)
     {
-        Attack(transform.position, direction);
+        Attack(_bulletOrigin.position, direction);
     }
 
     public void Attack()
     {
-        Attack(transform.position, transform.right);
+        Attack(_bulletOrigin.position, transform.right);
     }
 
     protected void Start()
     {
         _owner = GetComponentInParent<Actor>();
+        if (_bulletOrigin == null) _bulletOrigin = transform;
         cooldownLeft = 0;
     }
 
