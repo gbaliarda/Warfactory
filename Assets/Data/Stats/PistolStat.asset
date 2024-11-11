@@ -9,12 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 229432d8e5fbc144992a9d1ba415fc3a, type: 3}
-  m_Name: PistolDamageStat
+  m_Script: {fileID: 11500000, guid: 4c55e4c26e333f441b5a1ebc2232e1b7, type: 3}
+  m_Name: PistolStat
   m_EditorClassIdentifier: 
-  _damageStats:
-    PhysicalDamage: 5
-    FireDamage: 0
-    WaterDamage: 0
-    LightningDamage: 0
-    VoidDamage: 0
+  _weaponStats:
+    _damageStats: {fileID: 11400000, guid: f823134715c56324682925845129f64c, type: 2}
+    _cooldown: 1
+    _projectiles: 1
+    _speed: 8

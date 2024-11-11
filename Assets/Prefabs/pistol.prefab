@@ -110,6 +110,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 015e1d6afda97484390dc6e26f2a52f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stats: {fileID: 0}
+  _stats: {fileID: 11400000, guid: 3c6e9347a71bda04d9e779a300df3c76, type: 2}
   _prefabToInstantiate: {fileID: 3081791885587078914, guid: 8902db26320ab0a45a668b21424b80cd, type: 3}
   _bulletOrigin: {fileID: 0}

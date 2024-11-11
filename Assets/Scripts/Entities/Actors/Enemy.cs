@@ -7,8 +7,8 @@ public class Enemy : Actor
     [SerializeField] protected LayerMask _targetLayer;
     [SerializeField] protected float _sightRange, _attackRange;
 
-    [SerializeField] private GameObject _drop;
-    [SerializeField] private Sprite _dropSprite;
+    [SerializeField] private LootTable _lootTable;
+    [SerializeField] private GameObject _itemEntityPrefab;
 
     protected MoveController moveController;
     protected AttackController attackController;
@@ -114,7 +114,7 @@ public class Enemy : Actor
         yield return new WaitForSeconds(deathAnimationDuration);
 
         SetVisibility(false);
-        DropItem();
+        DropLoot();
 
         yield return new WaitForSeconds(_disappearDelay);
 
@@ -141,12 +141,17 @@ public class Enemy : Actor
         }
     }
 
-    private void DropItem()
+    private void DropLoot()
     {
-        int randomNumber = Random.Range(1, 3);
-        if (randomNumber == 1 && _drop != null)
+        var loot = _lootTable.GetLoot();
+        foreach (var stack in loot)
         {
-            var bullet = Instantiate(_drop, transform.position, Quaternion.identity, transform.parent);
+            var xOffset = Random.value - 0.5f;
+            var yOffset = Random.value - 0.5f;
+            var posOffset = new Vector3(xOffset, yOffset, 0);
+
+            var drop = Instantiate(_itemEntityPrefab, transform.position + posOffset, Quaternion.identity);
+            drop.GetComponent<ItemEntity>().Stack = stack;
         }
     }
 }

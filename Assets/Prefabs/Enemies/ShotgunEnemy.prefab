@@ -112,9 +112,10 @@ MonoBehaviour:
     m_Bits: 64
   _sightRange: 8
   _attackRange: 3
-  _drop: {fileID: 7431681385107224975, guid: c7f72f23ffce629458f12e9819803721, type: 3}
-  _dropSprite: {fileID: 21300000, guid: 27315f781d922f240af5885485b4f6ad, type: 3}
+  _lootTable: {fileID: 11400000, guid: ae1914639fedb5e4f8d49d899576521b, type: 2}
+  _itemEntityPrefab: {fileID: 7431681385107224975, guid: 231deade01d4f4f498fab2b1bef0bf96, type: 3}
   _disappearDelay: 2
+  onHitSound: EnemyHit
   _weapon: {fileID: 7969553673961770131}
   _facingRight: 1
 --- !u!95 &7230837243279651304
