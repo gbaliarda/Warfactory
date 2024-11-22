@@ -11,6 +11,10 @@ public class Player : Actor, IBuffable
     public static Player Instance { get; private set; }
 
     private Vector2 _moveDirection;
+    [SerializeField] public GameObject interactableIcon;
+    
+    private Vector2 boxSize = new Vector2(0.1f, 1f);
+    
     [SerializeField] private MonoBehaviour _pistol;
     [SerializeField] private MonoBehaviour _shotgun;
     [SerializeField] private MonoBehaviour _assaultRifle;
@@ -61,6 +65,8 @@ public class Player : Actor, IBuffable
     [SerializeField] private KeyCode _buildModeKey = KeyCode.Q;
     [SerializeField] private KeyCode _rotateBuilding = KeyCode.R;
     [SerializeField] private KeyCode _deleteBuilding = KeyCode.Z;
+    [SerializeField] private KeyCode _read = KeyCode.E;
+    
     #endregion
 
     #region PARAMS
@@ -128,6 +134,9 @@ public class Player : Actor, IBuffable
         if (isDead) return;
         InputMovement();
 
+        if (Input.GetKeyDown(_read))
+            checkInteractable();
+        
         if (Input.GetKeyDown(_hotbarSlot1)) hotbarSlotChange(0);
         if (Input.GetKeyDown(_hotbarSlot2)) hotbarSlotChange(1);
         if (Input.GetKeyDown(_hotbarSlot3)) hotbarSlotChange(2);
@@ -459,5 +468,37 @@ public class Player : Actor, IBuffable
 
         Destroy(gameObject);
     }
+    
+    #region READ
+
+    public void OpenInteractableIcon()
+    {
+        if(interactableIcon != null)
+            interactableIcon.SetActive(true);
+    }
+    
+    public void CloseInteractableIcon()
+    {
+        if(interactableIcon != null)
+            interactableIcon.SetActive(false);
+    }
+
+    private void checkInteractable()
+    {
+        RaycastHit2D[] hits = Physics2D.BoxCastAll(transform.position, boxSize, 0, Vector2.zero);
+        if (hits.Length > 0)
+        {
+            foreach (RaycastHit2D rc in hits)
+            {
+                if (rc.transform.GetComponent<Interactable>())
+                {
+                    rc.transform.GetComponent<Interactable>().Interact();
+                    return;
+                }
+            }
+        }
+    }
+    
+    #endregion
     
 }

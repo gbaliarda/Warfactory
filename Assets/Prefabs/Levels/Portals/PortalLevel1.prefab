@@ -180,4 +180,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _temporalLevelToInstantiate: {fileID: 4662699297182156235, guid: 49d66be0d2a64964f8cf95972471a979, type: 3}
-  _cinemachineConfiner: {fileID: 0}
