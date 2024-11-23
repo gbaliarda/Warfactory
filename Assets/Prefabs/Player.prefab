@@ -128,7 +128,7 @@ Transform:
   m_GameObject: {fileID: 706139468570915484}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -177,7 +177,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 100
+  m_SortingOrder: 0
   m_Sprite: {fileID: 978012912, guid: 99a24620d31e5ce4e823c32d11e17c2c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -291,7 +291,7 @@ Transform:
   m_GameObject: {fileID: 1507766113506470161}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.4, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -382,7 +382,7 @@ MonoBehaviour:
   stats: {fileID: 11400000, guid: 7385b344dcfdc1148a01751d6b8db71f, type: 2}
   deathAnimationDuration: 1
   _healthBarPrefab: {fileID: 3385906106993239456, guid: 83be5fb738f7cc94aa86588e1e3aff35, type: 3}
-  interactableIcon: {fileID: 0}
+  interactableIcon: {fileID: 5220155047262131325}
   _pistol: {fileID: 1441809224062838785}
   _shotgun: {fileID: 4159158914636536779}
   _assaultRifle: {fileID: 5850952596900767342}
@@ -863,7 +863,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1263315999138710118
 Transform:
   m_ObjectHideFlags: 0
@@ -874,8 +874,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.91, z: 0}
-  m_LocalScale: {x: 0.29289, y: 0.29289, z: 0.29289}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6744636042815255870}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -919,8 +919,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 891c03581aa7ff74f89d81bbeb009318, type: 3}
+  m_SortingOrder: 101
+  m_Sprite: {fileID: 21300000, guid: a71a2c86d56c06f4dadef1c4773f3c26, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1537,6 +1537,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7484028787710077935, guid: da194d09bb00cd047918269201dd71be, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1566,6 +1570,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2305382330757133297}
     m_Modifications:
+    - target: {fileID: 572176267010512439, guid: 55d26baf65fb52e4487867e0b7df45e7, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3464754416551432187, guid: 55d26baf65fb52e4487867e0b7df45e7, type: 3}
       propertyPath: _stats
       value: 
@@ -1726,7 +1734,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7484028787710077935, guid: 66aa6cff1a999014281e38bc63f1c922, type: 3}
       propertyPath: m_SortingOrder
-      value: 101
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

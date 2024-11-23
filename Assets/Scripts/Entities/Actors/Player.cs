@@ -45,6 +45,8 @@ public class Player : Actor, IBuffable
     public Transform BuildHotbarItems => _buildHotbarItems;
     public Rigidbody2D Rigidbody { get; private set; }
 
+    public bool InputsEnabled { get; set; } = true;
+
     protected List<IPotion> buffs;
     public List<IPotion> Buffs => buffs;
 
@@ -131,7 +133,12 @@ public class Player : Actor, IBuffable
     [SerializeField] private GameObject _enemy; // TODO: Delete, just for testing
     protected override void Update()
     {
-        if (isDead) return;
+        if (isDead || !InputsEnabled)
+        {
+            _moveDirection = Vector2.zero;
+            return;
+        }
+
         InputMovement();
 
         if (Input.GetKeyDown(_read))
@@ -298,15 +305,15 @@ public class Player : Actor, IBuffable
 
         if (Input.GetKey(_shoot) && !_buildingMode)
         {
-            if (!EventSystem.current.IsPointerOverGameObject() && _shotgun.gameObject.activeSelf && _shotgun.GetComponent<IWeapon>() != null)
+            if (_shotgun.gameObject.activeSelf && _shotgun.GetComponent<IWeapon>() != null)
             {
                 ShootWeapon(_shotgun.GetComponent<IWeapon>());
             }
-            if (!EventSystem.current.IsPointerOverGameObject() && _pistol.gameObject.activeSelf && _pistol.GetComponent<IWeapon>() != null)
+            if (_pistol.gameObject.activeSelf && _pistol.GetComponent<IWeapon>() != null)
             {
                 ShootWeapon(_pistol.GetComponent<IWeapon>());
             }
-            if (!EventSystem.current.IsPointerOverGameObject() && _assaultRifle.gameObject.activeSelf && _assaultRifle.GetComponent<IWeapon>() != null)
+            if (_assaultRifle.gameObject.activeSelf && _assaultRifle.GetComponent<IWeapon>() != null)
             {
                 ShootWeapon(_assaultRifle.GetComponent<IWeapon>());
             }
