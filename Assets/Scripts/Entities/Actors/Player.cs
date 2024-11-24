@@ -136,8 +136,8 @@ public class Player : Actor, IBuffable
         if (Input.GetKeyDown(_hotbarSlot6)) hotbarSlotChange(5);
         if (Input.GetKeyDown(_hotbarSlot7)) hotbarSlotChange(6);
         if (Input.GetKeyDown(_hotbarSlot8)) hotbarSlotChange(7);
-        if (Input.GetKeyDown(KeyCode.P)) Instantiate(_levelPortal, transform.position + transform.rotation * Vector3.up * 2, Quaternion.identity, CurrentZone.transform);
-        if (Input.GetKeyDown(KeyCode.O)) Instantiate(_basePortal, transform.position + transform.rotation * Vector3.up * 2, Quaternion.identity, CurrentZone.transform);
+        if (Input.GetKeyDown(KeyCode.P)) LevelPickerUI.Instance.UnlockDefenseLevel();
+        //if (Input.GetKeyDown(KeyCode.O)) Instantiate(_basePortal, transform.position + transform.rotation * Vector3.up * 2, Quaternion.identity, CurrentZone.transform);
         if (Input.GetKeyDown(KeyCode.L)) Instantiate(_enemy, transform.position + transform.rotation * Vector3.up * 2, Quaternion.identity, CurrentZone.transform);
         if (Input.GetKeyDown(_deleteBuilding))
         {
@@ -168,6 +168,29 @@ public class Player : Actor, IBuffable
                 EventManager.Instance.EventCloseInventoryUI();
             else
                 EventManager.Instance.EventOpenInventoryUI();
+        }
+
+        if (Input.GetKeyDown(_interact))
+        {
+            var cam = Camera.main;
+            if (!cam) return;
+
+            var mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
+            int layerToIgnore = LayerMask.GetMask("Camera");
+            int layerMask = ~layerToIgnore;
+            var hit = Physics2D.Raycast(mousePosition, Vector2.zero, Mathf.Infinity, layerMask);
+            if (hit.collider != null)
+            {
+                var clickedObject = hit.collider.gameObject;
+
+                if (clickedObject.TryGetComponent<BaseTrain>(out var baseTrain))
+                {
+                    baseTrain.OpenMenu();
+                } else if(clickedObject.TryGetComponent<LevelTrain>(out var levelTrain))
+                {
+                    levelTrain.OpenMenu();
+                }
+            }
         }
 
         if (Input.GetKeyDown(_interact) && _buildingMode && _deleteBuildingMode)

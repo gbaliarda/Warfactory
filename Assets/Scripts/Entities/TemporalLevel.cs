@@ -16,6 +16,10 @@ public class TemporalLevel : Singleton<TemporalLevel>, IZone
     [SerializeField] private Transform _objectsContainer;
     public Transform ObjectsContainer => _objectsContainer;
 
+    private int _difficulty = 0;
+
+    public int Difficulty => _difficulty;
+
     void Start()
     {
 
@@ -26,7 +30,7 @@ public class TemporalLevel : Singleton<TemporalLevel>, IZone
         
     }
 
-    public void updateTileManager()
+    public void UpdateTileManager()
     {
         TileManager.Instance.SetInteractableMap(_interactableMap);
         TileManager.Instance.SetUIHoverMap(_uiHoverMap);
@@ -37,5 +41,10 @@ public class TemporalLevel : Singleton<TemporalLevel>, IZone
     private void OnDestroy()
     {
         TileManager.Instance.RestoreBaseTilemaps();
+    }
+
+    public void SetDifficulty(int difficulty)
+    {
+        _difficulty = difficulty;
     }
 }

@@ -14,7 +14,9 @@ public class EventManager : Singleton<EventManager>
     public event Action OnCloseInventoryUI;
     public event Action<ItemEntity> OnPickUpWorldObject;
     public event Action<ChestSlot> OnPickUpChestItem;
+    public event Action<CarbonSlot> OnPickUpLevelPickerItem;
     public event Action<InventorySlot> OnSaveItemInChest;
+    public event Action<InventorySlot> OnSaveItemInLevelPicker;
     public event Action<ItemStack> OnInventoryUpdate;
     public event Action<bool> OnBuildModeActive;
     public event Action<bool> OnDeleteBuildModeActive;
@@ -55,9 +57,17 @@ public class EventManager : Singleton<EventManager>
     {
         OnPickUpChestItem?.Invoke(chestItem);
     }
+    public void EventPickUpLevelPickerItem(CarbonSlot carbonItem)
+    {
+        OnPickUpLevelPickerItem?.Invoke(carbonItem);
+    }
     public void EventSaveItemInChest(InventorySlot inventoryItem)
     {
         OnSaveItemInChest?.Invoke(inventoryItem);
+    }
+    public void EventSaveItemInLevelPicker(InventorySlot inventoryItem)
+    {
+        OnSaveItemInLevelPicker?.Invoke(inventoryItem);
     }
     public void EventInventoryUpdate(ItemStack stack)
     {
