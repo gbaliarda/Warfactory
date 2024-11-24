@@ -11,7 +11,7 @@ public class Player : Actor, IBuffable
     public static Player Instance { get; private set; }
 
     private Vector2 _moveDirection;
-    [SerializeField] public GameObject interactableIcon;
+    [SerializeField] public GameObject _interactableIcon;
     
     private Vector2 boxSize = new Vector2(0.1f, 1f);
     
@@ -303,7 +303,7 @@ public class Player : Actor, IBuffable
         }
 
 
-        if (Input.GetKey(_shoot) && !_buildingMode)
+        if (Input.GetKey(_shoot) && !_buildingMode && !EventSystem.current.IsPointerOverGameObject())
         {
             if (_shotgun.gameObject.activeSelf && _shotgun.GetComponent<IWeapon>() != null)
             {
@@ -480,14 +480,14 @@ public class Player : Actor, IBuffable
 
     public void OpenInteractableIcon()
     {
-        if(interactableIcon != null)
-            interactableIcon.SetActive(true);
+        if(_interactableIcon != null)
+            _interactableIcon.SetActive(true);
     }
     
     public void CloseInteractableIcon()
     {
-        if(interactableIcon != null)
-            interactableIcon.SetActive(false);
+        if(_interactableIcon != null)
+            _interactableIcon.SetActive(false);
     }
 
     private void checkInteractable()
