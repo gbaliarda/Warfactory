@@ -1,19 +1,20 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Actor : MonoBehaviour, IDamageable
 {
-    public ActorStats Stats => stats;
+    public ActorStats Stats => _runtimeStats;
 
-    public int MaxLife => stats.MaxLife;
+    public int MaxLife => _runtimeStats.MaxLife;
 
     public int Life => life;
 
     public bool IsDead => isDead;
 
-    [SerializeField] protected ActorStats stats;
+    [SerializeField] private ActorStats stats;
     [SerializeField] protected float deathAnimationDuration = 1f;
     [SerializeField] private GameObject _healthBarPrefab;
     private HealthBarUI _healthBar;
@@ -21,10 +22,14 @@ public class Actor : MonoBehaviour, IDamageable
     protected bool isDead = false;
     protected int life;
     protected Animator animator;
-    
+    protected ActorStats _runtimeStats;
+
     protected virtual void Awake()
     {
         animator = GetComponent<Animator>();
+
+        _runtimeStats = Instantiate(stats);
+
     }
     protected virtual void Start()
     {

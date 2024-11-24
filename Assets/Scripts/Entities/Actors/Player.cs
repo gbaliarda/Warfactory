@@ -92,6 +92,8 @@ public class Player : Actor, IBuffable
         DontDestroyOnLoad(gameObject);
 
         Rigidbody = GetComponent<Rigidbody2D>();
+
+        base.Awake();
     }
 
     protected override void Start()
@@ -102,7 +104,7 @@ public class Player : Actor, IBuffable
 
         EventManager.Instance.OnHotbarItemSelect += OnHotbarItemSelect;
 
-        stats = Instantiate(_baseStats);
+        _runtimeStats = Instantiate(_baseStats);
         _currentZone = GameObject.Find("Base");
     }
 
@@ -383,7 +385,7 @@ public class Player : Actor, IBuffable
 
     private void Move()
     {
-        Rigidbody.velocity = _moveDirection * stats.MovementSpeed;
+        Rigidbody.velocity = _moveDirection * _runtimeStats.MovementSpeed;
     }
 
     private void OnHotbarItemSelect(GameObject go)
@@ -410,7 +412,7 @@ public class Player : Actor, IBuffable
     public void AddBuff(IPotion potion)
     {
         if (isDead) return;
-        stats.AddStats(potion.PotionStats);
+        _runtimeStats.AddStats(potion.PotionStats);
         if (life + potion.PotionStats.HealDamage > MaxLife)
         {
             Debug.Log("Healing damage");
@@ -427,7 +429,7 @@ public class Player : Actor, IBuffable
     public void RemoveBuff(IPotion potion)
     {
         if (isDead) return;
-        stats.RemoveStats(potion.PotionStats);
+        _runtimeStats.RemoveStats(potion.PotionStats);
         buffs.Remove(potion);
     }
 
@@ -447,7 +449,7 @@ public class Player : Actor, IBuffable
     {
         buffs ??= new();
 
-        stats = _baseStats;
+        _runtimeStats = _baseStats;
         _currentZone = GameObject.Find("Base");
         isDead = false;
         life = MaxLife;

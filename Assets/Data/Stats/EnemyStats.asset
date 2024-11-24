@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: EnemyStats
   m_EditorClassIdentifier: 
   _actorStatValues:
-    MaxLife: 100
+    MaxLife: 200
     MovementSpeed: 4
     ProjectileIncrease: 0
+    BonusAttackSpeed: 0

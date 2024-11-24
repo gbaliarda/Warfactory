@@ -36,11 +36,9 @@ public class InventorySlot : MonoBehaviour
             {
                 if (ChestUI.Instance.OpenChest)
                 {
-                    Debug.Log("Hola!");
                     EventManager.Instance.EventSaveItemInChest(this);
                 } else if (LevelPickerUI.Instance.gameObject.activeSelf)
                 {
-                    Debug.Log("Hola2!");
                     EventManager.Instance.EventSaveItemInLevelPicker(this);
                 }
             }

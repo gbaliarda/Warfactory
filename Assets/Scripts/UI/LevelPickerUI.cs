@@ -66,16 +66,12 @@ public class LevelPickerUI : Singleton<LevelPickerUI>
 
     public void TravelPlayer()
     {
-        Debug.Log(_buttonSelector.SelectedButton);
-        Debug.Log(_offenseLevel.GetComponentInChildren<Button>());
         if (_buttonSelector.SelectedButton == _offenseLevel.GetComponentInChildren<Button>())
         {
-            Debug.Log("Ofense selected");
             InstantiateLevel(_offenseLevelInstance);
             CloseLevelPicker();
         } else if (_buttonSelector.SelectedButton == _defenseLevel.GetComponentInChildren<Button>())
         {
-            Debug.Log("Defense selected");
             InstantiateLevel(_defenseLevelInstance);
             CloseLevelPicker();
         } else
@@ -91,7 +87,7 @@ public class LevelPickerUI : Singleton<LevelPickerUI>
 
         Player.Instance.SetCurrentZone(TemporalLevel.Instance.gameObject);
         TemporalLevel.Instance.UpdateTileManager();
-        TemporalLevel.Instance.SetDifficulty(_carbonSlot.Stack.Amount);
+        if (_carbonSlot.Stack != null) TemporalLevel.Instance.SetDifficulty(_carbonSlot.Stack.Amount);
         RemoveItemStack(_carbonSlot.Stack);
         Player.Instance.transform.SetPositionAndRotation(TemporalLevel.Instance.Spawner.position, Player.Instance.transform.rotation);
         if (_cinemachineConfiner != null && TemporalLevel.Instance.CameraConfiner != null)
