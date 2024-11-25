@@ -87,11 +87,11 @@ public class TileManager : Singleton<TileManager>
                 var extractorInHand = _extractorToolbar.gameObject.activeSelf;
 
                 if ( (!extractorInHand || isResource) &&
-                     (currentTile == null || currentTile.name != "BoxWhiteOutlineSquared"))
+                     (currentTile == null || currentTile.name != "ArrowBox"))
                 {
                     if (_oldCursorPosition != null) _uiHoverMap.SetTile(_oldCursorPosition.Value, null);
-                    _uiHoverMap.SetTile(cellPosition, _uiHoverTile);
                     _oldCursorPosition = cellPosition;
+                    UpdateTile(cellPosition);
                 }
 
                 if (extractorInHand && !isResource) hideCursor();
@@ -102,6 +102,32 @@ public class TileManager : Singleton<TileManager>
         } else
         {
             hideCursor();
+        }
+    }
+
+    private void UpdateTile(Vector3Int cellPosition)
+    {
+        if (_oldCursorPosition != null) _uiHoverMap.SetTile(_oldCursorPosition.Value, null);
+        int rotationIndex = Player.Instance.BuildingRotation;
+        float angle = 0f;
+
+        switch (rotationIndex)
+        {
+            case 2: angle = 270f; break;
+            case 3: angle = 180f; break;
+            case 4: angle = 90f; break;
+        }
+
+        _uiHoverMap.SetTile(cellPosition, _uiHoverTile);
+        Matrix4x4 rotationMatrix = Matrix4x4.Rotate(Quaternion.Euler(0, 0, angle));
+        _uiHoverMap.SetTransformMatrix(cellPosition, rotationMatrix);
+    }
+
+    public void OnBuildingRotationChanged()
+    {
+        if (_oldCursorPosition != null)
+        {
+            UpdateTile(_oldCursorPosition.Value);
         }
     }
 

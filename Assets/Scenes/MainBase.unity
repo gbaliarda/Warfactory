@@ -2403,7 +2403,7 @@ MonoBehaviour:
   _baseUiHoverMap: {fileID: 630157790}
   _baseResourceMap: {fileID: 1604064419}
   _hiddenInteractableTile: {fileID: 11400000, guid: 00803f4bb1c543640950108b7093caaa, type: 2}
-  _uiHoverTile: {fileID: 11400000, guid: caae9e28894ca674baee75aacbaa3f1c, type: 2}
+  _uiHoverTile: {fileID: 11400000, guid: 104135d1c14d8cd4b80c393e6070c01c, type: 2}
   _interactedTile: {fileID: 11400000, guid: 0592a1a15b0c9e946a203d9cfc3ef7c2, type: 2}
   _occupiedTile: {fileID: 11400000, guid: 0592a1a15b0c9e946a203d9cfc3ef7c2, type: 2}
   _tileToReplace: {fileID: 11400000, guid: 7cbbbe46b746b5b428adec98098a3216, type: 2}

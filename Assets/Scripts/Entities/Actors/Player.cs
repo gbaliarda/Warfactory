@@ -74,6 +74,8 @@ public class Player : Actor, IBuffable
 
     private int _buildingRotation = 1;
 
+    public int BuildingRotation => _buildingRotation;
+
     private GameObject _currentZone;
 
     public GameObject CurrentZone => _currentZone;
@@ -162,6 +164,7 @@ public class Player : Actor, IBuffable
             _buildingRotation += 1;
             if (_buildingRotation == 5)
                 _buildingRotation = 1;
+            TileManager.Instance.OnBuildingRotationChanged();
         }
 
         if (Input.GetKeyDown(_inventory))
