@@ -73,14 +73,12 @@ public class TileManager : Singleton<TileManager>
                 hideCursor();
                 return;
             }
-
             Vector3 hoverPosition = hit.point;
             GameObject hoverObject = hit.collider.gameObject;
 
             if (hoverObject.TryGetComponent<Tilemap>(out var tilemap))
             {
                 Vector3Int cellPosition = tilemap.WorldToCell(hoverPosition);
-
                 TileBase currentTile = _uiHoverMap.GetTile(cellPosition);
 
                 var isResource = IsResource(cellPosition);
@@ -117,7 +115,7 @@ public class TileManager : Singleton<TileManager>
             case 3: angle = 180f; break;
             case 4: angle = 90f; break;
         }
-
+        Debug.Log("Setting Tile");
         _uiHoverMap.SetTile(cellPosition, _uiHoverTile);
         Matrix4x4 rotationMatrix = Matrix4x4.Rotate(Quaternion.Euler(0, 0, angle));
         _uiHoverMap.SetTransformMatrix(cellPosition, rotationMatrix);

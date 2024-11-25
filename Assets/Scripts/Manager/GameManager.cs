@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
-using static Cinemachine.DocumentationSortingAttribute;
 
 public class GameManager : Singleton<GameManager>
 {

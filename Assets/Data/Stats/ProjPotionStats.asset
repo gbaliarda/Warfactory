@@ -15,8 +15,9 @@ MonoBehaviour:
   _actorStatValues:
     MaxLife: 0
     MovementSpeed: 0
-    ProjectileIncrease: 2
-    BonusAttackSpeed: 4
+    ProjectileIncrease: 0
+    BonusAttackSpeed: 2
   _potionStatValues:
     PotionCooldown: 5
     PotionDuration: 5
+    HealDamage: 0

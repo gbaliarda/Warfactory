@@ -32,6 +32,7 @@ public class TemporalLevel : Singleton<TemporalLevel>, IZone
 
     public void UpdateTileManager()
     {
+        Debug.Log("Updating tile managers");
         TileManager.Instance.SetInteractableMap(_interactableMap);
         TileManager.Instance.SetUIHoverMap(_uiHoverMap);
         TileManager.Instance.SetResourceMap(_resourceMap);

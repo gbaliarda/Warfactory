@@ -152,9 +152,9 @@ public class Player : Actor, IBuffable
         if (Input.GetKeyDown(_hotbarSlot6)) hotbarSlotChange(5);
         if (Input.GetKeyDown(_hotbarSlot7)) hotbarSlotChange(6);
         if (Input.GetKeyDown(_hotbarSlot8)) hotbarSlotChange(7);
-        if (Input.GetKeyDown(KeyCode.P)) LevelPickerUI.Instance.UnlockDefenseLevel();
+        //if (Input.GetKeyDown(KeyCode.P)) LevelPickerUI.Instance.UnlockDefenseLevel();
         //if (Input.GetKeyDown(KeyCode.O)) Instantiate(_basePortal, transform.position + transform.rotation * Vector3.up * 2, Quaternion.identity, CurrentZone.transform);
-        if (Input.GetKeyDown(KeyCode.L)) Instantiate(_enemy, transform.position + transform.rotation * Vector3.up * 2, Quaternion.identity, CurrentZone.transform);
+        //if (Input.GetKeyDown(KeyCode.L)) Instantiate(_enemy, transform.position + transform.rotation * Vector3.up * 2, Quaternion.identity, CurrentZone.transform);
         if (Input.GetKeyDown(_deleteBuilding))
         {
             if (_buildingMode)

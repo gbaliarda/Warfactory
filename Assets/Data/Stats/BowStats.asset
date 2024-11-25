@@ -16,4 +16,4 @@ MonoBehaviour:
     _damageStats: {fileID: 11400000, guid: 3e32b45fb31b45645a65ad377ce09cf4, type: 2}
     _cooldown: 1
     _projectiles: 1
-    _speed: 15
+    _speed: 10

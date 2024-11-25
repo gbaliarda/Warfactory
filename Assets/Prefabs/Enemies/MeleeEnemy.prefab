@@ -346,7 +346,7 @@ MonoBehaviour:
   _targetLayer:
     serializedVersion: 2
     m_Bits: 64
-  _sightRange: 8
+  _sightRange: 12
   _attackRange: 0.5
   _lootTable: {fileID: 11400000, guid: ae1914639fedb5e4f8d49d899576521b, type: 2}
   _itemEntityPrefab: {fileID: 7431681385107224975, guid: 231deade01d4f4f498fab2b1bef0bf96, type: 3}
