@@ -11,6 +11,9 @@ public class Player : Actor, IBuffable
     public static Player Instance { get; private set; }
 
     private Vector2 _moveDirection;
+
+    private Vector2 boxSize = new Vector2(0.1f, 1f);
+    
     [SerializeField] private MonoBehaviour _pistol;
     [SerializeField] private MonoBehaviour _shotgun;
     [SerializeField] private MonoBehaviour _assaultRifle;
@@ -27,6 +30,7 @@ public class Player : Actor, IBuffable
     [SerializeField] private ActorStats _baseStats;
     [SerializeField] private Transform _hotbarItems;
     [SerializeField] private Transform _buildHotbarItems;
+    [SerializeField] private float _maxInteractDistance = 2f;
     private int _currentHotbarItemIndex = 0;
 
     // SFX
@@ -40,6 +44,8 @@ public class Player : Actor, IBuffable
     public Transform HotbarItems => _hotbarItems;
     public Transform BuildHotbarItems => _buildHotbarItems;
     public Rigidbody2D Rigidbody { get; private set; }
+
+    public bool InputsEnabled { get; set; } = true;
 
     protected List<IPotion> buffs;
     public List<IPotion> Buffs => buffs;
@@ -61,6 +67,7 @@ public class Player : Actor, IBuffable
     [SerializeField] private KeyCode _buildModeKey = KeyCode.Q;
     [SerializeField] private KeyCode _rotateBuilding = KeyCode.R;
     [SerializeField] private KeyCode _deleteBuilding = KeyCode.Z;
+
     #endregion
 
     #region PARAMS
@@ -125,7 +132,12 @@ public class Player : Actor, IBuffable
     [SerializeField] private GameObject _enemy; // TODO: Delete, just for testing
     protected override void Update()
     {
-        if (isDead) return;
+        if (isDead || !InputsEnabled)
+        {
+            _moveDirection = Vector2.zero;
+            return;
+        }
+
         InputMovement();
 
         if (Input.GetKeyDown(_hotbarSlot1)) hotbarSlotChange(0);
@@ -272,32 +284,39 @@ public class Player : Actor, IBuffable
             if (!cam) return;
 
             var mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
+            var dist = Vector2.Distance(mousePosition, transform.position);
+            if (dist > _maxInteractDistance)
+            {
+                Debug.Log($"Distance: {dist}", this);
+                return;
+            }
+
             int layerToIgnore = LayerMask.GetMask("Camera");
             int layerMask = ~layerToIgnore;
             var hit = Physics2D.Raycast(mousePosition, Vector2.zero, Mathf.Infinity, layerMask);
             if (hit.collider != null)
             {
                 var clickedObject = hit.collider.gameObject;
-                if (clickedObject.TryGetComponent<ChestBuilding>(out var chestBuildingClicked))
+                if (clickedObject.TryGetComponent<IInteractable>(out var interactable))
                 {
-                    Debug.Log(chestBuildingClicked);
-                    chestBuildingClicked.OpenChest();
+                    Debug.Log(interactable);
+                    interactable.Interact();
                 }
             }
         }
 
 
-        if (Input.GetKey(_shoot) && !_buildingMode)
+        if (Input.GetKey(_shoot) && !_buildingMode && !EventSystem.current.IsPointerOverGameObject())
         {
-            if (!EventSystem.current.IsPointerOverGameObject() && _shotgun.gameObject.activeSelf && _shotgun.GetComponent<IWeapon>() != null)
+            if (_shotgun.gameObject.activeSelf && _shotgun.GetComponent<IWeapon>() != null)
             {
                 ShootWeapon(_shotgun.GetComponent<IWeapon>());
             }
-            if (!EventSystem.current.IsPointerOverGameObject() && _pistol.gameObject.activeSelf && _pistol.GetComponent<IWeapon>() != null)
+            if (_pistol.gameObject.activeSelf && _pistol.GetComponent<IWeapon>() != null)
             {
                 ShootWeapon(_pistol.GetComponent<IWeapon>());
             }
-            if (!EventSystem.current.IsPointerOverGameObject() && _assaultRifle.gameObject.activeSelf && _assaultRifle.GetComponent<IWeapon>() != null)
+            if (_assaultRifle.gameObject.activeSelf && _assaultRifle.GetComponent<IWeapon>() != null)
             {
                 ShootWeapon(_assaultRifle.GetComponent<IWeapon>());
             }

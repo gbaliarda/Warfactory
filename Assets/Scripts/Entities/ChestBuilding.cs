@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChestBuilding : Inventory, IDestroyable
+public class ChestBuilding : Inventory, IDestroyable, IInteractable
 {
     [SerializeField] private LayerMask _chestLayer;
     [SerializeField] private float _spawnInterval;
@@ -133,11 +133,20 @@ public class ChestBuilding : Inventory, IDestroyable
         Debug.Log("Open Chest");
         _isOpen = true;
         EventManager.Instance.EventOpenChestUI(this);
+
+        Player.Instance.InputsEnabled = false;
     }
 
     public void CloseChest()
     {
         _isOpen = false;
+
+        Player.Instance.InputsEnabled = true;
+    }
+
+    public void Interact()
+    {
+        OpenChest();
     }
 
     public void Destroy()
