@@ -34,8 +34,7 @@ public class Actor : MonoBehaviour, IDamageable
     protected virtual void Start()
     {
         life = MaxLife;
-
-        GameObject healthBarInstance = Instantiate(_healthBarPrefab, transform.position, Quaternion.identity, FindObjectOfType<Canvas>().transform);
+        GameObject healthBarInstance = Instantiate(_healthBarPrefab, transform.position, Quaternion.identity, GameObject.Find("MainCanvas").transform);
         healthBarInstance.transform.SetSiblingIndex(0);
         _healthBar = healthBarInstance.GetComponent<HealthBarUI>();
         _healthBar.Setup(this, transform);

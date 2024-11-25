@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _buildingPrefab: {fileID: 2430627982334618532, guid: 5fdebd2a8bf20204fb7db0c817f2a0aa, type: 3}
-  _scrapCost: 1
+  _scrapCost: 2
   _scrapItem: {fileID: 11400000, guid: f591f60fcfc6bc84ab7da1f149284aca, type: 2}
 --- !u!1 &706139468570915484
 GameObject:
@@ -556,7 +556,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _buildingPrefab: {fileID: 4926915188028973152, guid: a870c3e4a5678804295f25da23563f96, type: 3}
-  _scrapCost: 1
+  _scrapCost: 3
   _scrapItem: {fileID: 11400000, guid: f591f60fcfc6bc84ab7da1f149284aca, type: 2}
 --- !u!1 &3742560249582075213
 GameObject:
@@ -656,7 +656,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _buildingPrefab: {fileID: 4472525941911544458, guid: fa896cd8c4fea264f98d216ff57f0b5e, type: 3}
-  _scrapCost: 1
+  _scrapCost: 3
   _scrapItem: {fileID: 11400000, guid: f591f60fcfc6bc84ab7da1f149284aca, type: 2}
 --- !u!1 &5006267273397742363
 GameObject:
@@ -756,7 +756,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _buildingPrefab: {fileID: 4472525941911544458, guid: d70cb077eec4e5442a21adbc67ff10c7, type: 3}
-  _scrapCost: 1
+  _scrapCost: 5
   _scrapItem: {fileID: 11400000, guid: f591f60fcfc6bc84ab7da1f149284aca, type: 2}
 --- !u!1 &5130805574499348063
 GameObject:
@@ -856,7 +856,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _buildingPrefab: {fileID: 6248843823671164054, guid: 636228567ade0bf49b2be5a9c0113165, type: 3}
-  _scrapCost: 1
+  _scrapCost: 10
   _scrapItem: {fileID: 11400000, guid: f591f60fcfc6bc84ab7da1f149284aca, type: 2}
 --- !u!1 &5723379247763695772
 GameObject:
@@ -956,7 +956,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _buildingPrefab: {fileID: 7030823674309332429, guid: 17196b761fd73a045a7496b4e954a894, type: 3}
-  _scrapCost: 0
+  _scrapCost: 1
   _scrapItem: {fileID: 11400000, guid: f591f60fcfc6bc84ab7da1f149284aca, type: 2}
 --- !u!1 &5938347427263282593
 GameObject:
@@ -1056,7 +1056,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _buildingPrefab: {fileID: 4472525941911544458, guid: 0d920a5c87c5523408681462974c7216, type: 3}
-  _scrapCost: 1
+  _scrapCost: 5
   _scrapItem: {fileID: 11400000, guid: f591f60fcfc6bc84ab7da1f149284aca, type: 2}
 --- !u!1 &6712829051233738286
 GameObject:
@@ -1255,7 +1255,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _buildingPrefab: {fileID: 4926915188028973152, guid: d1662940772fcae479acbcb4fac147b0, type: 3}
-  _scrapCost: 1
+  _scrapCost: 3
   _scrapItem: {fileID: 11400000, guid: f591f60fcfc6bc84ab7da1f149284aca, type: 2}
 --- !u!1 &6888935431698921432
 GameObject:

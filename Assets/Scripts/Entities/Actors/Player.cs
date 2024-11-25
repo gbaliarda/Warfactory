@@ -187,29 +187,6 @@ public class Player : Actor, IBuffable
                 EventManager.Instance.EventOpenInventoryUI();
         }
 
-        if (Input.GetKeyDown(_interact))
-        {
-            var cam = Camera.main;
-            if (!cam) return;
-
-            var mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
-            int layerToIgnore = LayerMask.GetMask("Camera");
-            int layerMask = ~layerToIgnore;
-            var hit = Physics2D.Raycast(mousePosition, Vector2.zero, Mathf.Infinity, layerMask);
-            if (hit.collider != null)
-            {
-                var clickedObject = hit.collider.gameObject;
-
-                if (clickedObject.TryGetComponent<BaseTrain>(out var baseTrain))
-                {
-                    baseTrain.OpenMenu();
-                } else if(clickedObject.TryGetComponent<LevelTrain>(out var levelTrain))
-                {
-                    levelTrain.OpenMenu();
-                }
-            }
-        }
-
         if (Input.GetKeyDown(_interact) && _buildingMode && _deleteBuildingMode)
         {
             var cam = Camera.main;
@@ -315,7 +292,6 @@ public class Player : Actor, IBuffable
             var dist = Vector2.Distance(mousePosition, transform.position);
             if (dist > _maxInteractDistance)
             {
-                Debug.Log($"Distance: {dist}", this);
                 return;
             }
 
@@ -474,28 +450,33 @@ public class Player : Actor, IBuffable
         buffs ??= new();
 
         _runtimeStats = _baseStats;
-        _currentZone = GameObject.Find("Base");
         isDead = false;
         life = MaxLife;
         _moveDirection = new Vector2(0, 0);
 
-        transform.SetPositionAndRotation(Base.Instance.Spawner.position, transform.rotation);
-        CinemachineConfiner2D _cinemachineConfiner = GameObject.Find("VirtualCamera").GetComponent<CinemachineConfiner2D>();
-        if (_cinemachineConfiner != null && Base.Instance.CameraConfiner != null)
+        if (GameManager.Instance.TutorialCompleted)
         {
-            _cinemachineConfiner.m_BoundingShape2D = Base.Instance.CameraConfiner;
-            CinemachineVirtualCamera vcam = _cinemachineConfiner.GetComponent<CinemachineVirtualCamera>();
-            if (vcam != null)
+            _currentZone = GameObject.Find("Base");
+            transform.SetPositionAndRotation(Base.Instance.Spawner.position, transform.rotation);
+            CinemachineConfiner2D _cinemachineConfiner = GameObject.Find("VirtualCamera").GetComponent<CinemachineConfiner2D>();
+            if (_cinemachineConfiner != null && Base.Instance.CameraConfiner != null)
             {
-                vcam.OnTargetObjectWarped(transform, Base.Instance.Spawner.position - transform.position);
+                _cinemachineConfiner.m_BoundingShape2D = Base.Instance.CameraConfiner;
+                CinemachineVirtualCamera vcam = _cinemachineConfiner.GetComponent<CinemachineVirtualCamera>();
+                if (vcam != null)
+                {
+                    vcam.OnTargetObjectWarped(transform, Base.Instance.Spawner.position - transform.position);
 
-                vcam.PreviousStateIsValid = false;
+                    vcam.PreviousStateIsValid = false;
+                }
             }
-        }
 
-        if (TemporalLevel.Instance != null) Destroy(TemporalLevel.Instance.gameObject);
-        if (LevelPortal.Instance != null) Destroy(LevelPortal.Instance.gameObject);
-        if (BasePortal.Instance != null) Destroy(BasePortal.Instance.gameObject);
+            if (TemporalLevel.Instance != null) Destroy(TemporalLevel.Instance.gameObject);
+        }
+        else
+        {
+            GameManager.Instance.TeleportToTutorial();
+        }
     }
     
     // Override the Die method from Actor to display the death animation

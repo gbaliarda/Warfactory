@@ -31,7 +31,6 @@ public class ReturnTrainUI : Singleton<ReturnTrainUI>
 
         Player.Instance.SetCurrentZone(GameObject.Find("Base"));
         Destroy(TemporalLevel.Instance.gameObject);
-        //Destroy(LevelPortal.Instance.gameObject);
         CloseReturnBase();
     }
 

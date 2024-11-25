@@ -58162,8 +58162,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 836ac8ede5909364ca00a90c2dac4b42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startTimer: 20
-  completeTimer: 60
+  startTimer: 60
+  completeTimer: 240
   _spawners: {fileID: 4963688720371732338}
   _levelTrain: {fileID: 547656295323545849}
   _trainBlock: {fileID: 4165311039437289009}
