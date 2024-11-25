@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1155808298046171587, guid: 37dc26933dfc55340881ba829a9b20fc, type: 3}
+      propertyPath: m_BodyType
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3571091223179788414, guid: 37dc26933dfc55340881ba829a9b20fc, type: 3}
       propertyPath: m_Name
       value: ShotgunEnemyDestroyer
@@ -26,7 +30,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7476587642831109742, guid: 37dc26933dfc55340881ba829a9b20fc, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 7476587642831109742, guid: 37dc26933dfc55340881ba829a9b20fc, type: 3}
       propertyPath: m_LocalRotation.w
@@ -135,15 +139,19 @@ MonoBehaviour:
   _healthBarPrefab: {fileID: 3385906106993239456, guid: 83be5fb738f7cc94aa86588e1e3aff35, type: 3}
   _targetLayer:
     serializedVersion: 2
-    m_Bits: 4096
+    m_Bits: 4160
   _sightRange: 50
   _attackRange: 4
   _lootTable: {fileID: 11400000, guid: ae1914639fedb5e4f8d49d899576521b, type: 2}
   _itemEntityPrefab: {fileID: 7431681385107224975, guid: 231deade01d4f4f498fab2b1bef0bf96, type: 3}
+  _cannon: {fileID: 0}
   _disappearDelay: 2
   onHitSound: EnemyHit
   _weapon: {fileID: 6350668177474871149}
   _facingRight: 1
+  _buildingLayer:
+    serializedVersion: 2
+    m_Bits: 4096
 --- !u!1001 &5879124034336271047
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -155,7 +163,7 @@ PrefabInstance:
     - target: {fileID: 699398411968279978, guid: 66aa6cff1a999014281e38bc63f1c922, type: 3}
       propertyPath: _prefabToInstantiate
       value: 
-      objectReference: {fileID: 1838722454431763204, guid: b461e74265ed15a44a0dbc3505bd0cbb, type: 3}
+      objectReference: {fileID: 1838722454431763204, guid: 881829f0082d06545a6f98661933f56d, type: 3}
     - target: {fileID: 952511361370808330, guid: 66aa6cff1a999014281e38bc63f1c922, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.35

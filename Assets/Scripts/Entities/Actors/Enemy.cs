@@ -49,6 +49,7 @@ public class Enemy : Actor
         if (_targetInSight && _targetInAttack) Attack();
     }
 
+
     protected virtual void Patrol()
     {
     }
@@ -156,7 +157,7 @@ public class Enemy : Actor
             var yOffset = Random.value - 0.5f;
             var posOffset = new Vector3(xOffset, yOffset, 0);
 
-            var drop = Instantiate(_itemEntityPrefab, transform.position + posOffset, Quaternion.identity);
+            var drop = Instantiate(_itemEntityPrefab, transform.position + posOffset, Quaternion.identity, transform.parent);
             drop.GetComponent<ItemEntity>().Stack = stack;
         }
     }

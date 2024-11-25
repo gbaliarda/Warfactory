@@ -5,9 +5,10 @@ using UnityEngine;
 
 public class EnemyDestroyer : WeaponEnemy
 {
+    [SerializeField] protected LayerMask _buildingLayer;
     protected override void Attack()
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, _sightRange, _targetLayer);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, _sightRange, _buildingLayer);
 
         if (colliders.Length > 0)
         {
@@ -40,12 +41,15 @@ public class EnemyDestroyer : WeaponEnemy
                 var dir = (closestTarget.transform.position - transform.position).normalized;
                 Weapon.Attack(dir);
             }
+        } else
+        {
+            base.Attack();
         }
     }
 
     protected override void Chase()
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, _sightRange, _targetLayer);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, _sightRange, _buildingLayer);
 
         if (colliders.Length > 0)
         {
@@ -75,6 +79,9 @@ public class EnemyDestroyer : WeaponEnemy
                     FaceTarget(closestTarget.transform);
                 }
             }
+        } else
+        {
+            base.Chase();
         }
     }
 }

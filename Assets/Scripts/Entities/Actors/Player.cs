@@ -442,6 +442,8 @@ public class Player : Actor, IBuffable
 
         // if (GetComponent<Collider2D>() != null) GetComponent<Collider2D>().enabled = false;
 
+        InventoryManager.Instance.EmptyInventory();
+
         DeathScreenUI.Instance.Popup();
     }
 

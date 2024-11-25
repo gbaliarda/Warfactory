@@ -46,6 +46,11 @@ public class Actor : MonoBehaviour, IDamageable
         
     }
 
+    private void FixedUpdate()
+    {
+        GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+    }
+
     public virtual int TakeDamage(DamageStats damage)
     {
         if (life > 0)

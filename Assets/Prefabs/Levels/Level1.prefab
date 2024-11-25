@@ -13943,9 +13943,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3815320304493621152}
   - component: {fileID: 6916456898221684962}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Block
-  m_TagString: Untagged
+  m_TagString: NoCollideProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13958,12 +13958,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2614476723177069509}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.84, y: -4.34, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 9.859802, y: -0.15801048, z: -0.44820732}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7456338291266951030}
+  m_Father: {fileID: 1629221996682923932}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &6916456898221684962
 BoxCollider2D:
@@ -14123,12 +14123,12 @@ PolygonCollider2D:
       - {x: -55.1714, y: 5.7303267}
       - {x: -13.9308195, y: 6.730824}
       - {x: -13.695414, y: -9.950419}
-      - {x: -11.541272, y: -10.9081}
-      - {x: -9.48717, y: -18.695333}
-      - {x: -7.8434467, y: -18.62613}
-      - {x: -0.074884295, y: -18.438084}
-      - {x: 13.981845, y: -18.151657}
-      - {x: 23.533543, y: -18.60271}
+      - {x: -14.213162, y: -21.634943}
+      - {x: -10.3516035, y: -21.642267}
+      - {x: -8.62929, y: -21.573063}
+      - {x: 0.08228123, y: -21.777943}
+      - {x: 13.981845, y: -21.687977}
+      - {x: 23.651417, y: -22.021154}
       - {x: 23.703247, y: -15.231932}
       - {x: 23.898907, y: 24.677828}
   m_UseDelaunayMesh: 0
@@ -14684,8 +14684,7 @@ Transform:
   - {fileID: 5308178857010958617}
   - {fileID: 3458495514639772036}
   - {fileID: 8394950966227909168}
-  - {fileID: 8638699622865475611}
-  - {fileID: 9037471256352579673}
+  - {fileID: 3815320304493621152}
   m_Father: {fileID: 7753304597826827218}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3910423331349733536
@@ -14698,9 +14697,9 @@ GameObject:
   m_Component:
   - component: {fileID: 9037471256352579673}
   - component: {fileID: 904845530385353766}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Block (2)
-  m_TagString: Untagged
+  m_TagString: NoCollideProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14714,11 +14713,11 @@ Transform:
   m_GameObject: {fileID: 3910423331349733536}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -58.69, y: 45.14, z: -0.44820732}
+  m_LocalPosition: {x: -61.70981, y: 40.95801, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1629221996682923932}
+  m_Father: {fileID: 7456338291266951030}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &904845530385353766
 BoxCollider2D:
@@ -43510,7 +43509,8 @@ Transform:
   - {fileID: 2816849295019818781}
   - {fileID: 801691238569474970}
   - {fileID: 5743190168265509271}
-  - {fileID: 3815320304493621152}
+  - {fileID: 8638699622865475611}
+  - {fileID: 9037471256352579673}
   m_Father: {fileID: 7753304597826827218}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4279040807393754875
@@ -43610,9 +43610,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8638699622865475611}
   - component: {fileID: 2801352805472043776}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Block (1)
-  m_TagString: Untagged
+  m_TagString: NoCollideProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43626,11 +43626,11 @@ Transform:
   m_GameObject: {fileID: 5088185532682210826}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -58.69, y: 23.97, z: -0.44820732}
+  m_LocalPosition: {x: -61.70981, y: 19.78801, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1629221996682923932}
+  m_Father: {fileID: 7456338291266951030}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &2801352805472043776
 BoxCollider2D:
@@ -52457,6 +52457,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7753304597826827218}
     m_Modifications:
+    - target: {fileID: 5182936096394225956, guid: e59727249e8bdcf4a810e116e66708ed, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7514158847628145058, guid: e59727249e8bdcf4a810e116e66708ed, type: 3}
       propertyPath: m_LocalPosition.x
       value: -50.5
@@ -52532,7 +52536,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a1d2616288fa6c499d927b532282f9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentLevel: 
+  _currentLevel: Offense
 --- !u!1001 &5353576536609296049
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -52596,8 +52600,30 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8858375628181693948, guid: 19c8662fd3977274cb96aeda6c627374, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2075216502074658010}
   m_SourcePrefab: {fileID: 100100000, guid: 19c8662fd3977274cb96aeda6c627374, type: 3}
+--- !u!1 &3505204371204467533 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8858375628181693948, guid: 19c8662fd3977274cb96aeda6c627374, type: 3}
+  m_PrefabInstance: {fileID: 5353576536609296049}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2075216502074658010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3505204371204467533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d07c135f7ee716469a55ae9c8cba912, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _levelType: Offense
+  _levelTrain: {fileID: 1573138023841870553}
 --- !u!4 &7415670024266421597 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3216267112672599020, guid: 19c8662fd3977274cb96aeda6c627374, type: 3}

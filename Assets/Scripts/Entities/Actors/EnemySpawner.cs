@@ -39,14 +39,14 @@ public class EnemySpawner : MonoBehaviour
 
                 Instantiate(randomEnemy, transform.position, Quaternion.identity, transform.parent);
 
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(1f);
             }
         }
     }
 
     private bool IsAreaOccupied()
     {
-        return Physics2D.OverlapCircle(transform.position, 2f, _avoidLayers) != null;
+        return Physics2D.OverlapCircle(transform.position, 1f, _avoidLayers) != null;
     }
 
     public void SetSpawnerActive(bool isActive)

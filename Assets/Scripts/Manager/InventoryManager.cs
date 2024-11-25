@@ -93,6 +93,11 @@ public class InventoryManager : Singleton<InventoryManager>
         }
     }
 
+    public void EmptyInventory()
+    {
+        Stacks = new();
+    }
+
     private void OnPickUpChestStack(ChestSlot chestSlot)
     {
         var leftStack = AddItemStack(chestSlot.Stack);
