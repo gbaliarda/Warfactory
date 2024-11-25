@@ -26,6 +26,8 @@ public class Bow : MonoBehaviour, IWeapon
 
         if (360 / angleBetweenProjectiles < numberOfProjectiles)
             numberOfProjectiles = Mathf.RoundToInt(360 / angleBetweenProjectiles);
+        
+        AudioManager.Instance.PlaySFX("bow_shoot");
 
         Vector2 mainDirection = direction.normalized;
         float mainAngle = Mathf.Atan2(mainDirection.y, mainDirection.x) * Mathf.Rad2Deg;

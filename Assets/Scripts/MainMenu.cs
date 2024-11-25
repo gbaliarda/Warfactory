@@ -16,6 +16,8 @@ public class MainMenu : MonoBehaviour
         optionsButton.onClick.AddListener(OpenOptions);
         quitButton.onClick.AddListener(QuitGame);
         
+        AudioManager.Instance.SetMusicVolume(0.05f);
+        AudioManager.Instance.SetSFXVolume(0.05f);
         AudioManager.Instance.PlayMusic(menuMusicTrack);
     }
 
