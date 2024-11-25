@@ -60,6 +60,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8423179487009657807, guid: 37dc26933dfc55340881ba829a9b20fc, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9135414898430823076, guid: 37dc26933dfc55340881ba829a9b20fc, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -78,6 +82,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3320720286562385059, guid: 37dc26933dfc55340881ba829a9b20fc, type: 3}
+    - {fileID: 8423179487009657807, guid: 37dc26933dfc55340881ba829a9b20fc, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 7476587642831109742, guid: 37dc26933dfc55340881ba829a9b20fc, type: 3}
@@ -85,11 +90,17 @@ PrefabInstance:
       addedObject: {fileID: 7102077721407378262}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3571091223179788414, guid: 37dc26933dfc55340881ba829a9b20fc, type: 3}
-      insertIndex: 4
+      insertIndex: 3
       addedObject: {fileID: 1081980047593856}
     - targetCorrespondingSourceObject: {fileID: 3571091223179788414, guid: 37dc26933dfc55340881ba829a9b20fc, type: 3}
       insertIndex: -1
       addedObject: {fileID: 432979274754341130}
+    - targetCorrespondingSourceObject: {fileID: 3571091223179788414, guid: 37dc26933dfc55340881ba829a9b20fc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 303142825956283363}
+    - targetCorrespondingSourceObject: {fileID: 3571091223179788414, guid: 37dc26933dfc55340881ba829a9b20fc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1740267463870713133}
   m_SourcePrefab: {fileID: 100100000, guid: 37dc26933dfc55340881ba829a9b20fc, type: 3}
 --- !u!4 &851280281601689872 stripped
 Transform:
@@ -149,6 +160,53 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!70 &303142825956283363
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6745660735185598208}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 1
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.5}
+  m_Size: {x: 0.9, y: 1.1}
+  m_Direction: 0
+--- !u!210 &1740267463870713133
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6745660735185598208}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!1001 &8050085405740249948
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -171,7 +229,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 952511361370808330, guid: 66aa6cff1a999014281e38bc63f1c922, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.08
+      value: 0.271
       objectReference: {fileID: 0}
     - target: {fileID: 952511361370808330, guid: 66aa6cff1a999014281e38bc63f1c922, type: 3}
       propertyPath: m_LocalPosition.z

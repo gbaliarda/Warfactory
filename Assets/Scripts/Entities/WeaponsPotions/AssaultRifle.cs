@@ -24,8 +24,8 @@ public class AssaultRifle : MonoBehaviour, IWeapon
         if (!transform.parent.CompareTag("Enemy") && InventoryManager.Instance.GetAmountOfItem(_assaultRifleBulletItem) == 0) return;
         if (Owner.IsDead) return;
         if (cooldownLeft > 0) return;
-        
-        AudioManager.Instance.PlaySFX("ar_shoot");
+
+        if (AudioManager.Instance != null) AudioManager.Instance.PlaySFX("ar_shoot");
 
         int numberOfProjectiles = _stats.Projectiles + _owner.Stats.ProjectileIncrease;
         float angleBetweenProjectiles = 5f;

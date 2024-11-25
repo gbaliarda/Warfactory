@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1252591206679027795}
   - component: {fileID: 4850676625709356469}
   - component: {fileID: 7645277400281234786}
+  - component: {fileID: 1689123528427867981}
   m_Layer: 10
   m_Name: Bronze Chest
   m_TagString: Untagged
@@ -155,3 +156,15 @@ MonoBehaviour:
   _spawnInterval: 3
   _objectsContainer: {fileID: 0}
   _itemEntityPrefab: {fileID: 7431681385107224975, guid: 231deade01d4f4f498fab2b1bef0bf96, type: 3}
+--- !u!210 &1689123528427867981
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2430627982334618532}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortAtRoot: 0

@@ -109,6 +109,7 @@ public class Enemy : Actor
 
         // Disable components
         if (moveController != null) moveController.enabled = false;
+        Debug.Log(GetComponent<Collider2D>());
         if (GetComponent<Collider2D>() != null) GetComponent<Collider2D>().enabled = false;
 
         // Start coroutine to handle disappearing and item dropping

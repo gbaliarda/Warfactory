@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5669238183982359888}
   - component: {fileID: 1111709323200329018}
   - component: {fileID: 3787752243502293230}
+  - component: {fileID: 5236564554858231614}
   m_Layer: 12
   m_Name: ShotgunBulletBuilding
   m_TagString: Building
@@ -169,3 +170,15 @@ MonoBehaviour:
   _isOn: 1
   _itemEntityPrefab: {fileID: 7431681385107224975, guid: 231deade01d4f4f498fab2b1bef0bf96, type: 3}
   _healthBarPrefab: {fileID: 3385906106993239456, guid: 83be5fb738f7cc94aa86588e1e3aff35, type: 3}
+--- !u!210 &5236564554858231614
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4472525941911544458}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortAtRoot: 0

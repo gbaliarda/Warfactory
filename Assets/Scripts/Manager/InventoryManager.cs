@@ -34,8 +34,8 @@ public class InventoryManager : Singleton<InventoryManager>
 
                 storedStack.IncreaseAmount(amountToAdd);
                 newStack.DecreaseAmount(amountToAdd);
-                
-                AudioManager.Instance.PlaySFX("pickup");
+
+                if (AudioManager.Instance != null) AudioManager.Instance.PlaySFX("pickup");
                 
                 Debug.Log($"{amountToAdd} {newStack.Item.Name}(s) añadidos al stack existente, tamaño stack es {storedStack.Amount} hasta {storedStack.Item.MaxStackSize}.");
 
@@ -54,7 +54,7 @@ public class InventoryManager : Singleton<InventoryManager>
         if (newStack.Amount > 0 && Stacks.Count < _maxCapacity)
         {
             Stacks.Add(newStack.Clone());
-            AudioManager.Instance.PlaySFX("pickup");
+            if (AudioManager.Instance != null) AudioManager.Instance.PlaySFX("pickup");
             Debug.Log($"{newStack.Amount} {newStack.Item.Name}(s) añadidos como nuevo stack.");
             newStack.DecreaseAmount(newStack.Amount);
             if (IsOpen)

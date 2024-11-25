@@ -172,6 +172,7 @@ MonoBehaviour:
   _attackRange: 2
   _lootTable: {fileID: 11400000, guid: ae1914639fedb5e4f8d49d899576521b, type: 2}
   _itemEntityPrefab: {fileID: 7431681385107224975, guid: 231deade01d4f4f498fab2b1bef0bf96, type: 3}
+  _cannon: {fileID: 0}
   _disappearDelay: 2
   onHitSound: EnemyHit
 --- !u!114 &2660983326830659141

@@ -46,7 +46,7 @@ public class TileManager : Singleton<TileManager>
 
     public void SetInteractableMap(Tilemap interactableMap)
     {
-        Debug.Log("Updating interactable tilemap");
+        Debug.Log("Updating interactable tilemap to "+ interactableMap.name);
         _interactableMap = interactableMap;
     }
 

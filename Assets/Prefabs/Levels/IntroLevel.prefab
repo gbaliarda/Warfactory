@@ -29597,7 +29597,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4101699586031654637}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
   m_Name: 
@@ -88144,8 +88144,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7419862885456930801, guid: ef791cb7d85184d4bad2372aa65511b9, type: 3}
       propertyPath: _signText
-      value: Go through the portal to get to your base and start your factory building
-        journey!
+      value: Interact with the train to get to your base and start your journey!
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

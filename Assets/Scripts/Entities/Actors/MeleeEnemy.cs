@@ -33,8 +33,8 @@ public class MeleeEnemy : Enemy
         FaceTarget(Player.Instance.transform);
 
         animator.SetTrigger(AttackTrigger);
-        
-        AudioManager.Instance.PlaySFX("melee_attack");
+
+        if (AudioManager.Instance != null) AudioManager.Instance.PlaySFX("melee_attack");
 
         if (_runtimeStats.BonusAttackSpeed > 0)
             _nextAttackTime = Time.time + _meleeStats.Cooldown / _runtimeStats.BonusAttackSpeed;

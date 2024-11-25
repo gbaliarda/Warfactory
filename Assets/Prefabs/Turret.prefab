@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 236720290266306474}
   - component: {fileID: 6486682999667254480}
   - component: {fileID: 4164134797587854365}
+  - component: {fileID: 5968981781448073839}
   m_Layer: 12
   m_Name: Turret
   m_TagString: Building
@@ -153,6 +154,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!210 &5968981781448073839
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6248843823671164054}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!1 &6879936682032960302
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,6 +177,7 @@ GameObject:
   - component: {fileID: 1128894070978895641}
   - component: {fileID: 2685541769842379239}
   - component: {fileID: 1046149703332722754}
+  - component: {fileID: 495312973708666671}
   m_Layer: 12
   m_Name: TurretCannon
   m_TagString: Building
@@ -256,6 +270,18 @@ MonoBehaviour:
   _stats: {fileID: 11400000, guid: 4a168cbc7c3d71a458900c8fcf5220e7, type: 2}
   _prefabToInstantiate: {fileID: 3081791885587078914, guid: 8902db26320ab0a45a668b21424b80cd, type: 3}
   _bulletOrigin: {fileID: 6492822890136798189}
+--- !u!210 &495312973708666671
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6879936682032960302}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 1
+  m_SortAtRoot: 0
 --- !u!1 &7494473757731474187
 GameObject:
   m_ObjectHideFlags: 0

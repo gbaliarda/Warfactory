@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5247236137354107349}
   - component: {fileID: 5669238183982359888}
   - component: {fileID: 9213971767818421520}
+  - component: {fileID: 166128279640952826}
   m_Layer: 12
   m_Name: ExtractorBuilding
   m_TagString: Building
@@ -154,3 +155,16 @@ MonoBehaviour:
     item: {fileID: 11400000, guid: 0f00c8fa298093f43aa6685df5df2f85, type: 2}
   - tile: {fileID: 11400000, guid: 391abc098f1e3b94faece0506f7e3aed, type: 2}
     item: {fileID: 11400000, guid: 994c611e4d093b54495634880c28b5a6, type: 2}
+  _hardcodedOutput: {fileID: 0}
+--- !u!210 &166128279640952826
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4472525941911544458}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortAtRoot: 0

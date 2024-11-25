@@ -15,6 +15,7 @@ public class Base : Singleton<Base>, IZone
     public Collider2D CameraConfiner => _cameraConfiner;
     [SerializeField] private Transform _objectsContainer;
     public Transform ObjectsContainer => _objectsContainer;
+
     void Start()
     {
         TileManager.Instance.SetInteractableMap(_interactableMap);
