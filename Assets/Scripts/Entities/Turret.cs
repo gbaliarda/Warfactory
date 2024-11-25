@@ -18,7 +18,14 @@ public class Turret : Actor, IDestroyable
 
     public void Destroy()
     {
+        TileManager.Instance.SetUnoccupied(transform.position);
         Destroy(gameObject);
+    }
+
+    public override void Die()
+    {
+        base.Die();
+        TileManager.Instance.SetUnoccupied(transform.position);
     }
 
     protected override void Awake()

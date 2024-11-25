@@ -89182,7 +89182,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7419862885456930801, guid: ef791cb7d85184d4bad2372aa65511b9, type: 3}
       propertyPath: _signText
-      value: Try building your own factory here!
+      value: Try building your own factory here but be careful, this cost Scrap!
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

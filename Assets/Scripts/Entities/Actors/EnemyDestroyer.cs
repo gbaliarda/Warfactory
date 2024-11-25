@@ -12,6 +12,12 @@ public class EnemyDestroyer : WeaponEnemy
 
         if (colliders.Length > 0)
         {
+            Collider2D[] attackColliders = Physics2D.OverlapCircleAll(transform.position, _attackRange, _buildingLayer);
+            if (attackColliders.Length == 0)
+            {
+                Chase();
+                return;
+            }
             Transform closestTarget = null;
             float closestDistanceSqr = Mathf.Infinity;
             Vector3 currentPosition = transform.position;
