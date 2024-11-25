@@ -22,12 +22,16 @@ public class Enemy : Actor
 
     [SerializeField] private string onHitSound = "enemyHit";
 
-    protected override void Awake()
+    protected override void Start()
     {
-        base.Awake();
-        moveController = GetComponent<MoveController>();
+        if (TemporalLevel.Instance != null)
+        {
+            _runtimeStats.BoostStats(TemporalLevel.Instance.Difficulty / 5);
+        }
+        base.Start();
 
-        if (moveController != null) moveController.SetSpeed(stats.MovementSpeed);
+        moveController = GetComponent<MoveController>();
+        if (moveController != null) moveController.SetSpeed(_runtimeStats.MovementSpeed);
     }
 
     protected override void Update()
@@ -44,6 +48,7 @@ public class Enemy : Actor
         if (_targetInSight && !_targetInAttack) Chase();
         if (_targetInSight && _targetInAttack) Attack();
     }
+
 
     protected virtual void Patrol()
     {
@@ -152,7 +157,7 @@ public class Enemy : Actor
             var yOffset = Random.value - 0.5f;
             var posOffset = new Vector3(xOffset, yOffset, 0);
 
-            var drop = Instantiate(_itemEntityPrefab, transform.position + posOffset, Quaternion.identity);
+            var drop = Instantiate(_itemEntityPrefab, transform.position + posOffset, Quaternion.identity, transform.parent);
             drop.GetComponent<ItemEntity>().Stack = stack;
         }
     }

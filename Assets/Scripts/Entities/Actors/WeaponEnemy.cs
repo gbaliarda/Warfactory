@@ -24,7 +24,7 @@ namespace Entities
             var dir = (player.transform.position - Weapon.BulletOrigin.transform.position).normalized;
             Weapon.Attack(dir);
         }
-
+        
         protected override void Chase()
         {
             if (Player.Instance.IsDead) return;

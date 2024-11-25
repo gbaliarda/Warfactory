@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "ActorStats", menuName = "Stats/Actor", order = 0)]
@@ -26,6 +24,14 @@ public class ActorStats : ScriptableObject
         _actorStatValues.MovementSpeed -= stats.MovementSpeed;
         _actorStatValues.ProjectileIncrease -= stats.ProjectileIncrease;
         _actorStatValues.BonusAttackSpeed -= stats.BonusAttackSpeed;
+    }
+
+    public void BoostStats(int boost)
+    {
+        _actorStatValues.MaxLife *= 1 + boost;
+        _actorStatValues.MovementSpeed *= 1 + boost / 2;
+        _actorStatValues.ProjectileIncrease = Mathf.FloorToInt(_actorStatValues.ProjectileIncrease * (1 + boost));
+        _actorStatValues.BonusAttackSpeed *= 1 + boost / 2;
     }
 }
 

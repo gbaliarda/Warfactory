@@ -21,6 +21,9 @@ public class ItemStack
         if (Amount + amount <= Item.MaxStackSize)
         { 
             _amount += amount;
+        } else
+        {
+            _amount = Item.MaxStackSize;
         }
     }
 

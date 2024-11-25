@@ -19,9 +19,13 @@ public class LootTable : ScriptableObject
 
     public ItemStack[] GetLoot()
     {
-        var rewards = new List<ItemStack>(_guaranteedItems.Select(i => i.Clone()));
+        var rewards = new List<ItemStack>(_guaranteedItems.Select(i => {
+            var newItem = i.Clone();
+            newItem.IncreaseAmount(TemporalLevel.Instance.Difficulty);
+            return newItem;
+        }));
 
-        for (var i = 0; i < _randomRolls; i++)
+        for (var i = 0; i < _randomRolls + TemporalLevel.Instance.Difficulty; i++)
         {
             var r = UnityEngine.Random.Range(0, _totalWeight);
 

@@ -35,8 +35,8 @@ public class MeleeEnemy : Enemy
         animator.SetTrigger(AttackTrigger);
         
 
-        if (stats.BonusAttackSpeed > 0)
-            _nextAttackTime = Time.time + _meleeStats.Cooldown / stats.BonusAttackSpeed;
+        if (_runtimeStats.BonusAttackSpeed > 0)
+            _nextAttackTime = Time.time + _meleeStats.Cooldown / _runtimeStats.BonusAttackSpeed;
         else
             _nextAttackTime = Time.time + _meleeStats.Cooldown;
     }

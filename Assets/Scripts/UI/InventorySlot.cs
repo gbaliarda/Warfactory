@@ -32,9 +32,15 @@ public class InventorySlot : MonoBehaviour
 
             RaycastResult result = results.FirstOrDefault(r => r.gameObject == gameObject);
 
-            if (result.gameObject != null && ChestUI.Instance.OpenChest)
+            if (result.gameObject != null)
             {
-                EventManager.Instance.EventSaveItemInChest(this);
+                if (ChestUI.Instance.OpenChest)
+                {
+                    EventManager.Instance.EventSaveItemInChest(this);
+                } else if (LevelPickerUI.Instance.gameObject.activeSelf)
+                {
+                    EventManager.Instance.EventSaveItemInLevelPicker(this);
+                }
             }
         }
     }

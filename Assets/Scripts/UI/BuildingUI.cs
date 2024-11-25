@@ -12,7 +12,7 @@ public class BuildingUI : Singleton<BuildingUI>
     public FactoryBuilding OpenBuilding { get; private set; }
     void Start()
     {
-        EventManager.Instance.OnOpenBuildingUI += OnOpenBuildingUI;
+        //EventManager.Instance.OnOpenBuildingUI += OnOpenBuildingUI;
 
         OnCloseBuildingUI();
     }

@@ -14,7 +14,9 @@ public class InventoryManager : Singleton<InventoryManager>
     {
         EventManager.Instance.OnPickUpWorldObject += OnPickUpItemEntity;
         EventManager.Instance.OnPickUpChestItem += OnPickUpChestStack;
+        EventManager.Instance.OnPickUpLevelPickerItem += OnPickUpLevelPickerStack;
         EventManager.Instance.OnSaveItemInChest += OnSaveItemInChest;
+        EventManager.Instance.OnSaveItemInLevelPicker += OnSaveItemInLevelPicker;
 
         Stacks = new();
         IsOpen = false;
@@ -91,12 +93,22 @@ public class InventoryManager : Singleton<InventoryManager>
         }
     }
 
+    public void EmptyInventory()
+    {
+        Stacks = new();
+    }
+
     private void OnPickUpChestStack(ChestSlot chestSlot)
     {
-        Debug.Log("Hola!");
         var leftStack = AddItemStack(chestSlot.Stack);
 
         ChestUI.Instance.OpenChest.RemoveItemStack(leftStack);
+    }
+    private void OnPickUpLevelPickerStack(CarbonSlot carbonSlot)
+    {
+        var leftStack = AddItemStack(carbonSlot.Stack);
+
+        LevelPickerUI.Instance.RemoveItemStack(leftStack);
     }
     
     private void OnSaveItemInChest(InventorySlot inventorySlot)
@@ -104,6 +116,12 @@ public class InventoryManager : Singleton<InventoryManager>
         ChestUI.Instance.OpenChest.AddItemStack(inventorySlot.Stack);
         RemoveItemStack(inventorySlot.Stack);
 
+    }
+
+    private void OnSaveItemInLevelPicker(InventorySlot inventorySlot)
+    {
+        LevelPickerUI.Instance.AddItemStack(inventorySlot.Stack);
+        RemoveItemStack(inventorySlot.Stack);
     }
 
     public void SetIsOpen(bool isOpen)

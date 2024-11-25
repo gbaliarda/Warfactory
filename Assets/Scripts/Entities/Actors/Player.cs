@@ -81,6 +81,8 @@ public class Player : Actor, IBuffable
 
     private int _buildingRotation = 1;
 
+    public int BuildingRotation => _buildingRotation;
+
     private GameObject _currentZone;
 
     public GameObject CurrentZone => _currentZone;
@@ -99,6 +101,8 @@ public class Player : Actor, IBuffable
         DontDestroyOnLoad(gameObject);
 
         Rigidbody = GetComponent<Rigidbody2D>();
+
+        base.Awake();
     }
 
     protected override void Start()
@@ -109,7 +113,7 @@ public class Player : Actor, IBuffable
 
         EventManager.Instance.OnHotbarItemSelect += OnHotbarItemSelect;
 
-        stats = Instantiate(_baseStats);
+        _runtimeStats = Instantiate(_baseStats);
         _currentZone = GameObject.Find("Base");
     }
 
@@ -148,8 +152,8 @@ public class Player : Actor, IBuffable
         if (Input.GetKeyDown(_hotbarSlot6)) hotbarSlotChange(5);
         if (Input.GetKeyDown(_hotbarSlot7)) hotbarSlotChange(6);
         if (Input.GetKeyDown(_hotbarSlot8)) hotbarSlotChange(7);
-        if (Input.GetKeyDown(KeyCode.P)) Instantiate(_levelPortal, transform.position + transform.rotation * Vector3.up * 2, Quaternion.identity, CurrentZone.transform);
-        if (Input.GetKeyDown(KeyCode.O)) Instantiate(_basePortal, transform.position + transform.rotation * Vector3.up * 2, Quaternion.identity, CurrentZone.transform);
+        if (Input.GetKeyDown(KeyCode.P)) LevelPickerUI.Instance.UnlockDefenseLevel();
+        //if (Input.GetKeyDown(KeyCode.O)) Instantiate(_basePortal, transform.position + transform.rotation * Vector3.up * 2, Quaternion.identity, CurrentZone.transform);
         if (Input.GetKeyDown(KeyCode.L)) Instantiate(_enemy, transform.position + transform.rotation * Vector3.up * 2, Quaternion.identity, CurrentZone.transform);
         if (Input.GetKeyDown(_deleteBuilding))
         {
@@ -172,6 +176,7 @@ public class Player : Actor, IBuffable
             _buildingRotation += 1;
             if (_buildingRotation == 5)
                 _buildingRotation = 1;
+            TileManager.Instance.OnBuildingRotationChanged();
         }
 
         if (Input.GetKeyDown(_inventory))
@@ -180,6 +185,29 @@ public class Player : Actor, IBuffable
                 EventManager.Instance.EventCloseInventoryUI();
             else
                 EventManager.Instance.EventOpenInventoryUI();
+        }
+
+        if (Input.GetKeyDown(_interact))
+        {
+            var cam = Camera.main;
+            if (!cam) return;
+
+            var mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
+            int layerToIgnore = LayerMask.GetMask("Camera");
+            int layerMask = ~layerToIgnore;
+            var hit = Physics2D.Raycast(mousePosition, Vector2.zero, Mathf.Infinity, layerMask);
+            if (hit.collider != null)
+            {
+                var clickedObject = hit.collider.gameObject;
+
+                if (clickedObject.TryGetComponent<BaseTrain>(out var baseTrain))
+                {
+                    baseTrain.OpenMenu();
+                } else if(clickedObject.TryGetComponent<LevelTrain>(out var levelTrain))
+                {
+                    levelTrain.OpenMenu();
+                }
+            }
         }
 
         if (Input.GetKeyDown(_interact) && _buildingMode && _deleteBuildingMode)
@@ -379,7 +407,7 @@ public class Player : Actor, IBuffable
 
     private void Move()
     {
-        Rigidbody.velocity = _moveDirection * stats.MovementSpeed;
+        Rigidbody.velocity = _moveDirection * _runtimeStats.MovementSpeed;
     }
 
     private void OnHotbarItemSelect(GameObject go)
@@ -406,7 +434,7 @@ public class Player : Actor, IBuffable
     public void AddBuff(IPotion potion)
     {
         if (isDead) return;
-        stats.AddStats(potion.PotionStats);
+        _runtimeStats.AddStats(potion.PotionStats);
         if (life + potion.PotionStats.HealDamage > MaxLife)
         {
             Debug.Log("Healing damage");
@@ -423,7 +451,7 @@ public class Player : Actor, IBuffable
     public void RemoveBuff(IPotion potion)
     {
         if (isDead) return;
-        stats.RemoveStats(potion.PotionStats);
+        _runtimeStats.RemoveStats(potion.PotionStats);
         buffs.Remove(potion);
     }
 
@@ -436,6 +464,8 @@ public class Player : Actor, IBuffable
 
         // if (GetComponent<Collider2D>() != null) GetComponent<Collider2D>().enabled = false;
 
+        InventoryManager.Instance.EmptyInventory();
+
         DeathScreenUI.Instance.Popup();
     }
 
@@ -443,7 +473,7 @@ public class Player : Actor, IBuffable
     {
         buffs ??= new();
 
-        stats = _baseStats;
+        _runtimeStats = _baseStats;
         _currentZone = GameObject.Find("Base");
         isDead = false;
         life = MaxLife;

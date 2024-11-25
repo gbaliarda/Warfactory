@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PistolDamageStat
   m_EditorClassIdentifier: 
   _damageStats:
-    PhysicalDamage: 10
+    PhysicalDamage: 25
     FireDamage: 0
     WaterDamage: 0
     LightningDamage: 0
