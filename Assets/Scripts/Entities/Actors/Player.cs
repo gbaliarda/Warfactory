@@ -11,8 +11,7 @@ public class Player : Actor, IBuffable
     public static Player Instance { get; private set; }
 
     private Vector2 _moveDirection;
-    [SerializeField] public GameObject _interactableIcon;
-    
+
     private Vector2 boxSize = new Vector2(0.1f, 1f);
     
     [SerializeField] private MonoBehaviour _pistol;
@@ -31,6 +30,7 @@ public class Player : Actor, IBuffable
     [SerializeField] private ActorStats _baseStats;
     [SerializeField] private Transform _hotbarItems;
     [SerializeField] private Transform _buildHotbarItems;
+    [SerializeField] private float _maxInteractDistance = 2f;
     private int _currentHotbarItemIndex = 0;
 
     // SFX
@@ -67,8 +67,7 @@ public class Player : Actor, IBuffable
     [SerializeField] private KeyCode _buildModeKey = KeyCode.Q;
     [SerializeField] private KeyCode _rotateBuilding = KeyCode.R;
     [SerializeField] private KeyCode _deleteBuilding = KeyCode.Z;
-    [SerializeField] private KeyCode _read = KeyCode.E;
-    
+
     #endregion
 
     #region PARAMS
@@ -141,9 +140,6 @@ public class Player : Actor, IBuffable
 
         InputMovement();
 
-        if (Input.GetKeyDown(_read))
-            checkInteractable();
-        
         if (Input.GetKeyDown(_hotbarSlot1)) hotbarSlotChange(0);
         if (Input.GetKeyDown(_hotbarSlot2)) hotbarSlotChange(1);
         if (Input.GetKeyDown(_hotbarSlot3)) hotbarSlotChange(2);
@@ -288,16 +284,23 @@ public class Player : Actor, IBuffable
             if (!cam) return;
 
             var mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
+            var dist = Vector2.Distance(mousePosition, transform.position);
+            if (dist > _maxInteractDistance)
+            {
+                Debug.Log($"Distance: {dist}", this);
+                return;
+            }
+
             int layerToIgnore = LayerMask.GetMask("Camera");
             int layerMask = ~layerToIgnore;
             var hit = Physics2D.Raycast(mousePosition, Vector2.zero, Mathf.Infinity, layerMask);
             if (hit.collider != null)
             {
                 var clickedObject = hit.collider.gameObject;
-                if (clickedObject.TryGetComponent<ChestBuilding>(out var chestBuildingClicked))
+                if (clickedObject.TryGetComponent<IInteractable>(out var interactable))
                 {
-                    Debug.Log(chestBuildingClicked);
-                    chestBuildingClicked.OpenChest();
+                    Debug.Log(interactable);
+                    interactable.Interact();
                 }
             }
         }
@@ -475,37 +478,5 @@ public class Player : Actor, IBuffable
 
         Destroy(gameObject);
     }
-    
-    #region READ
-
-    public void OpenInteractableIcon()
-    {
-        if(_interactableIcon != null)
-            _interactableIcon.SetActive(true);
-    }
-    
-    public void CloseInteractableIcon()
-    {
-        if(_interactableIcon != null)
-            _interactableIcon.SetActive(false);
-    }
-
-    private void checkInteractable()
-    {
-        RaycastHit2D[] hits = Physics2D.BoxCastAll(transform.position, boxSize, 0, Vector2.zero);
-        if (hits.Length > 0)
-        {
-            foreach (RaycastHit2D rc in hits)
-            {
-                if (rc.transform.GetComponent<Interactable>())
-                {
-                    rc.transform.GetComponent<Interactable>().Interact();
-                    return;
-                }
-            }
-        }
-    }
-    
-    #endregion
     
 }

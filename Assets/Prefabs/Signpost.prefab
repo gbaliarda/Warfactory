@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 48707725105833117}
   - component: {fileID: 7779437735252652638}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,10 +94,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3680727227301537273}
   - component: {fileID: 1999869048767610468}
-  - component: {fileID: 1742117118183792527}
+  - component: {fileID: 1813419196934203248}
   - component: {fileID: 7419862885456930801}
   - component: {fileID: 1109946165129465602}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Signpost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -165,7 +165,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.9160125, y: 0.29070663}
   m_EdgeRadius: 0
---- !u!58 &1742117118183792527
+--- !u!58 &1813419196934203248
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -197,9 +197,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.4418354}
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 0.5078411
 --- !u!114 &7419862885456930801
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,7 +212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 099409f8570884a4bb51bf920fb22e25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  signText: Texto del cartel...
+  _signText: Texto del cartel...
 --- !u!210 &1109946165129465602
 SortingGroup:
   m_ObjectHideFlags: 0

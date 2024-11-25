@@ -1,11 +1,13 @@
 using UnityEngine;
 
-public class SignPost : Interactable
+public class SignPost : MonoBehaviour, IInteractable
 {
-    [SerializeField] private string signText = "Texto del cartel...";
+    [TextArea]
+    [SerializeField]
+    private string _signText = "Texto del cartel...";
 
-    public override void Interact()
+    public void Interact()
     {
-        DialogueUI.Instance.ShowDialogue(signText);
+        DialogueUI.Instance.ShowDialogue(_signText);
     }
 }

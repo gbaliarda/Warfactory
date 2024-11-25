@@ -1,28 +1,21 @@
 using UnityEngine;
+using UnityEngine.Events;
 
-[RequireComponent(typeof(BoxCollider2D))]
-public abstract class Interactable : MonoBehaviour
+[RequireComponent(typeof(Collider2D))]
+public class Interactable : MonoBehaviour, IInteractable
 {
-    private void Reset()
+    [SerializeField]
+    private UnityAction _onInteract;
+
+    public UnityAction OnInteract
     {
-        GetComponent<BoxCollider2D>().isTrigger = true;
+        get => _onInteract;
+        set => _onInteract = value;
     }
 
-    public abstract void Interact();
-    
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            Player.Instance.OpenInteractableIcon();
-        }
-    }
 
-    private void OnTriggerExit2D(Collider2D other)
+    public void Interact()
     {
-        if (other.CompareTag("Player"))
-        {
-            Player.Instance.CloseInteractableIcon();
-        }
+        _onInteract?.Invoke();
     }
 }

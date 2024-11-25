@@ -9,7 +9,7 @@ public class HealthBarUI : MonoBehaviour
     private IDamageable _damageable;
 
     private Transform _target;
-    private Vector3 _offset = new Vector3(0.07f, -0.53f, 0);
+    private readonly Vector3 _offset = new(0f, -0.5f, 0);
 
     public void Setup(IDamageable damageable, Transform target)
     {
