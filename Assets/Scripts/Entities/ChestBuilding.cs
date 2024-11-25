@@ -151,6 +151,7 @@ public class ChestBuilding : Inventory, IDestroyable, IInteractable
 
     public void Destroy()
     {
+        TileManager.Instance.SetUnoccupied(transform.position);
         Destroy(gameObject);
     }
 }

@@ -66,6 +66,7 @@ public class Slider : MonoBehaviour, IDestroyable
 
     public void Destroy()
     {
+        TileManager.Instance.SetUnoccupied(transform.position);
         Destroy(gameObject);
     }
 }

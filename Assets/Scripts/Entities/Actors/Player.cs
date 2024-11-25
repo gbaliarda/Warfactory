@@ -230,38 +230,59 @@ public class Player : Actor, IBuffable
                     {
                         if (!EventSystem.current.IsPointerOverGameObject() && _shotgunBulletBuilding.gameObject.activeSelf && _shotgunBulletBuilding.GetComponent<IBuilding>() != null)
                         {
-                            TileManager.Instance.SetOccupied(cellPosition);
-                            (_shotgunBulletBuilding as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2 + new Vector3(0, 0, -1), _buildingRotation);
+                            GameObject newBuilding = (_shotgunBulletBuilding as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2 + new Vector3(0, 0, -1), _buildingRotation);
+                            if (newBuilding != null)
+                            {
+                                TileManager.Instance.SetOccupied(cellPosition);
+                            }
                         }
                         if (!EventSystem.current.IsPointerOverGameObject() && _assaultRifleBulletBuilding.gameObject.activeSelf && _assaultRifleBulletBuilding.GetComponent<IBuilding>() != null)
                         {
-                            TileManager.Instance.SetOccupied(cellPosition);
-                            (_assaultRifleBulletBuilding as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2 + new Vector3(0, 0, -1), _buildingRotation);
+                            GameObject newBuilding = (_assaultRifleBulletBuilding as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2 + new Vector3(0, 0, -1), _buildingRotation);
+                            if (newBuilding != null)
+                            {
+                                TileManager.Instance.SetOccupied(cellPosition);
+                            }
                         }
                         if (!EventSystem.current.IsPointerOverGameObject() && _turret.gameObject.activeSelf && _turret.GetComponent<IBuilding>() != null)
                         {
-                            TileManager.Instance.SetOccupied(cellPosition);
-                            (_turret as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2 + new Vector3(0, 0, -1), 1);
+                            GameObject newBuilding = (_turret as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2 + new Vector3(0, 0, -1), 1);
+                            if (newBuilding != null)
+                            {
+                                TileManager.Instance.SetOccupied(cellPosition);
+                            }
                         }
                         if (!EventSystem.current.IsPointerOverGameObject() && _ragePotionFactory.gameObject.activeSelf && _ragePotionFactory.GetComponent<IBuilding>() != null)
                         {
-                            TileManager.Instance.SetOccupied(cellPosition);
-                            (_ragePotionFactory as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2 + new Vector3(0, 0, -1), _buildingRotation);
+                            GameObject newBuilding = (_ragePotionFactory as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2 + new Vector3(0, 0, -1), _buildingRotation);
+                            if (newBuilding != null)
+                            {
+                                TileManager.Instance.SetOccupied(cellPosition);
+                            }
                         }
                         if (!EventSystem.current.IsPointerOverGameObject() && _healthPotionFactory.gameObject.activeSelf && _healthPotionFactory.GetComponent<IBuilding>() != null)
                         {
-                            TileManager.Instance.SetOccupied(cellPosition);
-                            (_healthPotionFactory as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2 + new Vector3(0, 0, -1), _buildingRotation);
+                            GameObject newBuilding = (_healthPotionFactory as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2 + new Vector3(0, 0, -1), _buildingRotation);
+                            if (newBuilding != null)
+                            {
+                                TileManager.Instance.SetOccupied(cellPosition);
+                            }
                         }
                         if (_slider.gameObject.activeSelf && _slider.GetComponent<IBuilding>() != null)
                         {
-                            TileManager.Instance.SetOccupied(cellPosition);
-                            (_slider as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2 + new Vector3(0, 0, -0.25f), _buildingRotation);
+                            GameObject newBuilding = (_slider as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2 + new Vector3(0, 0, -0.25f), _buildingRotation);
+                            if (newBuilding != null)
+                            {
+                                TileManager.Instance.SetOccupied(cellPosition);
+                            }
                         }
                         if (_chestBuilding.gameObject.activeSelf && _chestBuilding.GetComponent<IBuilding>() != null)
                         {
-                            TileManager.Instance.SetOccupied(cellPosition);
-                            (_chestBuilding as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2 + new Vector3(0, 0, -1), 1); // Can not rotate chest
+                            GameObject newBuilding = (_chestBuilding as IBuilding).Build(tilemap.CellToWorld(cellPosition) + tilemap.cellSize / 2 + new Vector3(0, 0, -1), 1); // Can not rotate chest
+                            if (newBuilding != null)
+                            {
+                                TileManager.Instance.SetOccupied(cellPosition);
+                            }
                         }
                         if(_extractor.gameObject.activeSelf && _extractor.GetComponent<IBuilding>() != null)
                         {

@@ -179,7 +179,7 @@ public class FactoryBuilding : MonoBehaviour, IDamageable, IDestroyable
     {
         if (isDead) return;
         isDead = true;
-
+        TileManager.Instance.SetUnoccupied(transform.position);
         Destroy(_healthBar.gameObject);
         Destroy(gameObject);
     }
