@@ -7,7 +7,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private Button startButton;
     [SerializeField] private Button optionsButton;
     [SerializeField] private Button quitButton;
-    [SerializeField] private string firstLevelScene = "level1";
+    [SerializeField] private string firstLevelScene = "MainBase";
     [SerializeField] private string menuMusicTrack = "theme";
 
     private void Start()

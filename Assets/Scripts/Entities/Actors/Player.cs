@@ -11,6 +11,7 @@ public class Player : Actor, IBuffable
     public static Player Instance { get; private set; }
 
     private Vector2 _moveDirection;
+    public Vector2 MoveDirection => _moveDirection;
 
     private Vector2 boxSize = new Vector2(0.1f, 1f);
     
@@ -67,6 +68,7 @@ public class Player : Actor, IBuffable
     [SerializeField] private KeyCode _buildModeKey = KeyCode.Q;
     [SerializeField] private KeyCode _rotateBuilding = KeyCode.R;
     [SerializeField] private KeyCode _deleteBuilding = KeyCode.Z;
+    [SerializeField] private KeyCode _pause = KeyCode.Escape;
 
     #endregion
 
@@ -152,6 +154,7 @@ public class Player : Actor, IBuffable
         if (Input.GetKeyDown(_hotbarSlot6)) hotbarSlotChange(5);
         if (Input.GetKeyDown(_hotbarSlot7)) hotbarSlotChange(6);
         if (Input.GetKeyDown(_hotbarSlot8)) hotbarSlotChange(7);
+        if (Input.GetKeyDown(_pause)) PauseMenuUI.Instance.TogglePause();
         //if (Input.GetKeyDown(KeyCode.P)) LevelPickerUI.Instance.UnlockDefenseLevel();
         //if (Input.GetKeyDown(KeyCode.O)) Instantiate(_basePortal, transform.position + transform.rotation * Vector3.up * 2, Quaternion.identity, CurrentZone.transform);
         //if (Input.GetKeyDown(KeyCode.L)) Instantiate(_enemy, transform.position + transform.rotation * Vector3.up * 2, Quaternion.identity, CurrentZone.transform);
