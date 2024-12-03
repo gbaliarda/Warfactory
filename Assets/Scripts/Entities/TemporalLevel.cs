@@ -10,6 +10,8 @@ public class TemporalLevel : Singleton<TemporalLevel>, IZone
     [SerializeField] private Tilemap _interactableMap;
     [SerializeField] private Tilemap _uiHoverMap;
     [SerializeField] private Tilemap _resourceMap;
+    [SerializeField] private Tilemap _grassMap;
+    [SerializeField] private Tilemap _cosmeticMap;
 
     public Transform Spawner => _spawner;
     public Collider2D CameraConfiner => _cameraConfiner;
@@ -34,7 +36,9 @@ public class TemporalLevel : Singleton<TemporalLevel>, IZone
     {
         TileManager.Instance.SetInteractableMap(_interactableMap);
         TileManager.Instance.SetUIHoverMap(_uiHoverMap);
-        TileManager.Instance.SetResourceMap(_resourceMap);
+        TileManager.Instance.SetResourceMap(_resourceMap);        
+        TileManager.Instance.SetGrassMap(_grassMap);
+        TileManager.Instance.SetCosmeticMap(_cosmeticMap);
         TileManager.Instance.InstantiateInteractableMap();
     }
 

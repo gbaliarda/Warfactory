@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Enemy : Actor
 {
@@ -12,7 +13,7 @@ public class Enemy : Actor
 
     [SerializeField] private GameObject _cannon;
 
-    protected MoveController moveController;
+    //protected MoveController moveController;
     protected AttackController attackController;
     private bool _targetInSight, _targetInAttack;
 
@@ -22,6 +23,15 @@ public class Enemy : Actor
 
     [SerializeField] private string onHitSound = "enemyHit";
 
+    public Rigidbody2D Rigidbody { get; private set; }
+    protected Vector2 _moveDirection;
+
+    protected override void Awake()
+    {
+        Rigidbody = GetComponent<Rigidbody2D>();
+        base.Awake();
+    }
+
     protected override void Start()
     {
         if (TemporalLevel.Instance != null)
@@ -30,13 +40,20 @@ public class Enemy : Actor
         }
         base.Start();
 
-        moveController = GetComponent<MoveController>();
-        if (moveController != null) moveController.SetSpeed(_runtimeStats.MovementSpeed);
+        //moveController = GetComponent<MoveController>();
+        //if (moveController != null) moveController.SetSpeed(_runtimeStats.MovementSpeed);
     }
 
     protected override void Update()
     {
-        if (isDead) return;
+        if (isDead)
+        {
+            _moveDirection = Vector2.zero;
+            _isMoving = false;
+            return;
+        }
+        if (!IsMoving && _moveDirection != Vector2.zero) _isMoving = true;
+        else if (IsMoving && _moveDirection == Vector2.zero) _isMoving = false;
 
         base.Update();
 
@@ -57,10 +74,10 @@ public class Enemy : Actor
     protected virtual void Chase()
     {
         if (Player.Instance.GetComponent<IDamageable>() != null && Player.Instance.GetComponent<IDamageable>().IsDead == true) return;
-        if (moveController != null)
+        if (Rigidbody != null)
         {
-            Vector2 direction = (Player.Instance.transform.position - transform.position).normalized;
-            moveController.Move(direction);
+            _moveDirection = (Player.Instance.transform.position - transform.position).normalized;
+            Move();
             /*GetComponent<Rigidbody2D>().MovePosition(transform.position + Stats.MovementSpeed * 5 * Time.deltaTime * (Vector3)direction);*/
             /*moveController.Move(Player.Instance.transform.position);*/
         }
@@ -69,6 +86,7 @@ public class Enemy : Actor
     protected virtual void Attack()
     {
         /*moveController.Move(transform.position);*/
+        _moveDirection = Vector2.zero;
         if (attackController == null) return;
         if (Player.Instance.GetComponent<IDamageable>() != null && Player.Instance.GetComponent<IDamageable>().IsDead == true) return;
 
@@ -108,7 +126,7 @@ public class Enemy : Actor
         }
 
         // Disable components
-        if (moveController != null) moveController.enabled = false;
+        if (Rigidbody != null) _moveDirection = Vector2.zero;
         Debug.Log(GetComponent<Collider2D>());
         if (GetComponent<Collider2D>() != null) GetComponent<Collider2D>().enabled = false;
 
@@ -161,5 +179,15 @@ public class Enemy : Actor
             var drop = Instantiate(_itemEntityPrefab, transform.position + posOffset, Quaternion.identity, transform.parent);
             drop.GetComponent<ItemEntity>().Stack = stack;
         }
+    }
+
+    private void FixedUpdate()
+    {
+        Move();
+    }
+
+    protected void Move()
+    {
+        Rigidbody.velocity = _moveDirection * _runtimeStats.MovementSpeed;
     }
 }

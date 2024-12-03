@@ -7,10 +7,14 @@ public class TileManager : Singleton<TileManager>
     [SerializeField] private Tilemap _interactableMap;
     [SerializeField] private Tilemap _uiHoverMap;
     [SerializeField] private Tilemap _resourceMap;
+    [SerializeField] private Tilemap _grassMap;
+    [SerializeField] private Tilemap _cosmeticMap;
 
     [SerializeField]  private Tilemap _baseInteractableMap;
     [SerializeField]  private Tilemap _baseUiHoverMap;
     [SerializeField]  private Tilemap _baseResourceMap;
+    [SerializeField]  private Tilemap _baseGrassMap;
+    [SerializeField]  private Tilemap _baseCosmeticMap;
 
     [SerializeField] private Tile _hiddenInteractableTile;
     [SerializeField] private Tile _uiHoverTile;
@@ -26,6 +30,8 @@ public class TileManager : Singleton<TileManager>
         _interactableMap = _baseInteractableMap;
         _uiHoverMap = _baseUiHoverMap;
         _resourceMap = _baseResourceMap;
+        _grassMap = _baseGrassMap;
+        _cosmeticMap = _baseCosmeticMap;
         InstantiateInteractableMap();
     }
 
@@ -58,6 +64,15 @@ public class TileManager : Singleton<TileManager>
     public void SetResourceMap(Tilemap resourceMap)
     {
         _resourceMap = resourceMap;
+    }
+    public void SetGrassMap (Tilemap grassMap)
+    {
+        _grassMap = grassMap;
+    }
+    
+    public void SetCosmeticMap (Tilemap cosmeticMap)
+    {
+        _cosmeticMap = cosmeticMap;
     }
 
     private void Update()
@@ -186,5 +201,23 @@ public class TileManager : Singleton<TileManager>
         _interactableMap = _baseInteractableMap;
         _uiHoverMap = _baseUiHoverMap;
         _resourceMap = _baseResourceMap;
+        _grassMap = _baseGrassMap;
+        _cosmeticMap = _baseCosmeticMap;
+    }
+
+    public int TileType(Vector3 position)
+    {
+        TileBase cosmeticTile = _cosmeticMap.GetTile(_cosmeticMap.WorldToCell(position));
+        TileBase grassTile = _grassMap.GetTile(_grassMap.WorldToCell(position));
+
+        if (cosmeticTile != null)
+        {
+            return 2;
+        } else if (grassTile != null)
+        {
+            return 1;
+        }
+
+        return -1;
     }
 }

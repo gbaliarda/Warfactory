@@ -24,7 +24,7 @@ public class Shotgun : MonoBehaviour, IWeapon
         if (Owner.IsDead) return;
         if (cooldownLeft > 0) return;
 
-        if (AudioManager.Instance != null) AudioManager.Instance.PlaySFX("shotgun_shoot");
+        if (TryGetComponent<BulletSoundController>(out var controller)) controller.Shoot();
 
         int numberOfProjectiles = _stats.Projectiles + _owner.Stats.ProjectileIncrease;
         float angleBetweenProjectiles = 5f;

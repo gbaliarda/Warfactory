@@ -20399,7 +20399,7 @@ GameObject:
   - component: {fileID: 2166143892347332161}
   - component: {fileID: 4927916761352637238}
   - component: {fileID: 644325501795252560}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Grass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62116,6 +62116,8 @@ MonoBehaviour:
   _interactableMap: {fileID: 4105640264063011938}
   _uiHoverMap: {fileID: 8721097512084582373}
   _resourceMap: {fileID: 8708170694816519685}
+  _grassMap: {fileID: 4927916761352637238}
+  _cosmeticMap: {fileID: 1444740530673241022}
   _objectsContainer: {fileID: 1759955335728403174}
 --- !u!1 &5803686568771253430
 GameObject:
@@ -62494,7 +62496,7 @@ GameObject:
   - component: {fileID: 6783106798530899653}
   - component: {fileID: 1444740530673241022}
   - component: {fileID: 7417963517953040921}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Cosmetic
   m_TagString: Untagged
   m_Icon: {fileID: 0}

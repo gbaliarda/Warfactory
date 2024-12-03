@@ -253,6 +253,47 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: ade1c62a98e9704479d885c8f0154f21, type: 3}
   - name: pickup
     clip: {fileID: 8300000, guid: 190fb29d908a55c49a5acd8d161bd57a, type: 3}
+  mainMenu:
+  - name: 1
+    clip: {fileID: 8300000, guid: 25d880bea0c5a2c42b693a9db725aa93, type: 3}
+  tutorialLevel:
+  - name: 1
+    clip: {fileID: 8300000, guid: f7a0ca2b242127248afe4f9a8a7f736e, type: 3}
+  - name: 2
+    clip: {fileID: 8300000, guid: db347142fd8f69945a341e1328e26b79, type: 3}
+  mainBase:
+  - name: 1
+    clip: {fileID: 8300000, guid: a5be85e6138fa1d4589d34ca72b8e59f, type: 3}
+  - name: 2
+    clip: {fileID: 8300000, guid: 684fd9fa4e38e1a42a92aa153bd6139c, type: 3}
+  - name: 3
+    clip: {fileID: 8300000, guid: 586eaf3e774521b43a51aaeb297159a6, type: 3}
+  - name: 4
+    clip: {fileID: 8300000, guid: 434e7775aa94e9442a629aa91c5e14d3, type: 3}
+  - name: 5
+    clip: {fileID: 8300000, guid: e72a7ad334c36a641a548e4d35c7e1fd, type: 3}
+  - name: 6
+    clip: {fileID: 8300000, guid: 511ab6b4f2c5ae445a39ee23ad855384, type: 3}
+  offenseLevel:
+  - name: 1
+    clip: {fileID: 8300000, guid: 24e6fd74fddf7af4ea1c7eac1eb15fc0, type: 3}
+  - name: 2
+    clip: {fileID: 8300000, guid: f238ad7c684560942b3f2650f22e2038, type: 3}
+  - name: 3
+    clip: {fileID: 8300000, guid: b26d332bf225361418779f14d11c545c, type: 3}
+  - name: 4
+    clip: {fileID: 8300000, guid: d975c92ab3ed3a449b86183faf8d8c04, type: 3}
+  defenseLevel:
+  - name: 1
+    clip: {fileID: 8300000, guid: dd0c28100f157e448a5f16d2c5b6f49a, type: 3}
+  - name: 2
+    clip: {fileID: 8300000, guid: edb039dd9c44eab4aa0542be2ccddb3a, type: 3}
+  - name: 3
+    clip: {fileID: 8300000, guid: 39b2d69d8b7a54a4c89b4881fe4081bf, type: 3}
+  - name: 4
+    clip: {fileID: 8300000, guid: 66875b3ee0cf5cb498b807694037c02d, type: 3}
+  - name: 5
+    clip: {fileID: 8300000, guid: 27a19ebe2726a3a41a32d8dc0d839b0d, type: 3}
   musicSource: {fileID: 83139181}
   sfxSource: {fileID: 953572520}
   musicVolume: 0.05
@@ -383,7 +424,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

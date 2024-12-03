@@ -17,13 +17,12 @@ public class MainMenu : MonoBehaviour
         quitButton.onClick.AddListener(QuitGame);
         
         AudioManager.Instance.SetMusicVolume(0.05f);
-        AudioManager.Instance.SetSFXVolume(0.05f);
-        AudioManager.Instance.PlayMusic(menuMusicTrack);
+        AudioManager.Instance.SetSFXVolume(0.25f);
+        AudioManager.Instance.PlayMainBaseMusic();
     }
 
     private void StartGame()
     {
-        AudioManager.Instance.StopMusic();
         SceneManager.LoadScene(firstLevelScene);
     }
 

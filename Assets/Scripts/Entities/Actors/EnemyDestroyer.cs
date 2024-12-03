@@ -8,6 +8,7 @@ public class EnemyDestroyer : WeaponEnemy
     [SerializeField] protected LayerMask _buildingLayer;
     protected override void Attack()
     {
+        _moveDirection = Vector2.zero;
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, _sightRange, _buildingLayer);
 
         if (colliders.Length > 0)
@@ -78,10 +79,10 @@ public class EnemyDestroyer : WeaponEnemy
 
             if (closestTarget != null)
             {
-                if (moveController != null)
+                if (Rigidbody != null)
                 {
-                    Vector2 direction = (closestTarget.transform.position - transform.position).normalized;
-                    moveController.Move(direction);
+                    _moveDirection = (closestTarget.transform.position - transform.position).normalized;
+                    Move();
                     FaceTarget(closestTarget.transform);
                 }
             }

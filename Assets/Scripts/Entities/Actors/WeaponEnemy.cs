@@ -11,6 +11,7 @@ namespace Entities
 
         protected override void Attack()
         {
+            _moveDirection = Vector2.zero;
             var player = Player.Instance;
             if (player.IsDead) return;
             FaceTarget(player.transform);

@@ -1,15 +1,18 @@
-using UnityEngine;
 using System;
+using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
     
     public Sound[] musicSounds, sfxSounds;
+    public Sound[] mainMenu, tutorialLevel, mainBase, offenseLevel, defenseLevel;
     public AudioSource musicSource, sfxSource;
     
     [SerializeField]
     public float musicVolume, sfxVolume;
+
+    private string currentMusic;
     
 
     private void Awake()
@@ -39,7 +42,39 @@ public class AudioManager : MonoBehaviour
             musicSource.Play();
         }
     }
-    
+
+    public void PlayMainMenuMusic()
+    {
+        Sound s = mainMenu[UnityEngine.Random.Range(0, mainMenu.Length)];
+        musicSource.clip = s.clip;
+        musicSource.Play();
+    }
+
+    public void PlayTutorialMusic()
+    {
+        Sound s = tutorialLevel[UnityEngine.Random.Range(0, tutorialLevel.Length)];
+        musicSource.clip = s.clip;
+        musicSource.Play();
+    }
+    public void PlayMainBaseMusic()
+    {
+        Sound s = mainBase[UnityEngine.Random.Range(0, mainBase.Length)];
+        musicSource.clip = s.clip;
+        musicSource.Play();
+    }
+    public void PlayOffenseLevelMusic()
+    {
+        Sound s = offenseLevel[UnityEngine.Random.Range(0, offenseLevel.Length)];
+        musicSource.clip = s.clip;
+        musicSource.Play();
+    }
+    public void PlayDefenseLevelMusic()
+    {
+        Sound s = defenseLevel[UnityEngine.Random.Range(0, defenseLevel.Length)];
+        musicSource.clip = s.clip;
+        musicSource.Play();
+    }
+
     public void StopMusic()
     {
         musicSource.Stop();

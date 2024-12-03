@@ -8,6 +8,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 932494022221511019, guid: 66aa6cff1a999014281e38bc63f1c922, type: 3}
+      propertyPath: bullets.Array.data[0].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 6739c01659ad96d47987f4ddee226b36, type: 3}
+    - target: {fileID: 932494022221511019, guid: 66aa6cff1a999014281e38bc63f1c922, type: 3}
+      propertyPath: bullets.Array.data[0].name
+      value: pistol_shoot
+      objectReference: {fileID: 0}
     - target: {fileID: 952511361370808330, guid: 66aa6cff1a999014281e38bc63f1c922, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.85
@@ -83,6 +91,10 @@ PrefabInstance:
     - target: {fileID: 7484028787710077935, guid: 66aa6cff1a999014281e38bc63f1c922, type: 3}
       propertyPath: m_SortingOrder
       value: 101
+      objectReference: {fileID: 0}
+    - target: {fileID: 9099792428859116782, guid: 66aa6cff1a999014281e38bc63f1c922, type: 3}
+      propertyPath: m_Volume
+      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 699398411968279978, guid: 66aa6cff1a999014281e38bc63f1c922, type: 3}

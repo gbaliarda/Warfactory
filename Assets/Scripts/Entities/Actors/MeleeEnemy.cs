@@ -28,6 +28,7 @@ public class MeleeEnemy : Enemy
     {
         if (Player.Instance.IsDead) return;
         if (IsAttacking || _nextAttackTime > Time.time) return;
+        _moveDirection = Vector2.zero;
 
         // Face the player
         FaceTarget(Player.Instance.transform);

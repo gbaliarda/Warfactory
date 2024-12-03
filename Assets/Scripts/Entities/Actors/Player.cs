@@ -11,7 +11,6 @@ public class Player : Actor, IBuffable
     public static Player Instance { get; private set; }
 
     private Vector2 _moveDirection;
-    public Vector2 MoveDirection => _moveDirection;
 
     private Vector2 boxSize = new Vector2(0.1f, 1f);
     
@@ -129,6 +128,22 @@ public class Player : Actor, IBuffable
 
     public void SetCurrentZone(GameObject zone)
     {
+        if (zone.name.Contains("IntroLevel"))
+        {
+            AudioManager.Instance.PlayTutorialMusic();
+        }
+        else if (zone.name.Contains("Level1"))
+        {
+            AudioManager.Instance.PlayOffenseLevelMusic();
+        }
+        else if (zone.name.Contains("Level2"))
+        {
+            AudioManager.Instance.PlayDefenseLevelMusic();
+        }
+        else
+        {
+            AudioManager.Instance.PlayMainBaseMusic();
+        }
         _currentZone = zone;
     }
     #endregion
@@ -141,8 +156,11 @@ public class Player : Actor, IBuffable
         if (isDead || !InputsEnabled)
         {
             _moveDirection = Vector2.zero;
+            _isMoving = false;
             return;
         }
+        if (!IsMoving && _moveDirection != Vector2.zero) _isMoving = true;
+        else if (IsMoving && _moveDirection == Vector2.zero) _isMoving = false;
 
         InputMovement();
 

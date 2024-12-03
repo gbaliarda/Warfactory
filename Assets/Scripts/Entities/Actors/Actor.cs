@@ -24,6 +24,9 @@ public class Actor : MonoBehaviour, IDamageable
     protected Animator animator;
     protected ActorStats _runtimeStats;
 
+    protected bool _isMoving;
+    public bool IsMoving => _isMoving;
+
     protected virtual void Awake()
     {
         animator = GetComponent<Animator>();
@@ -43,6 +46,11 @@ public class Actor : MonoBehaviour, IDamageable
     protected virtual void Update()
     {
         
+    }
+
+    public void SetIsMoving(bool isMoving)
+    {
+        _isMoving = isMoving;
     }
 
     private void FixedUpdate()
