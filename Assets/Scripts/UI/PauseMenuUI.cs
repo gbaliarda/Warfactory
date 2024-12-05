@@ -23,7 +23,7 @@ public class PauseMenuUI : Singleton<PauseMenuUI>
 
     public void TogglePause()
     {
-        Time.timeScale = Time.timeScale + 1 % 2;
+        Time.timeScale = (Time.timeScale + 1) % 2;
         gameObject.SetActive(!gameObject.activeSelf);
     }
 
