@@ -280,8 +280,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: e37bb369dc8397747b45a338ca75f5c1, type: 3}
   - name: 2
     clip: {fileID: 8300000, guid: 063ed25e0909f3045ad184f6cde42f4c, type: 3}
-  musicSource: {fileID: 0}
-  sfxSource: {fileID: 0}
+  musicSource: {fileID: 83139181}
+  sfxSource: {fileID: 953572520}
   musicVolume: 0.05
   sfxVolume: 0.05
 --- !u!1 &26988845

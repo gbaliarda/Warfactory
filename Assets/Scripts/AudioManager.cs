@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class AudioManager : MonoBehaviour
     public Sound[] musicSounds, sfxSounds;
     public Sound[] mainMenu, tutorialLevel, mainBase, offenseLevel, defenseLevel;
     public AudioSource musicSource, sfxSource;
+    public UnityEngine.UI.Slider musicSlider, sfxSlider;
     
     [SerializeField]
     public float musicVolume, sfxVolume;
@@ -108,11 +110,11 @@ public class AudioManager : MonoBehaviour
 
     public void SetMusicVolume()
     {
-        musicSource.volume = musicVolume;
+        musicSource.volume = musicSlider.value;
     }
     
     public void SetSFXVolume()
     {
-        sfxSource.volume = sfxVolume;
+        sfxSource.volume = sfxSlider.value;
     }
 }
