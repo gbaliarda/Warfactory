@@ -354,23 +354,23 @@ public class Player : Actor, IBuffable
 
         if (Input.GetKey(_shoot) && !_buildingMode && !EventSystem.current.IsPointerOverGameObject())
         {
-            if (_shotgun.gameObject.activeSelf && _shotgun.GetComponent<IWeapon>() != null)
+            if (_shotgun.gameObject.GetComponent<SpriteRenderer>().enabled && _shotgun.GetComponent<IWeapon>() != null)
             {
                 ShootWeapon(_shotgun.GetComponent<IWeapon>());
             }
-            if (_pistol.gameObject.activeSelf && _pistol.GetComponent<IWeapon>() != null)
+            if (_pistol.gameObject.GetComponent<SpriteRenderer>().enabled && _pistol.GetComponent<IWeapon>() != null)
             {
                 ShootWeapon(_pistol.GetComponent<IWeapon>());
             }
-            if (_assaultRifle.gameObject.activeSelf && _assaultRifle.GetComponent<IWeapon>() != null)
+            if (_assaultRifle.gameObject.GetComponent<SpriteRenderer>().enabled && _assaultRifle.GetComponent<IWeapon>() != null)
             {
                 ShootWeapon(_assaultRifle.GetComponent<IWeapon>());
             }
-            if (_ragePotion.gameObject.activeSelf && _ragePotion.GetComponent<IPotion>() != null)
+            if (_ragePotion.gameObject.GetComponent<SpriteRenderer>().enabled && _ragePotion.GetComponent<IPotion>() != null)
             {
                 UsePotion(_ragePotion.GetComponent<IPotion>());
             }            
-            if (_healthPotion.gameObject.activeSelf && _healthPotion.GetComponent<IPotion>() != null)
+            if (_healthPotion.gameObject.GetComponent<SpriteRenderer>().enabled && _healthPotion.GetComponent<IPotion>() != null)
             {
                 UsePotion(_healthPotion.GetComponent<IPotion>());
             }
@@ -398,9 +398,9 @@ public class Player : Actor, IBuffable
             EventManager.Instance.EventHotbarSlotChange(hotbarSlot);
         } else if(!_buildingMode && hotbarSlot < _hotbarItems.childCount)
         {
-            _hotbarItems.GetChild(hotbarSlot).gameObject.SetActive(true);
+            _hotbarItems.GetChild(hotbarSlot).gameObject.GetComponent<SpriteRenderer>().enabled = true;
             if (_oldCurrentSlot < _hotbarItems.childCount)
-                _hotbarItems.GetChild(_oldCurrentSlot).gameObject.SetActive(false);
+                _hotbarItems.GetChild(_oldCurrentSlot).gameObject.GetComponent<SpriteRenderer>().enabled = false;
             _currentHotbarItemIndex = hotbarSlot;
             EventManager.Instance.EventHotbarSlotChange(hotbarSlot);
         }
