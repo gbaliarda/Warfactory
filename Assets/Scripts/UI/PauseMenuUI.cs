@@ -6,21 +6,9 @@ using UnityEngine.SceneManagement;
 public class PauseMenuUI : Singleton<PauseMenuUI>
 {
     [SerializeField] private GameObject optionsPanel;
-    [SerializeField] private UnityEngine.UI.Slider musicSlider;
-    [SerializeField] private UnityEngine.UI.Slider sfxSlider;
     void Start()
     {
         CloseMenu();
-        InitializeSliders();
-    }
-    
-    private void InitializeSliders()
-    {
-        musicSlider.value = AudioManager.Instance.musicVolume;
-        sfxSlider.value = AudioManager.Instance.sfxVolume;
-        
-        musicSlider.onValueChanged.AddListener(AudioManager.Instance.SetMusicVolume);
-        sfxSlider.onValueChanged.AddListener(AudioManager.Instance.SetSFXVolume);
     }
     
     public void ShowOptions()

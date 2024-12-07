@@ -200,17 +200,21 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 6879718669938387520, guid: 37dc26933dfc55340881ba829a9b20fc, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -1419462032134983065, guid: 432c77ae6b9ffff4da0887dece820dbc, type: 2}
     - target: {fileID: 7476587642831109742, guid: 37dc26933dfc55340881ba829a9b20fc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.06
+      value: -2.3
       objectReference: {fileID: 0}
     - target: {fileID: 7476587642831109742, guid: 37dc26933dfc55340881ba829a9b20fc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -10.96
+      value: -13.99
       objectReference: {fileID: 0}
     - target: {fileID: 7476587642831109742, guid: 37dc26933dfc55340881ba829a9b20fc, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7476587642831109742, guid: 37dc26933dfc55340881ba829a9b20fc, type: 3}
       propertyPath: m_LocalRotation.w
@@ -351,7 +355,7 @@ MonoBehaviour:
   _targetLayer:
     serializedVersion: 2
     m_Bits: 64
-  _sightRange: 12
+  _sightRange: 9
   _attackRange: 0.5
   _lootTable: {fileID: 11400000, guid: ae1914639fedb5e4f8d49d899576521b, type: 2}
   _itemEntityPrefab: {fileID: 7431681385107224975, guid: 231deade01d4f4f498fab2b1bef0bf96, type: 3}

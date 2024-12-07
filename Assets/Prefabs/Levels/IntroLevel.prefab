@@ -90594,10 +90594,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8047969766402172854, guid: a9ff9b862e1de80458c0b287e23128b5, type: 3}
-      propertyPath: _sightRange
-      value: 9
-      objectReference: {fileID: 0}
     - target: {fileID: 8146406442343387452, guid: a9ff9b862e1de80458c0b287e23128b5, type: 3}
       propertyPath: m_Name
       value: MeleeEnemy
@@ -90663,10 +90659,6 @@ PrefabInstance:
     - target: {fileID: 8146406442343387452, guid: baceb543ac3b7ec46b23d68c45e42c2c, type: 3}
       propertyPath: m_Name
       value: BowEnemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 9111254300838693033, guid: baceb543ac3b7ec46b23d68c45e42c2c, type: 3}
-      propertyPath: _sightRange
-      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -90941,14 +90933,6 @@ PrefabInstance:
     - target: {fileID: 964007891890131512, guid: 45ff5ab6ee6e72a488242e9c5d10d1c5, type: 3}
       propertyPath: m_Name
       value: ShotgunEnemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 964007891890131512, guid: 45ff5ab6ee6e72a488242e9c5d10d1c5, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6520212041241818015, guid: 45ff5ab6ee6e72a488242e9c5d10d1c5, type: 3}
-      propertyPath: _sightRange
-      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6570158415499799592, guid: 45ff5ab6ee6e72a488242e9c5d10d1c5, type: 3}
       propertyPath: m_LocalPosition.x

@@ -1618,6 +1618,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13ad39eaa42919948811188c490ea8e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  musicSlider: {fileID: 0}
+  sfxSlider: {fileID: 0}
+  musicVolume: 0.05
+  sfxVolume: 0.05
   musicSounds:
   - name: theme
     clip: {fileID: 8300000, guid: c637304f2758c6248835cd0ff3bbed33, type: 3}
@@ -1667,10 +1671,6 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 063ed25e0909f3045ad184f6cde42f4c, type: 3}
   musicSource: {fileID: 333097933}
   sfxSource: {fileID: 883401767}
-  musicSlider: {fileID: 0}
-  sfxSlider: {fileID: 0}
-  musicVolume: 0.05
-  sfxVolume: 0.05
 --- !u!1001 &171598212
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2644,7 +2644,7 @@ AudioSource:
   m_GameObject: {fileID: 333097931}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -1807268986831237525, guid: 432c77ae6b9ffff4da0887dece820dbc, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0.1
@@ -4287,6 +4287,7 @@ GameObject:
   - component: {fileID: 481786854}
   - component: {fileID: 481786853}
   - component: {fileID: 481786855}
+  - component: {fileID: 481786856}
   m_Layer: 5
   m_Name: PauseMenu
   m_TagString: Untagged
@@ -4370,6 +4371,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   optionsPanel: {fileID: 914217420}
+--- !u!114 &481786856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 481786851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9622284ddaefd43905902230efc9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: 432c77ae6b9ffff4da0887dece820dbc, type: 2}
   musicSlider: {fileID: 1038136692}
   sfxSlider: {fileID: 1784848425}
 --- !u!224 &486331777 stripped
@@ -5210,7 +5224,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Music Volumen
+  m_text: Music
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5244,7 +5258,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 16
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -45271,7 +45285,7 @@ AudioSource:
   m_GameObject: {fileID: 883401765}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -1419462032134983065, guid: 432c77ae6b9ffff4da0887dece820dbc, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0.2
@@ -47050,13 +47064,25 @@ MonoBehaviour:
   m_FillRect: {fileID: 1732085120}
   m_HandleRect: {fileID: 407190001}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 0.0001
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 481786856}
+        m_TargetAssemblyTypeName: VolumenController, Assembly-CSharp
+        m_MethodName: SetMusicVolume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1059248797
 GameObject:
   m_ObjectHideFlags: 0
@@ -54637,13 +54663,25 @@ MonoBehaviour:
   m_FillRect: {fileID: 718995915}
   m_HandleRect: {fileID: 1474217632}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 0.0001
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 481786856}
+        m_TargetAssemblyTypeName: VolumenController, Assembly-CSharp
+        m_MethodName: SetSFXVolume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &1797007786
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -78669,7 +78707,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: SFX Volumen
+  m_text: 'SFX '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -78703,7 +78741,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 16
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -79539,6 +79577,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3535301788417660294, guid: e1d8b60e6e8427b499fe490636b4313e, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -1419462032134983065, guid: 432c77ae6b9ffff4da0887dece820dbc, type: 2}
+    - target: {fileID: 4211917739752314572, guid: e1d8b60e6e8427b499fe490636b4313e, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -1419462032134983065, guid: 432c77ae6b9ffff4da0887dece820dbc, type: 2}
+    - target: {fileID: 4417665154732862242, guid: e1d8b60e6e8427b499fe490636b4313e, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -1419462032134983065, guid: 432c77ae6b9ffff4da0887dece820dbc, type: 2}
     - target: {fileID: 4599762863980784052, guid: e1d8b60e6e8427b499fe490636b4313e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -79579,6 +79629,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5639767706228482703, guid: e1d8b60e6e8427b499fe490636b4313e, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -1419462032134983065, guid: 432c77ae6b9ffff4da0887dece820dbc, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

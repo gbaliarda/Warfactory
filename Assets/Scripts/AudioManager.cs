@@ -6,13 +6,15 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
     
-    public Sound[] musicSounds, sfxSounds;
-    public Sound[] mainMenu, tutorialLevel, mainBase, offenseLevel, defenseLevel;
-    public AudioSource musicSource, sfxSource;
     public UnityEngine.UI.Slider musicSlider, sfxSlider;
     
     [SerializeField]
     public float musicVolume, sfxVolume;
+    [Header("--------AudioClips--------")]
+    public Sound[] musicSounds, sfxSounds;
+    public Sound[] mainMenu, tutorialLevel, mainBase, offenseLevel, defenseLevel;
+    [Header("--------AudioSource--------")]
+    public AudioSource musicSource, sfxSource;
 
     private string currentMusic;
     
