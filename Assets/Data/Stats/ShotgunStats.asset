@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ShotgunStats
   m_EditorClassIdentifier: 
   _weaponStats:
-    _damageStats: {fileID: 11400000, guid: 3e32b45fb31b45645a65ad377ce09cf4, type: 2}
+    _damageStats: {fileID: 11400000, guid: 242072173236f1649a085f1fbf5a4b02, type: 2}
     _cooldown: 1
     _projectiles: 3
     _speed: 6

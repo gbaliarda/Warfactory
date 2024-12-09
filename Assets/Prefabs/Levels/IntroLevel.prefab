@@ -29515,7 +29515,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7538554274648245005
 RectTransform:
   m_ObjectHideFlags: 0
@@ -71345,6 +71345,7 @@ MonoBehaviour:
   _resourceMap: {fileID: 8719462292597959148}
   _grassMap: {fileID: 4927916761352637238}
   _cosmeticMap: {fileID: 1444740530673241022}
+  _levelType: 0
   _objectsContainer: {fileID: 1759955335728403174}
 --- !u!1 &5866968669073183949
 GameObject:
@@ -88996,7 +88997,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a1d2616288fa6c499d927b532282f9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentLevel: Intro
 --- !u!4 &6856598286486481457 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7514158847628145058, guid: e59727249e8bdcf4a810e116e66708ed, type: 3}

@@ -27,7 +27,7 @@ public class Shotgun : MonoBehaviour, IWeapon
         if (TryGetComponent<BulletSoundController>(out var controller)) controller.Shoot();
 
         int numberOfProjectiles = _stats.Projectiles + _owner.Stats.ProjectileIncrease;
-        float angleBetweenProjectiles = 5f;
+        float angleBetweenProjectiles = 10f;
 
         if (360 / angleBetweenProjectiles < numberOfProjectiles)
             numberOfProjectiles = Mathf.RoundToInt(360 / angleBetweenProjectiles);
