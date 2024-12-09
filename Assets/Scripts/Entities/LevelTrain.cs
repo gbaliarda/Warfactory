@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,8 +6,6 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider2D))]
 public class LevelTrain : MonoBehaviour, IInteractable
 {
-    [SerializeField] private string _currentLevel;
-
     public void Interact()
     {
         OpenMenu();
@@ -15,13 +14,7 @@ public class LevelTrain : MonoBehaviour, IInteractable
     public void OpenMenu()
     {
         ReturnTrainUI.Instance.OpenReturnBase();
-        if (_currentLevel == "Offense")
-        {
-            LevelPickerUI.Instance.UnlockDefenseLevel();
-        } else if (_currentLevel == "Intro")
-        {
-            GameManager.Instance.CompleteTutorial();
-        }
+        TemporalLevel.Instance.CompleteLevel();
     }
 
     public void UnlockTrain()

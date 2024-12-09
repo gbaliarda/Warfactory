@@ -12,6 +12,7 @@ public class TemporalLevel : Singleton<TemporalLevel>, IZone
     [SerializeField] private Tilemap _resourceMap;
     [SerializeField] private Tilemap _grassMap;
     [SerializeField] private Tilemap _cosmeticMap;
+    [SerializeField] private LevelType _levelType;
 
     public Transform Spawner => _spawner;
     public Collider2D CameraConfiner => _cameraConfiner;
@@ -50,5 +51,19 @@ public class TemporalLevel : Singleton<TemporalLevel>, IZone
     public void SetDifficulty(int difficulty)
     {
         _difficulty = difficulty;
+    }
+
+    public void CompleteLevel()
+    {
+        ProgressManager.Instance.LevelCompleted(_levelType, _difficulty);
+        switch (_levelType)
+        {
+            case LevelType.Intro:
+                GameManager.Instance.CompleteTutorial();
+                break;
+            case LevelType.Offense:
+                LevelPickerUI.Instance.UnlockDefenseLevel();
+                break;
+        }
     }
 }

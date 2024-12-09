@@ -53706,6 +53706,7 @@ MonoBehaviour:
   _resourceMap: {fileID: 8708170694816519685}
   _grassMap: {fileID: 4927916761352637238}
   _cosmeticMap: {fileID: 1444740530673241022}
+  _levelType: 2
   _objectsContainer: {fileID: 1759955335728403174}
 --- !u!1 &5882163708010103059
 GameObject:
@@ -59152,4 +59153,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a1d2616288fa6c499d927b532282f9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentLevel: 
