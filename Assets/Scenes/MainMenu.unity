@@ -233,6 +233,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13ad39eaa42919948811188c490ea8e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  musicSlider: {fileID: 0}
+  sfxSlider: {fileID: 0}
+  musicVolume: 0.05
+  sfxVolume: 0.05
   musicSounds:
   - name: theme
     clip: {fileID: 8300000, guid: c637304f2758c6248835cd0ff3bbed33, type: 3}
@@ -282,8 +286,6 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 063ed25e0909f3045ad184f6cde42f4c, type: 3}
   musicSource: {fileID: 83139181}
   sfxSource: {fileID: 953572520}
-  musicVolume: 0.05
-  sfxVolume: 0.05
 --- !u!1 &26988845
 GameObject:
   m_ObjectHideFlags: 0
@@ -405,7 +407,7 @@ AudioSource:
   m_GameObject: {fileID: 83139180}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -1807268986831237525, guid: 432c77ae6b9ffff4da0887dece820dbc, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -1041,7 +1043,7 @@ AudioSource:
   m_GameObject: {fileID: 953572519}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -1419462032134983065, guid: 432c77ae6b9ffff4da0887dece820dbc, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
